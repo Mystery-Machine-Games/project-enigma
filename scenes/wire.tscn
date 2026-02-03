@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://cblikk5mjmvu4"]
+
+[ext_resource type="PackedScene" uid="uid://d0vfthncymtcp" path="res://assets/meshes/wire.glb" id="1_oh5q0"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="2_0ph68"]
+[ext_resource type="Script" uid="uid://dahjwh6maq88o" path="res://scripts/constraint_interpolation.gd" id="2_5mfbr"]
+[ext_resource type="Script" uid="uid://ccckglidibpa8" path="res://scripts/wire.gd" id="2_81c8f"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/copper.tres" id="3_81c8f"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="6_24hsd"]
+[ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="7_n7fpr"]
+
+[sub_resource type="Curve" id="Curve_a3040"]
+_data = [Vector2(0.002808988, 1), 0.0, -2.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_a3040"]
+radius = 1.0
+height = 3.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0ph68"]
+radius = 1.2895508
+height = 5.769409
+
+[node name="Wire" unique_id=1056601399 node_paths=PackedStringArray("handle") instance=ExtResource("1_oh5q0")]
+script = ExtResource("2_81c8f")
+movement_force = 0.05
+handle = NodePath("Target")
+
+[node name="Armature" parent="." index="0" unique_id=1033637945]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Wire" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="0" unique_id=1018983724]
+surface_material_override/0 = ExtResource("2_0ph68")
+surface_material_override/1 = ExtResource("3_81c8f")
+
+[node name="AimModifier3D" type="AimModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="1" unique_id=1267765415]
+setting_count = 1
+settings/0/amount = 0.4
+settings/0/apply_bone_name = "Bone.001"
+settings/0/apply_bone = 1
+settings/0/reference_type = 1
+settings/0/reference_node = NodePath("../../../Target")
+settings/0/forward_axis = 2
+settings/0/use_euler = false
+settings/0/relative = true
+
+[node name="FABRIK3D" type="FABRIK3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="2" unique_id=583732164]
+angular_delta_limit = 3.141592653589793
+deterministic = true
+setting_count = 1
+settings/0/target_node = NodePath("../../../Target")
+settings/0/root_bone_name = "Bone.001"
+settings/0/root_bone = 1
+settings/0/end_bone_name = "Bone.008"
+settings/0/end_bone = 8
+settings/0/extend_end_bone = false
+settings/0/joint_count = 8
+settings/0/joints/0/rotation_axis = 3
+settings/0/joints/0/limitation = null
+settings/0/joints/1/rotation_axis = 3
+settings/0/joints/1/limitation = null
+settings/0/joints/2/rotation_axis = 3
+settings/0/joints/2/limitation = null
+settings/0/joints/3/rotation_axis = 3
+settings/0/joints/3/limitation = null
+settings/0/joints/4/rotation_axis = 3
+settings/0/joints/4/limitation = null
+settings/0/joints/5/rotation_axis = 3
+settings/0/joints/5/limitation = null
+settings/0/joints/6/rotation_axis = 3
+settings/0/joints/6/limitation = null
+settings/0/joints/7/rotation_axis = 3
+settings/0/joints/7/limitation = null
+script = ExtResource("2_5mfbr")
+threshold = 0.5
+curve = SubResource("Curve_a3040")
+
+[node name="CopyTransformModifier3D" type="CopyTransformModifier3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="3" unique_id=266660679]
+setting_count = 1
+settings/0/amount = 0.0
+settings/0/apply_bone_name = "Bone.008"
+settings/0/apply_bone = 8
+settings/0/reference_type = 1
+settings/0/reference_node = NodePath("../../../Target")
+settings/0/copy = 2
+settings/0/axes = 2
+settings/0/invert = 0
+settings/0/additive = false
+
+[node name="BoneTwistDisperser3D" type="BoneTwistDisperser3D" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="4" unique_id=1987941211]
+setting_count = 1
+settings/0/root_bone_name = "Bone.001"
+settings/0/root_bone = 1
+settings/0/end_bone_name = "Bone.008"
+settings/0/end_bone = 8
+settings/0/extend_end_bone = false
+settings/0/twist_from_rest = true
+settings/0/disperse_mode = 0
+settings/0/joint_count = 8
+
+[node name="Target" type="AnimatableBody3D" parent="." index="1" unique_id=243186320]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.805853, 0, 0)
+
+[node name="DebugHandle" type="MeshInstance3D" parent="Target" index="0" unique_id=410890792]
+transform = Transform3D(0.25881907, 0.9659258, 0, -0.9659258, 0.25881907, 0, 0, 0, 1, -2, 0, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_a3040")
+
+[node name="HandleCollider" type="CollisionShape3D" parent="Target" index="1" unique_id=1415158732]
+transform = Transform3D(0.1320488, 0.9912432, 0, -0.9912432, 0.1320488, 0, 0, 0, 1, -2.7990618, -0.17720613, 0)
+shape = SubResource("CapsuleShape3D_0ph68")
+
+[node name="Port" type="MeshInstance3D" parent="." index="2" unique_id=1774321614]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("6_24hsd")
+mesh = ExtResource("7_n7fpr")
+
+[connection signal="modification_processed" from="Armature/Skeleton3D/FABRIK3D" to="Armature/Skeleton3D/FABRIK3D" method="_on_modification_processed"]
+[connection signal="mouse_entered" from="Target" to="." method="_on_target_mouse_entered"]
+[connection signal="mouse_exited" from="Target" to="." method="_on_target_mouse_exited"]

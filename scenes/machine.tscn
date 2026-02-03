@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://dj00m6m6710sc"]
+
+[ext_resource type="PackedScene" uid="uid://c8w3mbfgp02dl" path="res://scenes/button.tscn" id="1_73k52"]
+[ext_resource type="PackedScene" uid="uid://cblikk5mjmvu4" path="res://scenes/wire.tscn" id="2_448ux"]
+[ext_resource type="PackedScene" uid="uid://c8c1hobgr1a31" path="res://scenes/port.tscn" id="3_448ux"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="4_i4f25"]
+
+[node name="Machine" type="Node3D" unique_id=459262496]
+
+[node name="BasePanel" type="CSGBox3D" parent="." unique_id=7494847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0.2808895)
+material_override = ExtResource("4_i4f25")
+size = Vector3(10, 1, 13.211426)
+
+[node name="SidePanel" type="CSGBox3D" parent="." unique_id=2132556258]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 3.7847748, 2.336914, 0.14374352)
+material_override = ExtResource("4_i4f25")
+size = Vector3(6.689453, 1, 14.111938)
+
+[node name="SidePanel2" type="CSGBox3D" parent="." unique_id=667160928]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -4.754998, 2.336914, 0.23700523)
+material_override = ExtResource("4_i4f25")
+size = Vector3(6.689453, 1, 14.102173)
+
+[node name="SidePanel3" type="CSGBox3D" parent="." unique_id=183652129]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, -0.46787357, 2.336914, -6.383037)
+material_override = ExtResource("4_i4f25")
+size = Vector3(6.689453, 1, 9.392853)
+
+[node name="SidePanel4" type="CSGBox3D" parent="." unique_id=2131896978]
+transform = Transform3D(1.9106855e-15, 4.371139e-08, -1, 1, -4.371139e-08, 0, -4.371139e-08, -1, -4.371139e-08, -0.44199467, 2.336914, 6.84144)
+material_override = ExtResource("4_i4f25")
+size = Vector3(6.689453, 1, 9.444611)
+
+[node name="ButtonModule" type="Node" parent="." unique_id=600330329]
+
+[node name="Button" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 4.116583)
+
+[node name="Button2" parent="ButtonModule" unique_id=1478766025 instance=ExtResource("1_73k52")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 0.11658287)
+
+[node name="Button3" parent="ButtonModule" unique_id=1689683137 instance=ExtResource("1_73k52")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, -3.8834171)
+
+[node name="WireModule" type="Node" parent="." unique_id=143464838]
+
+[node name="Wire" parent="WireModule" unique_id=1493643847 instance=ExtResource("2_448ux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, 2.1165829)
+
+[node name="Wire2" parent="WireModule" unique_id=959486286 instance=ExtResource("2_448ux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, 0.11658287)
+
+[node name="Wire3" parent="WireModule" unique_id=653772112 instance=ExtResource("2_448ux")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -1.8834171)
+
+[node name="Port" parent="WireModule" unique_id=669435014 instance=ExtResource("3_448ux")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 4, 2.1165829)
+
+[node name="Port2" parent="WireModule" unique_id=591848521 instance=ExtResource("3_448ux")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 4, 0.11658287)
+
+[node name="Port3" parent="WireModule" unique_id=1168724294 instance=ExtResource("3_448ux")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3, 4, -1.8834171)

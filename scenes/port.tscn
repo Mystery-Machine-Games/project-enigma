@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c8c1hobgr1a31"]
+
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="1_4bvp8"]
+[ext_resource type="Script" uid="uid://b2t0t2qplemkx" path="res://scripts/port.gd" id="1_opbk4"]
+[ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="1_oyquu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]
+size = Vector3(1, 0.5477266, 1)
+
+[node name="Port" type="Area3D" unique_id=571307478 node_paths=PackedStringArray("snap_point")]
+script = ExtResource("1_opbk4")
+snap_point = NodePath("WireSnapPoint")
+
+[node name="Port" type="MeshInstance3D" parent="." unique_id=1841835554]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("1_4bvp8")
+mesh = ExtResource("1_oyquu")
+
+[node name="ConnectionCollider" type="CollisionShape3D" parent="." unique_id=1214476810]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0.027769536, -1.213845e-09, 0)
+shape = SubResource("BoxShape3D_oyquu")
+
+[node name="WireSnapPoint" type="Node3D" parent="." unique_id=364035367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
