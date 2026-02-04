@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://c8w3mbfgp02dl"]
 
+[ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/button.gd" id="1_1bdt2"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="1_i7y4x"]
 [ext_resource type="ArrayMesh" uid="uid://b6l7qsaxo762f" path="res://assets/meshes/button_stand.obj" id="1_mi6dp"]
 [ext_resource type="ArrayMesh" uid="uid://bntcedt1kkp3h" path="res://assets/meshes/circle_button.obj" id="2_rhj8v"]
 [ext_resource type="Material" path="res://assets/materials/red.tres" id="3_1bdt2"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3q610"]
-height = 0.048
-radius = 0.13
+height = 0.65
+radius = 1.24
 
 [node name="Button" type="StaticBody3D" unique_id=1470236495]
+script = ExtResource("1_1bdt2")
 
 [node name="Stand" type="MeshInstance3D" parent="." unique_id=1664590361]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.053333327, 0)
@@ -24,3 +26,8 @@ mesh = ExtResource("2_rhj8v")
 [node name="PressCollider" type="CollisionShape3D" parent="." unique_id=547025679]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
 shape = SubResource("CylinderShape3D_3q610")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
