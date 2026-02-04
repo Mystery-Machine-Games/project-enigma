@@ -11,4 +11,4 @@ func _ready() -> void:
 	
 
 func _check_solution() -> void:
-	print("SOLVED!!!")
+	print("[MACHINE][CHECK_SOLUTION] Machine fixed!")

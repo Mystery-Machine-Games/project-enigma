@@ -51,12 +51,12 @@ func _check_solution() -> bool:
 		if round(interaction_num) != round(_interaction_nums[i]):
 			match _interaction:
 				Interaction.PRESS:
-					if _interaction_history.size() > i + 1:
+					if _interaction_history.size() > i + 1 or round(interaction_num) > round(_interaction_nums[i]):
 						_interaction_history.clear()
-						print("[BUTTON_MODULE][CHECK SOLUTION] Earlier button presses incorrect, cleared history") 
+						print("[BUTTON_MODULE][CHECK SOLUTION] Button presses incorrect, cleared history")
 				Interaction.HOLD:
 					_interaction_history.clear()
-					print("[BUTTON_MODULE][CHECK SOLUTION] Earlier button hold incorrect, cleared history")
+					print("[BUTTON_MODULE][CHECK SOLUTION] Button holds incorrect, cleared history")
 			return false
 		i += 1
 	if _interaction_history.size() == NUM_BUTTONS:

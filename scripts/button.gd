@@ -1,5 +1,4 @@
-class_name MachineButton
-extends Node
+extends StaticBody3D
 
 var _mouse_over: bool = false
 var _mouse_down: bool = false
