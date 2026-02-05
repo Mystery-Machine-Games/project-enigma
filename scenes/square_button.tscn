@@ -17,7 +17,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Button")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.3, 0)
 
 [sub_resource type="Animation" id="Animation_8m7bo"]
 resource_name = "button_press"
@@ -28,7 +28,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Button")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0, 0.2, 1, 0, 0.1, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.3, 0, 0.2, 1, 0, 0.1, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81cg"]
 _data = {
@@ -45,7 +45,7 @@ material_override = ExtResource("2_uf340")
 mesh = ExtResource("3_8mya1")
 
 [node name="Button" type="MeshInstance3D" parent="." unique_id=1660164815]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)
 material_override = ExtResource("4_lecah")
 mesh = ExtResource("5_uf340")
 

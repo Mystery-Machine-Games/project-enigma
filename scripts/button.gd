@@ -6,10 +6,6 @@ var _mouse_over: bool = false
 var _mouse_down: bool = false
 var _time_down: float = 0
 
-enum Shape {CIRCLE, SQUARE, TRIANGLE}
-
-@export var button_shape: Shape
-
 signal button_pressed
 
 
@@ -17,7 +13,7 @@ func _process(delta: float) -> void:
 	if _mouse_down:
 		_time_down += delta
 	elif _time_down > 0:
-		print("The ", Shape.keys()[button_shape], " button was held down for ", _time_down, " seconds")
+		print("[BUTTON][PROCESS] The ", name, " was held down for ", _time_down, " seconds")
 		emit_signal("button_pressed", self, _time_down)
 		_time_down = 0
 

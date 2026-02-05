@@ -45,7 +45,7 @@ size = Vector3(6.689453, 1, 9.444611)
 [node name="ButtonModule" type="Node" parent="." unique_id=600330329]
 script = ExtResource("2_i4f25")
 button_positions = Array[Vector3]([Vector3(-5.5, 3, -4), Vector3(-5.5, 3, 0), Vector3(-5.5, 3, 4)])
-button_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("5_pt243"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("8_5odi2")])
+button_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("5_pt243"), ExtResource("8_5odi2")])
 
 [node name="CircleButton" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, -4)

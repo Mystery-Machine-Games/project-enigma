@@ -28,7 +28,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Button")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0, 0.2, 1, 0, 0.1, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.3, 0, 0.2, 1, 0, 0.1, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81cg"]
 _data = {
