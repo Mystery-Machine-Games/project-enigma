@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://c8w3mbfgp02dl"]
 
-[ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/button.gd" id="1_1bdt2"]
-[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="1_i7y4x"]
-[ext_resource type="ArrayMesh" uid="uid://bntcedt1kkp3h" path="res://assets/meshes/circle_button.obj" id="2_rhj8v"]
-[ext_resource type="Material" path="res://assets/materials/red.tres" id="3_1bdt2"]
-[ext_resource type="ArrayMesh" uid="uid://dajjpviqjodlx" path="res://assets/meshes/circle_button_stand.obj" id="3_8m7bo"]
+[ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/button.gd" id="1_bo4kx"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_5hs78"]
+[ext_resource type="ArrayMesh" uid="uid://dajjpviqjodlx" path="res://assets/meshes/circle_button_stand.obj" id="3_44vis"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="4_l42nm"]
+[ext_resource type="ArrayMesh" uid="uid://bntcedt1kkp3h" path="res://assets/meshes/circle_button.obj" id="5_ilhju"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_3q610"]
-height = 0.65
-radius = 1.24
+height = 0.5
+radius = 1.25
 
 [sub_resource type="Animation" id="Animation_1bdt2"]
 length = 0.001
@@ -29,7 +29,7 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Button")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0, 0.2, 1, 0, 0.1, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.3, 0, 0.2, 1, 0, 0.1, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_t81cg"]
 _data = {
@@ -37,21 +37,21 @@ _data = {
 &"button_press": SubResource("Animation_8m7bo")
 }
 
-[node name="Button" type="StaticBody3D" unique_id=1470236495]
-script = ExtResource("1_1bdt2")
+[node name="CircleButton" type="StaticBody3D" unique_id=1470236495]
+script = ExtResource("1_bo4kx")
 
 [node name="Stand" type="MeshInstance3D" parent="." unique_id=1664590361]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.053333327, 0)
-material_override = ExtResource("1_i7y4x")
-mesh = ExtResource("3_8m7bo")
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = ExtResource("2_5hs78")
+mesh = ExtResource("3_44vis")
 
 [node name="Button" type="MeshInstance3D" parent="." unique_id=1660164815]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
-material_override = ExtResource("3_1bdt2")
-mesh = ExtResource("2_rhj8v")
+material_override = ExtResource("4_l42nm")
+mesh = ExtResource("5_ilhju")
 
 [node name="PressCollider" type="CollisionShape3D" parent="." unique_id=547025679]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)
 shape = SubResource("CylinderShape3D_3q610")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]

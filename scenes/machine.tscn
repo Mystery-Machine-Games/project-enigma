@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://dj00m6m6710sc"]
 
-[ext_resource type="PackedScene" uid="uid://c8w3mbfgp02dl" path="res://scenes/button.tscn" id="1_73k52"]
+[ext_resource type="PackedScene" uid="uid://c8w3mbfgp02dl" path="res://scenes/circle_button.tscn" id="1_73k52"]
 [ext_resource type="Script" uid="uid://qoik4e6kcjkv" path="res://scripts/machine.gd" id="1_hr233"]
 [ext_resource type="Script" uid="uid://qpomrsjkwt0n" path="res://scripts/button_module.gd" id="2_i4f25"]
 [ext_resource type="PackedScene" uid="uid://1u3s5hr0dndu" path="res://scenes/port.tscn" id="3_448ux"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="4_i4f25"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="4_p2qya"]
+[ext_resource type="PackedScene" uid="uid://de1jabgt3m35r" path="res://scenes/square_button.tscn" id="5_25hvn"]
 [ext_resource type="Script" uid="uid://cl8kg5nfilsjm" path="res://scripts/wire_module.gd" id="5_eo4jl"]
+[ext_resource type="Material" path="res://assets/materials/blue.tres" id="5_pt243"]
+[ext_resource type="PackedScene" uid="uid://bbduosud7uguw" path="res://scenes/triangle_button.tscn" id="6_aee78"]
+[ext_resource type="Material" path="res://assets/materials/yellow.tres" id="6_vbi22"]
+[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/green.tres" id="7_agykd"]
+[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/purple.tres" id="8_5odi2"]
 
 [node name="Machine" type="Node3D" unique_id=459262496]
 script = ExtResource("1_hr233")
@@ -37,15 +44,17 @@ size = Vector3(6.689453, 1, 9.444611)
 
 [node name="ButtonModule" type="Node" parent="." unique_id=600330329]
 script = ExtResource("2_i4f25")
+button_positions = Array[Vector3]([Vector3(-5.5, 3, -4), Vector3(-5.5, 3, 0), Vector3(-5.5, 3, 4)])
+button_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("5_pt243"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("8_5odi2")])
 
-[node name="Button3" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 4.116583)
+[node name="CircleButton" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, -4)
 
-[node name="Button2" parent="ButtonModule" unique_id=1478766025 instance=ExtResource("1_73k52")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 0.11658287)
+[node name="SquareButton" parent="ButtonModule" unique_id=798969694 instance=ExtResource("5_25hvn")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 0)
 
-[node name="Button1" parent="ButtonModule" unique_id=1689683137 instance=ExtResource("1_73k52")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, -3.8834171)
+[node name="TriangleButton" parent="ButtonModule" unique_id=893437219 instance=ExtResource("6_aee78")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, 4)
 
 [node name="WireModule" type="Node" parent="." unique_id=143464838]
 script = ExtResource("5_eo4jl")

@@ -23,10 +23,10 @@ transform = Transform3D(4.222196e-08, -0.25881904, -0.9659258, -1.131334e-08, -0
 [node name="CameraManager" type="Node" parent="." unique_id=1295676162]
 script = ExtResource("3_lnu2h")
 
-[node name="WireCamera" type="Camera3D" parent="CameraManager" unique_id=865412395]
-transform = Transform3D(9.8736095e-08, 0.9659259, -0.258819, -4.222196e-08, 0.258819, 0.9659259, 1, -8.44439e-08, 6.633806e-08, -2.487877, 11.283665, 0)
-
 [node name="ButtonCamera" type="Camera3D" parent="CameraManager" unique_id=8429579]
 transform = Transform3D(8.593334e-08, 0.25881907, -0.9659258, 6.4396986e-08, 0.9659259, 0.25881907, 1, -8.4443904e-08, 6.633806e-08, -10.487877, 5.2836647, 0)
+
+[node name="WireCamera" type="Camera3D" parent="CameraManager" unique_id=865412395]
+transform = Transform3D(9.8736095e-08, 0.9659259, -0.258819, -4.222196e-08, 0.258819, 0.9659259, 1, -8.44439e-08, 6.633806e-08, -2.487877, 11.283665, 0)
 
 [node name="Interface" parent="." unique_id=1143050847 instance=ExtResource("4_lbhrr")]

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bbduosud7uguw"]
+
+[ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/button.gd" id="1_u6eoy"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_7bsym"]
+[ext_resource type="ArrayMesh" uid="uid://bqxu8lp3tm41m" path="res://assets/meshes/triangle_button_stand.obj" id="3_u6eoy"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="4_sah27"]
+[ext_resource type="ArrayMesh" uid="uid://cuq6xegn5lumn" path="res://assets/meshes/triangle_button.obj" id="5_7bsym"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u6eoy"]
+points = PackedVector3Array(0, 0.15, -1.25, 1.1, 0.15, 0.75, -1.1, 0.15, 0.75, 0, -0.5, 0)
+
+[sub_resource type="Animation" id="Animation_1bdt2"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0)
+
+[sub_resource type="Animation" id="Animation_8m7bo"]
+resource_name = "button_press"
+length = 0.2
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Button")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.37333333, 0, 0.2, 1, 0, 0.1, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t81cg"]
+_data = {
+&"RESET": SubResource("Animation_1bdt2"),
+&"button_press": SubResource("Animation_8m7bo")
+}
+
+[node name="TriangleButton" type="StaticBody3D" unique_id=1470236495]
+script = ExtResource("1_u6eoy")
+
+[node name="Stand" type="MeshInstance3D" parent="." unique_id=1664590361]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = ExtResource("2_7bsym")
+mesh = ExtResource("3_u6eoy")
+
+[node name="Button" type="MeshInstance3D" parent="." unique_id=1660164815]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
+material_override = ExtResource("4_sah27")
+mesh = ExtResource("5_7bsym")
+
+[node name="PressCollider" type="CollisionShape3D" parent="." unique_id=547025679]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
+shape = SubResource("ConvexPolygonShape3D_u6eoy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]
+libraries/ = SubResource("AnimationLibrary_t81cg")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
