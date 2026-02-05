@@ -29,11 +29,13 @@ func _ready() -> void:
 	_possible_button_colors.shuffle()
 	print("[BUTTON_MODULE][SOLUTION] Interaction: ", Interaction.keys()[_interaction], " Order: ", _buttons, " Numbers: ", _interaction_nums)
 	
-	for i in range(_buttons.size()):
+	for i: int in range(_buttons.size()):
 		var button: StaticBody3D = _buttons[i]
 		button.button_pressed.connect(_log_interaction)
 		button.position = button_positions[i]
 		button.find_child("Button").material_override = _possible_button_colors[i]
+		
+	_generate_clues()
 
 
 func _log_interaction(button: Node, time_down: float) -> void:
@@ -76,5 +78,55 @@ func _check_solution() -> bool:
 	return false
 
 
-func _generate_clues() -> Array[String]:
-	return []
+func _generate_clues() -> void:
+	var clueset: Graph = Graph.new()
+	
+	# Add all items
+	for i in range(_buttons.size()):
+		var button: StaticBody3D = _buttons[i]
+		var interaction_num: int = _interaction_nums[i]
+		clueset.add_vertex(button, button.name)
+		
+		var order_name: String
+		match i + 1:
+			1: order_name = "1st"
+			2: order_name = "2nd"
+			3: order_name = "3rd"
+		clueset.add_vertex(i + 1, order_name)
+		
+		var interaction_name: String
+		match _interaction:
+			Interaction.PRESS: interaction_name = "press " + str(interaction_num) + " times"
+			Interaction.HOLD: interaction_name = "hold for " + str(interaction_num) + " seconds"
+		clueset.add_vertex(interaction_num, interaction_name)
+		
+	# Choose random assumption (no clues associated with it)
+	var assumption_index: int = randi_range(0, _buttons.size() - 1)
+	
+	# Create intial positive associations (edges with positive weight)
+	for i in range(_buttons.size()):
+		if i == assumption_index: continue
+		
+		var button: StaticBody3D = _buttons[i]
+		var interaction_num: int = _interaction_nums[i]
+		
+		var button_vertex: Vertex = clueset.find_vertex(button.name)
+		
+		var order_name: String
+		match i + 1:
+			1: order_name = "1st"
+			2: order_name = "2nd"
+			3: order_name = "3rd"
+		var order_vertex: Vertex = clueset.find_vertex(order_name)
+		
+		var interaction_name: String
+		match _interaction:
+			Interaction.PRESS: interaction_name = "press " + str(interaction_num) + " times"
+			Interaction.HOLD: interaction_name = "hold for " + str(interaction_num) + " seconds"
+		var interaction_vertex: Vertex = clueset.find_vertex(interaction_name)
+		
+		clueset.add_edge(button_vertex, order_vertex, 1)
+		clueset.add_edge(order_vertex, interaction_vertex, 1)
+	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset:\n", str(clueset))
+	
+	# Follow procedure to replace positive weight edges with negative weight edges
