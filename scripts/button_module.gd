@@ -9,6 +9,7 @@ const NUM_BUTTONS: int = 3
 # Depending on whether the interaction is PRESS or HOLD, these numbers determine the # of presses or the time to hold, respectively
 const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 
+@onready var _difficulty: int = randi_range(1, 3) # 1 being easiest
 @onready var _possible_button_colors: Array[Material] = button_colors.duplicate()
 @onready var _interaction: Interaction = Interaction.values().pick_random()
 @onready var _buttons: Array[Node] = get_children()
@@ -27,7 +28,12 @@ func _ready() -> void:
 		_possible_button_colors.remove_at(random_color_index)
 	_interaction_nums.shuffle()
 	_possible_button_colors.shuffle()
-	print("[BUTTON_MODULE][SOLUTION] Interaction: ", Interaction.keys()[_interaction], " Order: ", _buttons, " Numbers: ", _interaction_nums)
+	#print("[BUTTON_MODULE][READY] Interaction: ", Interaction.keys()[_interaction], " Order: ", _buttons, " Numbers: ", _interaction_nums)
+	var _sorted_interaction_nums: Array[int] = _interaction_nums.duplicate()
+	_sorted_interaction_nums.sort()
+	print("[BUTTON_MODULE][READY]\nInteraction: ", Interaction.keys()[_interaction],
+	 "\nNumbers: ", _sorted_interaction_nums,
+	 "\nDifficulty [1-3]: ", _difficulty, "\n")
 	
 	for i: int in range(_buttons.size()):
 		var button: MachineButton = _buttons[i]
@@ -49,7 +55,7 @@ func _log_interaction(button: Node, time_down: float) -> void:
 		Interaction.HOLD:
 			_interaction_history[button] = time_down
 			
-	print("[BUTTON_MODULE][LOG INTERACTION] ", _interaction_history)
+	print("[BUTTON_MODULE][LOG_INTERACTION] ", _interaction_history)
 	if _check_solution(): emit_signal("buttons_correct")
 
 
@@ -59,23 +65,23 @@ func _check_solution() -> bool:
 		var interaction_num: float = _interaction_history[interaction]
 		if interaction != _buttons[i]:
 			_interaction_history.clear()
-			print("[BUTTON_MODULE][CHECK SOLUTION] Button order incorrect, cleared")
+			print("[BUTTON_MODULE][CHECK_SOLUTION] Button order incorrect, cleared")
 			return false
 		if round(interaction_num) != round(_interaction_nums[i]):
 			match _interaction:
 				Interaction.PRESS:
 					if _interaction_history.size() > i + 1 or round(interaction_num) > round(_interaction_nums[i]):
 						_interaction_history.clear()
-						print("[BUTTON_MODULE][CHECK SOLUTION] Button presses incorrect, cleared history")
+						print("[BUTTON_MODULE][CHECK_SOLUTION] Button presses incorrect, cleared history")
 				Interaction.HOLD:
 					_interaction_history.clear()
-					print("[BUTTON_MODULE][CHECK SOLUTION] Button holds incorrect, cleared history")
+					print("[BUTTON_MODULE][CHECK_SOLUTION] Button holds incorrect, cleared history")
 			return false
 		i += 1
 	if _interaction_history.size() == NUM_BUTTONS:
-		print("[BUTTON_MODULE][CHECK SOLUTION] Buttons successfully solved")
+		print("[BUTTON_MODULE][CHECK_SOLUTION] Buttons successfully solved")
 		return true
-	print("[BUTTON_MODULE][CHECK SOLUTION] Solution not complete yet, but correct so far")
+	print("[BUTTON_MODULE][CHECK_SOLUTION] Solution not complete yet, but correct so far")
 	return false
 
 
@@ -128,10 +134,12 @@ func _generate_clues() -> void:
 		
 		clueset.add_clue(button_item, order_item, true)
 		clueset.add_clue(order_item, interaction_vertex, true)
-	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
+	#print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	clueset.assumption_replacement()
-	clueset.assumption_replacement()
+	if _difficulty > 1:
+		clueset.assumption_replacement()
+	if _difficulty > 2:
+		clueset.assumption_replacement()
 	
-	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (after replacements):\n", str(clueset))
+	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
