@@ -1,1 +1,2 @@
-extends Node
+class_name MachinePort
+extends StaticBody3D

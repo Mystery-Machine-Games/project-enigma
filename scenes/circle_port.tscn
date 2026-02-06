@@ -1,19 +1,19 @@
 [gd_scene format=3 uid="uid://1u3s5hr0dndu"]
 
-[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="1_4bvp8"]
-[ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/port.gd" id="1_opbk4"]
-[ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="1_oyquu"]
+[ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/port.gd" id="1_hafp4"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="2_hafp4"]
+[ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="3_l624d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]
 size = Vector3(1.85328, 0.624, 1.85328)
 
-[node name="Port" type="StaticBody3D" unique_id=1390384513]
-script = ExtResource("1_opbk4")
+[node name="CirclePort" type="StaticBody3D" unique_id=1390384513]
+script = ExtResource("1_hafp4")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1915834119]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
-material_override = ExtResource("1_4bvp8")
-mesh = ExtResource("1_oyquu")
+material_override = ExtResource("2_hafp4")
+mesh = ExtResource("3_l624d")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1572371527]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)

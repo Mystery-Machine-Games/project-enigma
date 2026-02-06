@@ -1,4 +1,5 @@
-extends Node
+class_name ButtonModule
+extends Node3D
 
 @export var button_positions: Array[Vector3]
 @export var button_colors: Array[Material]

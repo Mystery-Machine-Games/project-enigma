@@ -1,15 +1,13 @@
-extends Node
+extends Node3D
 
-@onready var _button_module: Node = $ButtonModule
-@onready var _wire_module: Node = $WireModule
+@onready var _button_module: ButtonModule = $ButtonModule
+@onready var _wire_module: WireModule = $WireModule
 
 var _wires_correct: bool = false
 
 
 func _ready() -> void:
-	@warning_ignore("unsafe_property_access", "unsafe_method_access")
 	_button_module.buttons_correct.connect(_check_solution)
-	@warning_ignore("unsafe_property_access", "unsafe_method_access")
 	_wire_module.wires_correct.connect(_set_wires_correct)
 
 

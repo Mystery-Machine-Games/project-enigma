@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dd3kgd7bersai"]
+
+[ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/port.gd" id="1_qiq0c"]
+[ext_resource type="Material" path="res://assets/materials/red.tres" id="2_qiq0c"]
+[ext_resource type="ArrayMesh" uid="uid://dho4clmti8l3h" path="res://assets/meshes/square_port.obj" id="3_qiq0c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]
+size = Vector3(1.85328, 0.624, 1.85328)
+
+[node name="SquarePort" type="StaticBody3D" unique_id=1390384513]
+script = ExtResource("1_qiq0c")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1915834119]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_qiq0c")
+mesh = ExtResource("3_qiq0c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1572371527]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_oyquu")
