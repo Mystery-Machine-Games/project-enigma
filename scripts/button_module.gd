@@ -86,7 +86,7 @@ func _generate_clues() -> void:
 	for i: int in range(_buttons.size()):
 		var button: StaticBody3D = _buttons[i]
 		var interaction_num: int = _interaction_nums[i]
-		clueset.add_item(button, "Button", button.name)
+		clueset.add_item(button, "Head", button.name)
 		
 		var order_text: String
 		match i + 1:
@@ -131,7 +131,7 @@ func _generate_clues() -> void:
 	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	clueset.replace_random_positive_clue()
-	clueset.replace_random_positive_clue()
+	clueset.assumption_replacement()
+	clueset.assumption_replacement()
 	
 	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (after replacements):\n", str(clueset))
