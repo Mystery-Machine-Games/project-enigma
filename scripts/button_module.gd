@@ -20,7 +20,7 @@ signal buttons_correct
 
 func _ready() -> void:
 	_buttons.shuffle()
-	for i in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
+	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
 		var random_num_index: int = randi_range(0, _interaction_nums.size() - 1)
 		var random_color_index: int = randi_range(0, _possible_button_colors.size() - 1)
 		_interaction_nums.remove_at(random_num_index)
@@ -30,10 +30,11 @@ func _ready() -> void:
 	print("[BUTTON_MODULE][SOLUTION] Interaction: ", Interaction.keys()[_interaction], " Order: ", _buttons, " Numbers: ", _interaction_nums)
 	
 	for i: int in range(_buttons.size()):
-		var button: StaticBody3D = _buttons[i]
+		var button: MachineButton = _buttons[i]
 		button.button_pressed.connect(_log_interaction)
 		button.position = button_positions[i]
-		button.find_child("Button").material_override = _possible_button_colors[i]
+		var button_mesh: MeshInstance3D = button.find_child("Button")
+		button_mesh.material_override = _possible_button_colors[i]
 		
 	_generate_clues()
 
@@ -130,3 +131,8 @@ func _generate_clues() -> void:
 	print("[BUTTON_MODULE][GENERATE CLUES]\nClueset:\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
+	# Pick random edge
+	# 
+	# edge.set_vertices()
+	# edge.set_weight(-1)
+	#

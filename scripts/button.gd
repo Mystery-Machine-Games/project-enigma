@@ -1,3 +1,4 @@
+class_name MachineButton
 extends StaticBody3D
 
 @onready var _anim_player: AnimationPlayer = $AnimationPlayer
