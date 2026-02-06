@@ -16,7 +16,7 @@ func get_items() -> Array[Item]:
 	return [_item1, _item2]
 
 
-func set_vertices(item1: Item, item2: Item) -> void:
+func set_items(item1: Item, item2: Item) -> void:
 	_item1 = item1
 	_item2 = item2
 
