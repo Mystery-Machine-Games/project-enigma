@@ -10,7 +10,8 @@ enum Axis {X, Y, Z}
 const NUM_WIRES: int = 3
 
 @onready var _difficulty: int = randi_range(1, 3)
-@onready var _start_ports: Array[MachinePort]
+@onready var _start_ports: Array[Node] = $StartPorts.get_children()
+@onready var _end_ports: Array[Node] = $EndPorts.get_children()
 
 signal wires_correct
 
