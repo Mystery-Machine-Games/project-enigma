@@ -1,0 +1,23 @@
+class_name MachineWire
+extends Node3D
+
+var _start_port: StaticBody3D
+var _end_port: StaticBody3D
+
+
+func _init(start_port: StaticBody3D, end_port: StaticBody3D) -> void:
+	_start_port = start_port
+	_end_port = end_port
+
+
+func get_start_port() -> StaticBody3D:
+	return _start_port
+
+
+func get_end_port() -> StaticBody3D:
+	return _end_port
+
+
+func _to_string() -> String:
+	var output: String = _start_port.name + " -> " + _end_port.name
+	return output

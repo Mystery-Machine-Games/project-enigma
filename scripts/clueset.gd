@@ -73,6 +73,7 @@ func assumption_replacement() -> Clue:
 
 
 # Replaces a random positive clue with multiple negative clues
+# Debating on whether to add this or not because it may make puzzles more frustrating than anything
 func negatives_replacement() -> void:
 	# TODO
 	# Choose random positive clue
