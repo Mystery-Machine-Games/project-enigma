@@ -40,7 +40,7 @@ func _ready() -> void:
 		var button: MachineButton = _buttons[i]
 		button.button_pressed.connect(_log_interaction)
 		button.position = button_positions[i]
-		var button_mesh: MeshInstance3D = button.find_child("Button")
+		var button_mesh: MeshInstance3D = button.find_child("ButtonMesh")
 		button_mesh.material_override = _possible_button_colors[i]
 		
 	_generate_clues()
