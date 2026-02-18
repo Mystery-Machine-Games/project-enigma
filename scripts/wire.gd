@@ -3,11 +3,13 @@ extends Node3D
 
 var _start_port: StaticBody3D
 var _end_port: StaticBody3D
+var _type: String
 
 
-func _init(start_port: StaticBody3D, end_port: StaticBody3D) -> void:
+func _init(start_port: StaticBody3D, end_port: StaticBody3D, type: String) -> void:
 	_start_port = start_port
 	_end_port = end_port
+	_type = type
 
 
 func get_start_port() -> StaticBody3D:
@@ -16,6 +18,10 @@ func get_start_port() -> StaticBody3D:
 
 func get_end_port() -> StaticBody3D:
 	return _end_port
+
+
+func get_type() -> String:
+	return _type
 
 
 func ports_are_equal(wire: MachineWire) -> bool:
