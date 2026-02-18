@@ -38,7 +38,7 @@ func _ready() -> void:
 		var port_color: Material = _possible_port_colors[i]
 		start_port_mesh.material_override = port_color
 		end_port_mesh.material_override = port_color
-	# TODO Shuffle positions of start and end ports
+	# Create solution
 	_start_ports.shuffle()
 	_end_ports.shuffle()
 	for i: int in range(NUM_WIRES):
@@ -46,7 +46,13 @@ func _ready() -> void:
 		var end_port: MachinePort = _end_ports[i]
 		var new_wire: MachineWire = MachineWire.new(start_port, end_port)
 		_wire_solution.append(new_wire)
-		# Apply new positions after shuffle
+	_wire_solution.shuffle()
+	# Randomize positions
+	_start_ports.shuffle()
+	_end_ports.shuffle()
+	for i: int in range(NUM_WIRES):
+		var start_port: MachinePort = _start_ports[i]
+		var end_port: MachinePort = _end_ports[i]
 		start_port.position = start_port_positions[i]
 		match(port_axis):
 			Axis.X:
