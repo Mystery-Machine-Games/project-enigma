@@ -18,6 +18,12 @@ func get_end_port() -> StaticBody3D:
 	return _end_port
 
 
+func ports_are_equal(wire: MachineWire) -> bool:
+	if _start_port == wire.get_start_port() and _end_port == wire.get_end_port():
+		return true
+	return false
+
+
 func _to_string() -> String:
 	var output: String = _start_port.name + " -> " + _end_port.name
 	return output

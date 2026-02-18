@@ -79,24 +79,30 @@ func _add_wire() -> void:
 	var new_wire: MachineWire = MachineWire.new(_current_ports[0], _current_ports[1])
 	_current_solution.append(new_wire)
 	_current_ports.clear()
-	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", str(_current_solution.size()))
+	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", str(_current_solution.size()), ": ", new_wire)
 	pass
 
 
 func _remove_wire(wire: MachineWire) -> void:
 	var wire_index: int = _current_solution.find(wire)
+	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1), ": ", _current_solution[wire_index])
 	_current_solution.remove_at(wire_index)
 	_current_ports.clear()
-	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1))
 	pass
 
 
 # The order of wires in _wire_solution and _current_solution matters
 func _check_solution() -> bool:
-	for i: int in range(_wire_solution.size()):
-		if _wire_solution[i] != _current_solution[i]:
-			print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incorrect")
-			return false
+	if _current_solution.size() == NUM_WIRES:
+		for i: int in range(_wire_solution.size()):
+			var solution_wire: MachineWire = _wire_solution[i]
+			var current_wire: MachineWire = _current_solution[i]
+			if !current_wire.ports_are_equal(solution_wire):
+				print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incorrect")
+				return false
+	else:
+		print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incomplete")
+		return false
 	print("[WIRE_MODULE][CHECK_SOLUTION] Solution is correct")
 	return true
 
