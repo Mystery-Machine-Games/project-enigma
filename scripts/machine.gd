@@ -18,3 +18,11 @@ func _set_wires_correct() -> void:
 func _check_solution() -> void:
 	if _wires_correct:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
+
+
+func get_wire_module() -> WireModule:
+	return _wire_module
+
+
+func get_button_module() -> ButtonModule:
+	return _button_module
