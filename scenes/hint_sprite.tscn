@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b53v363jwi7ci"]
 
-[ext_resource type="Script" uid="uid://bhlpsxndiei5a" path="res://scripts/hint_sprite.gd" id="1_66gjg"]
+[ext_resource type="Script" uid="uid://bhlpsxndiei5a" path="res://scripts/puzzles/hint_sprite.gd" id="1_66gjg"]
 [ext_resource type="Texture2D" uid="uid://dsmp2082cks8i" path="res://icon.svg" id="1_htgbl"]
 
 [node name="Polygon2D" type="Polygon2D" unique_id=1096175393]
