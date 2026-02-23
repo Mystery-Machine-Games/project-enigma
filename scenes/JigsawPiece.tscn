@@ -1,10 +1,7 @@
 [gd_scene format=3 uid="uid://ckx1ihveimaox"]
 
-[ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/jigsaw_piece.gd" id="1_4fnxt"]
+[ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/puzzles/jigsaw_piece.gd" id="1_4fnxt"]
 [ext_resource type="PackedScene" uid="uid://b53v363jwi7ci" path="res://scenes/hint_sprite.tscn" id="2_e4bgg"]
-[ext_resource type="Material" path="res://assets/standard_material_puzzle.tres" id="3_t78jm"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmgjy"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_e4bgg"]
 viewport_path = NodePath("Area3D/SubViewport")
@@ -26,7 +23,6 @@ collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=227208717]
 layers = 0
-material_override = SubResource("StandardMaterial3D_dmgjy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=139570329]
 
@@ -43,7 +39,6 @@ size = Vector2i(128, 128)
 
 [node name="previewMesh" type="MeshInstance3D" parent="." unique_id=428416346]
 visible = false
-material_override = ExtResource("3_t78jm")
 
 [node name="Sprite3D" type="Sprite3D" parent="previewMesh" unique_id=1092196091]
 transform = Transform3D(0.78, 0, 0, 0, -0.78, 6.818976e-08, 0, -6.818976e-08, -0.78, 0, 0, 0)

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cyykd17wym1m0"]
 
-[ext_resource type="Script" uid="uid://cp5srjs2iyudk" path="res://scripts/3d_jigsaw.gd" id="1_8frpf"]
+[ext_resource type="Script" uid="uid://cp5srjs2iyudk" path="res://scripts/puzzles/3d_jigsaw.gd" id="1_8frpf"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dllu2"]
 size = Vector3(5, 0.1, 5)

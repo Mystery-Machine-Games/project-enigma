@@ -69,7 +69,7 @@ renderer/rendering_method.mobile="gl_compatibility"
 
 diffuse_curve={
 "type": "sampler2D",
-"value": "res://_dev/assets/new_gradient_texture_1d.tres"
+"value": "res://assets/materials/new_gradient_texture_1d.tres"
 }
 specular_smoothness={
 "type": "float",
