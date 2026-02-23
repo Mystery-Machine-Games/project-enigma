@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://c8p6ds82d3yhy"]
+
+[ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/jigsaw_piece.gd" id="1_4fnxt"]
+[ext_resource type="PackedScene" uid="uid://x3allhxl0f2l" path="res://scenes/hint_sprite.tscn" id="2_e4bgg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_e4bgg"]
+viewport_path = NodePath("Area3D/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e4bgg"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.49803922)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_v7ih4"]
+viewport_path = NodePath("Area3D/SubViewport")
+
+[node name="JigsawPiece" type="Node3D" unique_id=1874407561 node_paths=PackedStringArray("mesh", "previewMesh", "collider", "polygon", "viewport", "area")]
+script = ExtResource("1_4fnxt")
+mesh = NodePath("Area3D/MeshInstance3D")
+previewMesh = NodePath("previewMesh")
+collider = NodePath("Area3D/CollisionShape3D")
+polygon = NodePath("Area3D/SubViewport/Polygon2D")
+viewport = NodePath("Area3D/Sprite3D")
+area = NodePath("Area3D")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=350133601]
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=227208717]
+layers = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=139570329]
+
+[node name="Sprite3D" type="Sprite3D" parent="Area3D" unique_id=787695111]
+transform = Transform3D(0.78, 0, 0, 0, -0.78, 1.1777672e-07, 0, -1.1777672e-07, -0.78, 0, 0, 0)
+offset = Vector2(64, -64)
+texture = SubResource("ViewportTexture_e4bgg")
+
+[node name="SubViewport" type="SubViewport" parent="Area3D" unique_id=1403639413]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="Polygon2D" parent="Area3D/SubViewport" unique_id=1096175393 instance=ExtResource("2_e4bgg")]
+
+[node name="previewMesh" type="MeshInstance3D" parent="." unique_id=428416346]
+visible = false
+material_override = SubResource("StandardMaterial3D_e4bgg")
+
+[node name="Sprite3D" type="Sprite3D" parent="previewMesh" unique_id=1092196091]
+transform = Transform3D(0.78, 0, 0, 0, -0.78, 6.818976e-08, 0, -6.818976e-08, -0.78, 0, 0, 0)
+offset = Vector2(64, -64)
+modulate = Color(1, 1, 1, 0.49803922)
+texture = SubResource("ViewportTexture_v7ih4")
