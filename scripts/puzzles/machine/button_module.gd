@@ -22,12 +22,12 @@ signal buttons_correct
 
 func _ready() -> void:
 	_pick_random_colors()
+	_apply_colors()
 	_pick_random_interaction_nums()
 	_generate_solution()
-	_connect_signals()
-	_apply_colors()
 	_set_random_positions()
 	_generate_clues()
+	_connect_signals()
 
 
 func _pick_random_colors() -> void:

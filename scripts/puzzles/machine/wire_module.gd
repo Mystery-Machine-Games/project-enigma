@@ -97,7 +97,7 @@ func _log_interaction(port: MachinePort) -> void:
 	elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
 		_current_ports.append(port)
 	else:
-		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: incorrect sequence")
+		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
 	if _current_ports.size() == 2:
 		_add_wire()
 	if _check_solution(): emit_signal("wires_correct")
@@ -112,7 +112,6 @@ func _add_wire() -> void:
 	_current_solution.append(new_wire)
 	_current_ports.clear()
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", wire_index, ": ", new_wire)
-	pass
 
 
 func _remove_wire(wire: MachineWire) -> void:
@@ -120,10 +119,10 @@ func _remove_wire(wire: MachineWire) -> void:
 	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1), ": ", _current_solution[wire_index])
 	_current_solution.remove_at(wire_index)
 	_current_ports.clear()
-	pass
 
 
-# The order of wires in _wire_solution and _current_solution matters
+# Note: The order of wires in _wire_solution and _current_solution matters right now
+# TODO: The order should not matter; the player should be able to add wires in any order
 func _check_solution() -> bool:
 	if _current_solution.size() == NUM_WIRES:
 		for i: int in range(_wire_solution.size()):
