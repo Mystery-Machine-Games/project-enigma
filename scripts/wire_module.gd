@@ -26,13 +26,22 @@ signal wires_correct
 
 
 func _ready() -> void:
-	# Create random solution in form [[start_port, end_port], [start_port, end_port], [start_port, end_port]]
-	# Pick random colors for start and end ports
+	_pick_random_port_colors()
+	_apply_port_colors()
+	_generate_solution()
+	_randomize_port_positions()
+	_generate_clues()
+	_connect_signals()
+
+
+func _pick_random_port_colors() -> void:
 	for i: int in range(port_colors.size() - NUM_WIRES):
 		var random_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
 		_possible_port_colors.remove_at(random_color_index)
-		
-	# Apply colors (applying before shuffling the port arrays so that their shapes match up to colors)
+
+
+# Note: Must be applied before shuffling the port arrays so that their shapes match up to colors
+func _apply_port_colors() -> void:
 	_possible_port_colors.shuffle()
 	_possible_wire_types.shuffle()
 	for i: int in range(NUM_WIRES):
@@ -43,8 +52,9 @@ func _ready() -> void:
 		var port_color: Material = _possible_port_colors[i]
 		start_port_mesh.material_override = port_color
 		end_port_mesh.material_override = port_color
-		
-	# Create solution
+
+
+func _generate_solution() -> void:
 	_start_ports.shuffle()
 	_end_ports.shuffle()
 	for i: int in range(NUM_WIRES):
@@ -54,8 +64,10 @@ func _ready() -> void:
 		var new_wire: MachineWire = MachineWire.new(start_port, end_port, wire_type)
 		_wire_solution.append(new_wire)
 	_wire_solution.shuffle()
-	
-	# Randomize positions
+	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
+
+
+func _randomize_port_positions() -> void:
 	_start_ports.shuffle()
 	_end_ports.shuffle()
 	for i: int in range(NUM_WIRES):
@@ -69,11 +81,9 @@ func _ready() -> void:
 				end_port.position = start_port_positions[i] + Vector3(0, end_port_distance, 0)
 			Axis.Z:
 				end_port.position = start_port_positions[i] + Vector3(0, 0, end_port_distance)
-	
-	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
-	_generate_clues()
-	
-	# Connect signals
+
+
+func _connect_signals() -> void:
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
