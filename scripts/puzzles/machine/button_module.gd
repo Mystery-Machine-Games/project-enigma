@@ -21,21 +21,27 @@ signal buttons_correct
 
 
 func _ready() -> void:
-	_randomize_interactions_and_colors()
+	_pick_random_colors()
+	_pick_random_interaction_nums()
 	_generate_solution()
-	_connect_signals_and_apply_colors()
+	_connect_signals()
+	_apply_colors()
+	_set_random_positions()
 	_generate_clues()
 
 
-func _randomize_interactions_and_colors() -> void:
-	_buttons.shuffle()
+func _pick_random_colors() -> void:
+	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
+		var random_color_index: int = randi_range(0, _possible_button_colors.size() - 1)
+		_possible_button_colors.remove_at(random_color_index)
+	_possible_button_colors.shuffle()
+
+
+func _pick_random_interaction_nums() -> void:
 	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
 		var random_num_index: int = randi_range(0, _interaction_nums.size() - 1)
-		var random_color_index: int = randi_range(0, _possible_button_colors.size() - 1)
 		_interaction_nums.remove_at(random_num_index)
-		_possible_button_colors.remove_at(random_color_index)
 	_interaction_nums.shuffle()
-	_possible_button_colors.shuffle()
 
 
 func _generate_solution() -> void:
@@ -46,13 +52,24 @@ func _generate_solution() -> void:
 	 "\nDifficulty [1-3]: ", _difficulty, "\n")
 
 
-func _connect_signals_and_apply_colors() -> void:
-	for i: int in range(_buttons.size()):
+func _apply_colors() -> void:
+	for i: int in range(NUM_BUTTONS):
 		var button: MachineButton = _buttons[i]
-		button.button_pressed.connect(_log_interaction)
-		button.position = button_positions[i]
 		var button_mesh: MeshInstance3D = button.find_child("ButtonMesh")
 		button_mesh.material_override = _possible_button_colors[i]
+
+
+func _connect_signals() -> void:
+	for i: int in range(NUM_BUTTONS):
+		var button: MachineButton = _buttons[i]
+		button.button_pressed.connect(_log_interaction)
+		
+
+func _set_random_positions() -> void:
+	_buttons.shuffle()
+	for i: int in range(NUM_BUTTONS):
+		var button: MachineButton = _buttons[i]
+		button.position = button_positions[i]
 
 
 func _log_interaction(button: Node, time_down: float) -> void:

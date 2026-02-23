@@ -26,22 +26,22 @@ signal wires_correct
 
 
 func _ready() -> void:
-	_pick_random_port_colors()
-	_apply_port_colors()
+	_pick_random_colors()
+	_apply_colors()
 	_generate_solution()
-	_randomize_port_positions()
+	_set_random_positions()
 	_generate_clues()
 	_connect_signals()
 
 
-func _pick_random_port_colors() -> void:
+func _pick_random_colors() -> void:
 	for i: int in range(port_colors.size() - NUM_WIRES):
 		var random_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
 		_possible_port_colors.remove_at(random_color_index)
 
 
 # Note: Must be applied before shuffling the port arrays so that their shapes match up to colors
-func _apply_port_colors() -> void:
+func _apply_colors() -> void:
 	_possible_port_colors.shuffle()
 	_possible_wire_types.shuffle()
 	for i: int in range(NUM_WIRES):
@@ -67,7 +67,7 @@ func _generate_solution() -> void:
 	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
 
 
-func _randomize_port_positions() -> void:
+func _set_random_positions() -> void:
 	_start_ports.shuffle()
 	_end_ports.shuffle()
 	for i: int in range(NUM_WIRES):
