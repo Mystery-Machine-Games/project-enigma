@@ -22,9 +22,8 @@ func _ready() -> void:
 	$Area3D.collision_layer = layer;
 	
 	mesh.mesh = m;
-	mesh.material_override = load("res://_dev/assets/shader_material.tres").duplicate();
-	var shaderMat : ShaderMaterial = mesh.material_override
-	shaderMat.set_shader_parameter("color",Color(randf(),randf(),randf()))
+	var shaderMat : StandardMaterial3D = mesh.material_override
+	#shaderMat.set_shader_parameter("color",Color(randf(),randf(),randf()))
 	
 	previewMesh.mesh = mesh.mesh;
 	#previewMesh.material_override = mesh.material_override;
@@ -38,17 +37,15 @@ func _ready() -> void:
 
 func float_up(boolean : bool) -> void:
 	if boolean:
-		$previewMesh.visible = true;
-	
+		#$previewMesh.visible = true;
+		pass
 	var tween : Tween = get_tree().create_tween();
-
 	if boolean:
 		tween.tween_property(mesh,"position",Vector3(0,0,0.2),0.3).set_ease(Tween.EASE_OUT);
 		tween.parallel().tween_property(viewport,"position",Vector3(0,0,0.2 + width),0.3).set_ease(Tween.EASE_OUT);
 	else:
 		tween.tween_property(mesh,"position",Vector3(0,0,0),0.3).set_ease(Tween.EASE_IN);
 		tween.parallel().tween_property(viewport,"position",Vector3(0,0,0 + width),0.3).set_ease(Tween.EASE_IN);
-
 	if !boolean:
 		await tween.finished;
-		previewMesh.visible = false;
+		#previewMesh.visible = false;

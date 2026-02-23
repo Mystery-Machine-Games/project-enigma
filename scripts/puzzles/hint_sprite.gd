@@ -2,7 +2,7 @@ extends Polygon2D
 
 var spriteDict : Dictionary = {
 	"data1":
-		{"type1":"res://icon.svg","type2": "res://_dev/assets/Screenshot 2026-02-17 at 11.13.47 AM.png"}
+		{"type1":"res://icon.svg","type2": "res://icon.svg"}
 }
 var arrow : Array = ["res://icon.svg"];
 var clues : Array = [

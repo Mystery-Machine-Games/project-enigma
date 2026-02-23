@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bot0i81fdb46u"]
 
-[ext_resource type="Material" uid="uid://302r42hkbje3" path="res://assets/outline_mat.tres" id="1_sgqby"]
-[ext_resource type="Shader" uid="uid://cqm33byi47q80" path="res://assets/cel-shader-base.gdshader" id="2_mfdjb"]
+[ext_resource type="Material" uid="uid://302r42hkbje3" path="res://assets/materials/outline_mat.tres" id="1_sgqby"]
+[ext_resource type="Shader" uid="uid://cqm33byi47q80" path="res://assets/jerryMisc/cel-shader-base.gdshader" id="2_mfdjb"]
 
 [resource]
 render_priority = 0

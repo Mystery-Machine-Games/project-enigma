@@ -1,6 +1,7 @@
 extends Node3D
 
-var jigsawPiece : PackedScene = preload("res://_dev/scenes/JigsawPiece.tscn");
+var jigsawPiece : PackedScene = preload("res://scenes/puzzles/jigsaw/JigsawPiece.tscn");
+var jigsawDataPath : String = "res://assets/jerryMisc/data.txt";
 var puzzleArr : Array[Array] = []
 var puzzleTriangleArr : Array = []
 var flatShapeArr : Array[Array]= [];
@@ -18,7 +19,7 @@ func _ready() -> void:
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
 
 func initialize_shape_arr() -> void:
-	var file : FileAccess = FileAccess.open("res://_dev/assets/data.txt", FileAccess.READ)		#print(JSON.parse_string(file.get_as_text()))
+	var file : FileAccess = FileAccess.open(jigsawDataPath, FileAccess.READ)		#print(JSON.parse_string(file.get_as_text()))
 	for p : Array in JSON.parse_string(file.get_as_text()):
 		var tempshape : Array = []
 		for s : Array in p:
