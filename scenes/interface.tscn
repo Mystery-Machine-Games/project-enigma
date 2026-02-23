@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://bchng8wnf4l4y"]
+
+[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/interface.gd" id="1_lw6my"]
+[ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="1_tg63u"]
+
+[node name="Interface" type="Control" unique_id=1143050847]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_lw6my")
+
+[node name="CameraToggleLabel" type="Label" parent="." unique_id=2019939573]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -90.0
+offset_top = 20.0
+offset_right = 90.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Space to toggle camera"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WireButtonsContainer" type="VBoxContainer" parent="." unique_id=1142157950]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.75
+anchor_top = 0.25
+anchor_right = 0.8
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = -29.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("1_tg63u")
+
+[node name="WiresLabel" type="Label" parent="WireButtonsContainer" unique_id=171686128]
+layout_mode = 2
+text = "Wires"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="WireAButton" type="Button" parent="WireButtonsContainer" unique_id=1569739892]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Wire A"
+
+[node name="WireBButton" type="Button" parent="WireButtonsContainer" unique_id=993273191]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Wire B"
+
+[node name="WireCButton" type="Button" parent="WireButtonsContainer" unique_id=1718315835]
+layout_mode = 2
+size_flags_vertical = 2
+text = "Wire C"
+
+[connection signal="pressed" from="WireButtonsContainer/WireAButton" to="WireButtonsContainer" method="_on_wire_a_button_pressed"]
+[connection signal="pressed" from="WireButtonsContainer/WireBButton" to="WireButtonsContainer" method="_on_wire_b_button_pressed"]
+[connection signal="pressed" from="WireButtonsContainer/WireCButton" to="WireButtonsContainer" method="_on_wire_c_button_pressed"]
