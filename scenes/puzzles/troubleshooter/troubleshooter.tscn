@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://dijkme62tle4l"]
+
+[ext_resource type="Script" uid="uid://bnwyfjjw3wlow" path="res://scripts/puzzles/troubleshooter/troubleshooter.gd" id="1_3lmp5"]
+[ext_resource type="Texture2D" uid="uid://da4853pwbn6j0" path="res://assets/textures/wave_sprite.png" id="2_aeq80"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_3lmp5"]
+size = Vector3(2, 0.5, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3lmp5"]
+height = 0.5
+
+[node name="Troubleshooter" type="Node" unique_id=1845440645]
+script = ExtResource("1_3lmp5")
+
+[node name="Inputs" type="Control" parent="." unique_id=29652854]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="Inputs" unique_id=1940827841]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 297.0
+offset_top = 15.0
+offset_right = 359.0
+offset_bottom = 46.0
+text = "Button"
+
+[node name="SpinBox" type="SpinBox" parent="Inputs" unique_id=813934381]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 86.5
+offset_bottom = 31.0
+max_value = 1.0
+rounded = true
+
+[node name="HSlider" type="HSlider" parent="Inputs" unique_id=101319337]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 99.0
+offset_right = 433.0
+offset_bottom = 255.0
+
+[node name="Outputs" type="Node3D" parent="." unique_id=51364693]
+
+[node name="Wave" type="Sprite3D" parent="Outputs" unique_id=816726576]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6746297, 0)
+texture = ExtResource("2_aeq80")
+hframes = 2
+
+[node name="Gauge" type="Node3D" parent="Outputs" unique_id=1460343822]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Outputs/Gauge" unique_id=1234745598]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_3lmp5")
+
+[node name="Color" type="MeshInstance3D" parent="Outputs" unique_id=2043996448]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.2403854, 0, 0)
+mesh = SubResource("CylinderMesh_3lmp5")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1889743384]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D" unique_id=912797949]
