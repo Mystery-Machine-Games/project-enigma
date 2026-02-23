@@ -1,11 +1,10 @@
 [gd_scene format=3 uid="uid://c1ipalatufykt"]
 
 [ext_resource type="Script" uid="uid://c604uyspy804s" path="res://scripts/game.gd" id="1_iywne"]
-[ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/machine.tscn" id="1_uwrxv"]
+[ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="1_uwrxv"]
 [ext_resource type="Material" uid="uid://bl0ncw1iky0ki" path="res://assets/materials/table.tres" id="2_yqjtg"]
 [ext_resource type="Script" uid="uid://55h38455csg0" path="res://scripts/camera_manager.gd" id="3_lnu2h"]
-[ext_resource type="PackedScene" uid="uid://bgvibq84n34s2" path="res://scenes/interface.tscn" id="4_lbhrr"]
-[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/interface.gd" id="6_p57ef"]
+[ext_resource type="PackedScene" uid="uid://bchng8wnf4l4y" path="res://scenes/interface.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node3D" unique_id=556037480]
 script = ExtResource("1_iywne")
@@ -33,4 +32,3 @@ transform = Transform3D(8.593334e-08, 0.25881907, -0.9659258, 6.4396986e-08, 0.9
 transform = Transform3D(9.8736095e-08, 0.9659259, -0.258819, -4.222196e-08, 0.258819, 0.9659259, 1, -8.44439e-08, 6.633806e-08, -2.487877, 11.283665, 0)
 
 [node name="Interface" parent="." unique_id=1143050847 instance=ExtResource("4_lbhrr")]
-script = ExtResource("6_p57ef")
