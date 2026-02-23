@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://oyxcwwhsdfyp"]
+
+[ext_resource type="Script" uid="uid://bnysg4p52aju7" path="res://scripts/camera_on_rails/player_controller.gd" id="1_plc33"]
+
+[node name="PlayerCharacter" type="PathFollow3D" unique_id=1302933447]
+rotation_mode = 1
+loop = false
+script = ExtResource("1_plc33")
+
+[node name="Head" type="Marker3D" parent="." unique_id=160742757]
+unique_name_in_owner = true
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=705187295]
+current = true

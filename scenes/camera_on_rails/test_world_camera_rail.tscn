@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://h3kjpccnqvq4"]
+
+[ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
+[ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
+[ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
+[ext_resource type="PackedScene" uid="uid://bxiq3wwkv26eq" path="res://scenes/camera_on_rails/focus_item.tscn" id="4_ymsyd"]
+
+[sub_resource type="Curve3D" id="Curve3D_ymsyd"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 1.065, 0, 0, 0, 0, 0, 0, 0, -1.535, 0, 0, 1, 1.0030812, 0, 3.2067497),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mgeuf"]
+size = Vector3(5, 1, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oylrk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e3r2b"]
+size = Vector3(1.5, 1, 5)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ipvy"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_yimg5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opy5a"]
+albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
+
+[node name="TestWorld" unique_id=1275245254 instance=ExtResource("1_r73vw")]
+
+[node name="Path3D" type="Path3D" parent="." index="1" unique_id=939577834]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.5, -2)
+curve = SubResource("Curve3D_ymsyd")
+
+[node name="PlayerCharacter" parent="Path3D" index="0" unique_id=1302933447 instance=ExtResource("2_ymsyd")]
+transform = Transform3D(-4.37108e-08, 0, -0.9999865, 0, 0.99999225, 0, 0.9999865, 0, -4.37108e-08, 0, 0, 0)
+
+[node name="Counter" type="StaticBody3D" parent="." index="2" unique_id=2056954246]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3910902, 0, -3.7470071)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Counter" index="0" unique_id=2099096514]
+shape = SubResource("BoxShape3D_mgeuf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Counter" index="1" unique_id=138611415]
+transform = Transform3D(5, 0, 0, 0, 1, 0, 0, 0, 1.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_oylrk")
+
+[node name="Counter2" type="StaticBody3D" parent="." index="3" unique_id=962368354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.168395, 0, -0.49337673)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Counter2" index="0" unique_id=1471864794]
+shape = SubResource("BoxShape3D_e3r2b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Counter2" index="1" unique_id=1462534574]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+mesh = SubResource("BoxMesh_oylrk")
+
+[node name="Wall" parent="." index="4" unique_id=1596152033 instance=ExtResource("3_ymsyd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147202, 0, -0.24205041)
+
+[node name="Wall2" parent="." index="5" unique_id=333103062 instance=ExtResource("3_ymsyd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4441605, 0, -0.23160136)
+
+[node name="Wall3" parent="." index="6" unique_id=2016587851 instance=ExtResource("3_ymsyd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.6459179, 0, -8.059682)
+
+[node name="Wall4" parent="." index="7" unique_id=1836434891 instance=ExtResource("3_ymsyd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.92383766, 0, 7.4575205)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="8" unique_id=1370673347]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1878113366]
+shape = SubResource("CapsuleShape3D_5ipvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" index="1" unique_id=363256524]
+mesh = SubResource("CapsuleMesh_yimg5")
+surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
+
+[node name="Area3D" parent="." index="9" unique_id=926514691 instance=ExtResource("4_ymsyd")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9010897, 0.8046534, -1.7680097)
