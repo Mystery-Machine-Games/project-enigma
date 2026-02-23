@@ -21,6 +21,13 @@ signal buttons_correct
 
 
 func _ready() -> void:
+	_randomize_interactions_and_colors()
+	_generate_solution()
+	_connect_signals_and_apply_colors()
+	_generate_clues()
+
+
+func _randomize_interactions_and_colors() -> void:
 	_buttons.shuffle()
 	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
 		var random_num_index: int = randi_range(0, _interaction_nums.size() - 1)
@@ -29,21 +36,23 @@ func _ready() -> void:
 		_possible_button_colors.remove_at(random_color_index)
 	_interaction_nums.shuffle()
 	_possible_button_colors.shuffle()
-	#print("[BUTTON_MODULE][READY] Interaction: ", Interaction.keys()[_interaction], " Order: ", _buttons, " Numbers: ", _interaction_nums)
+
+
+func _generate_solution() -> void:
 	var _sorted_interaction_nums: Array[int] = _interaction_nums.duplicate()
 	_sorted_interaction_nums.sort()
-	print("[BUTTON_MODULE][READY]\nInteraction: ", Interaction.keys()[_interaction],
+	print("[BUTTON_MODULE][READY]\nSolution:\nInteraction: ", Interaction.keys()[_interaction],
 	 "\nNumbers: ", _sorted_interaction_nums,
 	 "\nDifficulty [1-3]: ", _difficulty, "\n")
-	
+
+
+func _connect_signals_and_apply_colors() -> void:
 	for i: int in range(_buttons.size()):
 		var button: MachineButton = _buttons[i]
 		button.button_pressed.connect(_log_interaction)
 		button.position = button_positions[i]
 		var button_mesh: MeshInstance3D = button.find_child("ButtonMesh")
 		button_mesh.material_override = _possible_button_colors[i]
-		
-	_generate_clues()
 
 
 func _log_interaction(button: Node, time_down: float) -> void:
