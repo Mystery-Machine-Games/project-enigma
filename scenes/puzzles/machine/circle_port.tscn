@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://1u3s5hr0dndu"]
 
-[ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/port.gd" id="1_hafp4"]
-[ext_resource type="Material" path="res://assets/materials/red.tres" id="2_hafp4"]
+[ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/puzzles/machine/port.gd" id="1_hafp4"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="2_hafp4"]
 [ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="3_l624d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]

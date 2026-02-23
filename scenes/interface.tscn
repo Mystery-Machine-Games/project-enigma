@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bchng8wnf4l4y"]
 
-[ext_resource type="Script" path="res://scripts/interface.gd" id="1_lw6my"]
-[ext_resource type="Script" path="res://scripts/wire_buttons.gd" id="1_tg63u"]
+[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/interface.gd" id="1_lw6my"]
+[ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="1_tg63u"]
 
 [node name="Interface" type="Control" unique_id=1143050847]
 layout_mode = 3

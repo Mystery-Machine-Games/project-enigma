@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c8p6ds82d3yhy"]
 
-[ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/puzzles/jigsaw_piece.gd" id="1_4fnxt"]
+[ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/puzzles/jigsaw/jigsaw_piece.gd" id="1_4fnxt"]
 [ext_resource type="PackedScene" uid="uid://x3allhxl0f2l" path="res://scenes/puzzles/jigsaw/hint_sprite.tscn" id="2_e4bgg"]
-[ext_resource type="Material" uid="uid://dp71ucgooesjp" path="res://assets/materials/standard_material_puzzle.tres" id="3_t78jm"]
+[ext_resource type="Material" path="res://assets/materials/standard_material_puzzle.tres" id="3_t78jm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmgjy"]
 
