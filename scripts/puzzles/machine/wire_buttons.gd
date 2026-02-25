@@ -4,13 +4,13 @@ extends Node
 signal wire_changed
 
 
-func _on_wire_a_button_pressed() -> void:
-	emit_signal("wire_changed", "A")
+func _on_wire_i_button_pressed() -> void:
+	emit_signal("wire_changed", "I")
 
 
-func _on_wire_b_button_pressed() -> void:
-	emit_signal("wire_changed", "B")
+func _on_wire_ii_button_pressed() -> void:
+	emit_signal("wire_changed", "II")
 
 
-func _on_wire_c_button_pressed() -> void:
-	emit_signal("wire_changed", "C")
+func _on_wire_iii_button_pressed() -> void:
+	emit_signal("wire_changed", "III")

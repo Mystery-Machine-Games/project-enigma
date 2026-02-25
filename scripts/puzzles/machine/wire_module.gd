@@ -20,7 +20,7 @@ const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 var _wire_solution: Array[MachineWire]
 var _current_solution: Array[MachineWire]
 var _current_ports: Array[MachinePort]
-var _current_wire: String
+var _current_wire_type: String
 
 signal wires_correct
 
@@ -106,12 +106,10 @@ func _log_interaction(port: MachinePort) -> void:
 func _add_wire() -> void:
 	var start_port: MachinePort = _current_ports[0]
 	var end_port: MachinePort = _current_ports[1]
-	var wire_index: int = _current_solution.size()
-	var wire_type: String = _possible_wire_types[wire_index]
-	var new_wire: MachineWire = MachineWire.new(start_port, end_port, wire_type)
+	var new_wire: MachineWire = MachineWire.new(start_port, end_port, _current_wire_type)
 	_current_solution.append(new_wire)
 	_current_ports.clear()
-	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", wire_index, ": ", new_wire)
+	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", new_wire)
 
 
 # Note: This is not used anywhere yet
@@ -178,6 +176,6 @@ func _generate_clues() -> void:
 
 
 func change_wire(new_wire: String) -> void:
-	_current_wire = new_wire
+	_current_wire_type = new_wire
 	print("[WIRE_MODULE][CHANGE_WIRE] Changed wire to wire ", new_wire)
 	# +anything else that needs to be done here
