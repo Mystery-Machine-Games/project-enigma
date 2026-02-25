@@ -3,7 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
-[ext_resource type="PackedScene" uid="uid://bxiq3wwkv26eq" path="res://scenes/camera_on_rails/focus_item.tscn" id="4_ymsyd"]
+[ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3DJigsaw.tscn" id="5_mul8f"]
+[ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
+[ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
+[ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/interface.tscn" id="7_edjj0"]
+[ext_resource type="Script" uid="uid://dfcgkp6x5buda" path="res://scripts/MachineInterfaceLinker.gd" id="8_3hq15"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -26,6 +30,9 @@ size = Vector3(1.5, 1, 5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opy5a"]
 albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
+radius = 0.72
 
 [node name="TestWorld" unique_id=1275245254 instance=ExtResource("1_r73vw")]
 
@@ -78,5 +85,52 @@ shape = SubResource("CapsuleShape3D_5ipvy")
 mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
-[node name="Area3D" parent="." index="9" unique_id=926514691 instance=ExtResource("4_ymsyd")]
+[node name="LyleFocusBox" type="Area3D" parent="." index="9" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9010897, 0.8046534, -1.7680097)
+input_ray_pickable = false
+script = ExtResource("5_tig38")
+focusPointArr = [NodePath("FocusPoint"), NodePath("FocusPoint2")]
+_focus_handle = NodePath("FocusHandle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LyleFocusBox" index="0" unique_id=1245662200]
+shape = SubResource("SphereShape3D_j1yni")
+
+[node name="FocusHandle" type="Node3D" parent="LyleFocusBox" index="1" unique_id=1767559984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24175882)
+
+[node name="Machine" parent="LyleFocusBox/FocusHandle" index="0" unique_id=459262496 instance=ExtResource("5_ojn01")]
+transform = Transform3D(0.00067368994, 0, 0.09999773, 0, 0.1, 0, -0.09999773, 0, 0.00067368994, 0, 0, 0)
+
+[node name="FocusPoint" type="Marker3D" parent="LyleFocusBox" index="2" unique_id=1780292693]
+transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.9138717, 0, 0.5202774, 1.1541008)
+
+[node name="FocusPoint2" type="Marker3D" parent="LyleFocusBox" index="3" unique_id=915445390]
+transform = Transform3D(1, -3.769781e-08, -2.158537e-08, 3.769781e-08, 0.5061843, 0.8624253, -2.158537e-08, -0.8624253, 0.5061843, 0, 1.1878084, 0.3133769)
+
+[node name="JerryFocusBox" type="Area3D" parent="." index="10" unique_id=180049619 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.1559184, 0.8046534, 0.4106487)
+script = ExtResource("5_tig38")
+focusPointArr = [NodePath("FocusPoint")]
+_focus_handle = NodePath("FocusHandle")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JerryFocusBox" index="0" unique_id=1461283998]
+shape = SubResource("SphereShape3D_j1yni")
+
+[node name="FocusHandle" type="Node3D" parent="JerryFocusBox" index="1" unique_id=265820693]
+unique_name_in_owner = true
+
+[node name="FocusPoint" type="Marker3D" parent="JerryFocusBox" index="2" unique_id=1509393533]
+unique_name_in_owner = true
+transform = Transform3D(1, -2.4922182e-08, -3.0458175e-08, 3.5141788e-08, 0.21707004, 0.9761562, -1.7716378e-08, -0.9761562, 0.21707004, -2.9802322e-08, 0.75397146, 0.58980036)
+
+[node name="3DJigsaw" parent="." index="11" unique_id=947779380 instance=ExtResource("5_mul8f")]
+transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 3.4678283, 0.6249409, 0)
+areaLayer = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="12" unique_id=1766527839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.266509, -0.7901053)
+
+[node name="Interface" parent="." index="13" unique_id=1143050847 instance=ExtResource("7_edjj0")]
+
+[node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="14" unique_id=14493092]
+script = ExtResource("8_3hq15")

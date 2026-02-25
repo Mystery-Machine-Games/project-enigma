@@ -15,14 +15,14 @@ var seed : int = 0;
 
 func _ready() -> void:
 	$Area3D/SubViewport.size *= spriteScale;
-	$Area3D/SubViewport/Polygon2D.scale *= spriteScale;
-	$Area3D/Sprite3D.offset *= spriteScale;
+	polygon.scale *= spriteScale;
+	viewport.offset *= spriteScale;
 	$previewMesh/Sprite3D.offset *= spriteScale;
 	
-	$Area3D.collision_layer = layer;
+	area.collision_layer = layer;
 	
 	mesh.mesh = m;
-	var shaderMat : StandardMaterial3D = mesh.material_override
+	#var shaderMat : StandardMaterial3D = mesh.material_override
 	#shaderMat.set_shader_parameter("color",Color(randf(),randf(),randf()))
 	
 	previewMesh.mesh = mesh.mesh;
@@ -37,7 +37,7 @@ func _ready() -> void:
 
 func float_up(boolean : bool) -> void:
 	if boolean:
-		#$previewMesh.visible = true;
+		previewMesh.visible = true;
 		pass
 	var tween : Tween = get_tree().create_tween();
 	if boolean:
@@ -48,4 +48,4 @@ func float_up(boolean : bool) -> void:
 		tween.parallel().tween_property(viewport,"position",Vector3(0,0,0 + width),0.3).set_ease(Tween.EASE_IN);
 	if !boolean:
 		await tween.finished;
-		#previewMesh.visible = false;
+		previewMesh.visible = false;

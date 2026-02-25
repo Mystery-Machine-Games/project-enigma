@@ -1,10 +1,12 @@
 class_name FocusItem
 extends Node
 
+@export var focusPointArr : Array[Marker3D];
+var focusIndex : int = 0;
 ## Camera position to tween to for focus mode in world space
-@onready var focus_position: Vector3 = %FocusPoint.global_position
+var focus_position: Vector3;
 ## Camera rotation to tween to for focus mode in world space
-@onready var focus_rotation: Vector3 = %FocusPoint.global_rotation
+var focus_rotation: Vector3;
 
 ## Speed of focus transition tween in m/s
 @export var focus_speed: float = 1.0
@@ -17,16 +19,22 @@ extends Node
 var is_focused: bool = false
 
 ## Node3D handle to move object while focused
-@onready var _focus_handle: Node3D = %FocusHandle
+@export var _focus_handle: Node3D;
 
 ## Tween for rotating item in focus mode
 var _item_rotation_tween: Tween
 
+func _ready() -> void:
+	set_pos_and_rot();
 
+func set_pos_and_rot() -> void:
+	focus_position = focusPointArr[focusIndex].global_position
+	focus_rotation = focusPointArr[focusIndex].global_rotation
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_focused:
 		return
-
+	if is_focused && $"../Interface".visible == false:
+		$"../Interface".visible = true;
 	if event.is_action_pressed("item_yaw_left") and _try_initialize_rotation():
 		_item_rotation_tween.tween_property(
 			_focus_handle,
