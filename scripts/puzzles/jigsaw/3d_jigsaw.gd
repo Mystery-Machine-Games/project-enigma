@@ -9,10 +9,16 @@ var debug : bool = false;
 var width : int = 5;
 var mult : float = 100;
 var seed : int = randi();
+
+var offset : Vector3 = Vector3(0,0,0);
+var currentSelected : Node3D =  null;
+
 @export var areaLayer : int;
 @export var bodyLayer: int;
 @export var pieces : Node3D;
+@export var camera : Camera3D;
 func _ready() -> void:
+	camera = $"../Path3D/PlayerCharacter".get_camera();
 	$plane.collision_layer = bodyLayer
 	initialize_shape_arr();
 	draw_shapes_from_puzzle(0)
@@ -118,11 +124,12 @@ func draw_shapes_from_puzzle(puzzleIndex : int) -> void:
 		initialsize += 1;
 		
 		pieces.add_child(m);
-		#m.position.x += randf_range(-1,1);
+		randomize();
+		m.position.x += randf_range(-3,3);
 		#return;
-var speed : int = 10;
+
 func shoot_ray() -> Vector3:
-	var camera : Camera3D = $pivot/Camera3D
+	#var camera : Camera3D = $pivot/Camera3D
 	var raylength : int = 1000;
 	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
 	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
@@ -139,7 +146,6 @@ func shoot_ray() -> Vector3:
 	return Vector3(0,0,0);
 	
 func detect_piece() -> Dictionary:
-	var camera : Camera3D = $pivot/Camera3D
 	var raylength : int = 1000;
 	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
 	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
@@ -155,8 +161,7 @@ func detect_piece() -> Dictionary:
 		#print(result)
 		return result;
 	return {};
-var offset : Vector3 = Vector3(0,0,0);
-var currentSelected : Node3D =  null;
+
 func _physics_process(_delta : float) -> void:
 	#print($pivot/Camera3D.project_ray_normal($pivot/Camera3D.get_viewport().get_mouse_position()).slide(Vector3(0.5,0.5,0).normalized()))
 	if currentSelected:
@@ -166,8 +171,9 @@ func _physics_process(_delta : float) -> void:
 	if Input.is_action_just_pressed("leftclick"):
 		#print("pressed")
 		var temp : Dictionary = detect_piece();
-		
 		if temp:
+			print(temp.collider.is_in_group("puzzlepieces"))
+		if temp && temp.collider.is_in_group("puzzlepieces"):
 			currentSelected = temp.collider;
 			currentSelected.get_parent().float_up(true);
 			offset = currentSelected.global_position - temp.position;

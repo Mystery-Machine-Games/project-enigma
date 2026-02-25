@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://y3tn3uhbyjc3" path="res://scripts/puzzles/jigsaw/jigsaw_piece.gd" id="1_4fnxt"]
 [ext_resource type="PackedScene" uid="uid://x3allhxl0f2l" path="res://scenes/puzzles/jigsaw/hint_sprite.tscn" id="2_e4bgg"]
-[ext_resource type="Material" path="res://assets/materials/standard_material_puzzle.tres" id="3_t78jm"]
+[ext_resource type="Material" uid="uid://dp71ucgooesjp" path="res://assets/materials/standard_material_puzzle.tres" id="3_t78jm"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmgjy"]
 
@@ -21,11 +21,10 @@ polygon = NodePath("Area3D/SubViewport/Polygon2D")
 viewport = NodePath("Area3D/Sprite3D")
 area = NodePath("Area3D")
 
-[node name="Area3D" type="Area3D" parent="." unique_id=350133601]
+[node name="Area3D" type="Area3D" parent="." unique_id=350133601 groups=["puzzlepieces"]]
 collision_mask = 0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D" unique_id=227208717]
-layers = 0
 material_override = SubResource("StandardMaterial3D_dmgjy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=139570329]

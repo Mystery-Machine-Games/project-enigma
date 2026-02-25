@@ -1,16 +1,16 @@
 extends Polygon2D
 
 var spriteDict : Dictionary = {
-	"data1":
+	0:
 		{"type1":"res://icon.svg","type2": "res://icon.svg"}
 }
-var arrow : Array = ["res://icon.svg"];
-var clues : Array = [
-	[{"data":"data1","type":"type1"},{"data":"data1","type":"type2"}],
-	[{"data":"data1","type":"type1"},{"data":"data1","type":"type1"}],
-	[{"data":"data1","type":"type1"},{"data":"data1","type":"type1"}],
-	[{"data":"data1","type":"type1"},{"data":"data1","type":"type1"}],
-	];
+var arrow : Array = ["res://icon.svg","res://icon.svg"];
+var clues : Array[Clue] = [
+	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
+	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
+	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
+	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1)
+];
 #array of clues
 #clues are comprised of 2 items and a positive
 func construct(poly : PackedVector2Array, seed : int) -> void:
@@ -36,17 +36,18 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 	currentY = 0.5 * itemSize;
 	
 	for n : int in numClues:
-		var spriteArr : Array = [
-			spriteDict[clues[n][0].data][clues[n][0].type],
-			#arrow[0],
-			spriteDict[clues[n][1].data][clues[n][1].type],
-		];
+		
+		var spriteArr : Array = []
+		
+		var items : Array[Item] = clues[n].get_items();
+		spriteArr.append(spriteDict[items[0].get_data()][items[0].get_type()]);
+		spriteArr.append(arrow[int(clues[n].is_positive())])
+		spriteArr.append(spriteDict[items[1].get_data()][items[1].get_type()]);
+
 		spriteArr.reverse();
 		#gapspace = (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
 		currentX = (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
 		linePoints.append(currentY)
-		
-		
 		
 		for x in spriteArr.size():
 			var tempsprite : Sprite2D = Sprite2D.new();
@@ -55,9 +56,9 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 			tempsprite.flip_h = true;
 			add_child(tempsprite);
 			tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0);
-			print(currentY)
+			#print(currentY)
 			currentX += 1 * itemSize;
 			currentX += (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
 		currentY += 1.5 * itemSize;
 		
-	print(linePoints)
+	#print(linePoints)

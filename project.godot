@@ -28,6 +28,10 @@ gdscript/warnings/unsafe_call_argument=1
 
 enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg")
 
+[global_group]
+
+puzzlepieces=""
+
 [input]
 
 interact={
