@@ -3,6 +3,12 @@
 [ext_resource type="Script" uid="uid://bnwyfjjw3wlow" path="res://scripts/puzzles/troubleshooter/troubleshooter.gd" id="1_3lmp5"]
 [ext_resource type="Texture2D" uid="uid://da4853pwbn6j0" path="res://assets/textures/wave_sprite.png" id="2_aeq80"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_aeq80"]
+size = Vector3(2, 0.5, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oiekm"]
+height = 0.5
+
 [sub_resource type="BoxMesh" id="BoxMesh_3lmp5"]
 size = Vector3(2, 0.5, 0.3)
 
@@ -13,6 +19,7 @@ height = 0.5
 script = ExtResource("1_3lmp5")
 
 [node name="Inputs" type="Control" parent="." unique_id=29652854]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -36,29 +43,46 @@ max_value = 1.0
 rounded = true
 
 [node name="HSlider" type="HSlider" parent="Inputs" unique_id=101319337]
-unique_name_in_owner = true
 layout_mode = 0
 offset_top = 99.0
 offset_right = 433.0
 offset_bottom = 255.0
 
 [node name="Outputs" type="Node3D" parent="." unique_id=51364693]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7535897, 0)
 
 [node name="Wave" type="Sprite3D" parent="Outputs" unique_id=816726576]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6746297, 0)
 texture = ExtResource("2_aeq80")
 hframes = 2
 
 [node name="Gauge" type="Node3D" parent="Outputs" unique_id=1460343822]
-unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Outputs/Gauge" unique_id=1234745598]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-mesh = SubResource("BoxMesh_3lmp5")
+mesh = SubResource("BoxMesh_aeq80")
 
 [node name="Color" type="MeshInstance3D" parent="Outputs" unique_id=2043996448]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.2403854, 0, 0)
+mesh = SubResource("CylinderMesh_oiekm")
+
+[node name="Solutions" type="Node3D" parent="." unique_id=2095195966]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89510185, 0)
+
+[node name="Wave" type="Sprite3D" parent="Solutions" unique_id=305912849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6746297, 0)
+texture = ExtResource("2_aeq80")
+hframes = 2
+
+[node name="Gauge" type="Node3D" parent="Solutions" unique_id=1994898192]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Solutions/Gauge" unique_id=43366013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_3lmp5")
+
+[node name="Color" type="MeshInstance3D" parent="Solutions" unique_id=688478898]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.2403854, 0, 0)
 mesh = SubResource("CylinderMesh_3lmp5")
 
