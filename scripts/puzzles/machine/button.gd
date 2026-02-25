@@ -20,6 +20,7 @@ func _process(delta: float) -> void:
 
 
 func _on_mouse_entered() -> void:
+	print("entered")
 	_mouse_over = true
 
 

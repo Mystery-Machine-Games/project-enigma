@@ -2,11 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cp5srjs2iyudk" path="res://scripts/puzzles/jigsaw/3d_jigsaw.gd" id="1_8frpf"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dllu2"]
-size = Vector3(5, 0.1, 5)
-
-[sub_resource type="Environment" id="Environment_cg3wf"]
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_cg3wf"]
 size = Vector3(20, 0.1, 20)
 
@@ -15,31 +10,6 @@ script = ExtResource("1_8frpf")
 areaLayer = 1
 bodyLayer = 1
 pieces = NodePath("puzzle pieces")
-
-[node name="grossenviromentstuff" type="Node3D" parent="." unique_id=603409655]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="grossenviromentstuff" unique_id=1014567650]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-size = Vector3(5, 0.1, 5)
-
-[node name="StaticBody3D" type="StaticBody3D" parent="grossenviromentstuff" unique_id=1414996316]
-collision_layer = 0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="grossenviromentstuff/StaticBody3D" unique_id=1453774372]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-shape = SubResource("BoxShape3D_dllu2")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="grossenviromentstuff" unique_id=1733314282]
-environment = SubResource("Environment_cg3wf")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="grossenviromentstuff" unique_id=2093712189]
-transform = Transform3D(0.8545676, -0.48074582, 0.19646287, 0, 0.37829322, 0.9256858, -0.51934016, -0.7910611, 0.32327715, 0, 0, 0)
-
-[node name="pivot" type="Node3D" parent="." unique_id=1410456152]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="pivot" unique_id=755208140]
-transform = Transform3D(1, 0, 0, 0, 0.42261824, 0.9063078, 0, -0.9063078, 0.42261824, -0.5607438, 3.6554067, 2.812614)
 
 [node name="puzzle pieces" type="Node3D" parent="." unique_id=882357373]
 

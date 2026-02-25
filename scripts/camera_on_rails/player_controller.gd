@@ -60,6 +60,7 @@ func _physics_process(_delta: float) -> void:
 			raycast_params,
 		)
 		var collider: Object = raycast_result.get("collider")
+		
 		if collider and collider is FocusItem:
 			_focus_on(collider)
 			_focus_tween = create_tween().set_parallel()
@@ -101,7 +102,36 @@ func _physics_process(_delta: float) -> void:
 		)
 		_focus_tween.chain().tween_callback(_reset_tween)
 		_focus_on(null)
-
+	
+	if Input.is_action_just_pressed("ui_accept") and _focused_item && _focused_item.focusPointArr.size() > 1:
+		# Cancel any running focus animation
+		#hardcoding something here for time
+		$"../../Interface".get_wire_buttons().visible = _focused_item.focusIndex == 0;
+		if _focus_tween:
+			_focus_tween.kill()
+		_focused_item.focusIndex += 1;
+		if _focused_item.focusIndex >= _focused_item.focusPointArr.size():
+			_focused_item.focusIndex = 0;
+		_focused_item.set_pos_and_rot();
+		_focus_tween = create_tween().set_parallel()
+		var tween_distance: float = (
+			%Head.global_position
+			- _focused_item.focus_position
+		).length()
+		var tween_time: float = tween_distance / _focused_item.focus_speed
+		_focus_tween.tween_property(
+			%Head,
+			"global_rotation",
+			_focused_item.focus_rotation,
+			tween_time,
+		)
+		_focus_tween.tween_property(
+			%Head,
+			"global_position",
+			_focused_item.focus_position,
+			tween_time,
+		)
+		_focus_tween.chain().tween_callback(_reset_tween)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton
@@ -134,3 +164,6 @@ func _reset_tween() -> void:
 	if _focus_tween:
 		_focus_tween.kill()
 		_focus_tween = null
+
+func get_camera() -> Camera3D:
+	return $Head/Camera3D;
