@@ -1,3 +1,4 @@
+class_name Machine
 extends Node3D
 
 @onready var _button_module: ButtonModule = $ButtonModule
@@ -9,6 +10,9 @@ var _wires_correct: bool = false
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
 	_wire_module.wires_correct.connect(_set_wires_correct)
+	# TODO:
+	# - connect wire_module wire_added signal to function that hides corresponding button
+	# - connect wire_module wire_removed signal to function that shows corresponding button
 
 
 func _set_wires_correct() -> void:

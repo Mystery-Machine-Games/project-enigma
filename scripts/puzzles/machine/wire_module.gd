@@ -22,6 +22,8 @@ var _current_solution: Array[MachineWire]
 var _current_ports: Array[MachinePort]
 var _current_wire_type: String
 
+signal wire_added
+signal wire_removed
 signal wires_correct
 
 
@@ -106,23 +108,35 @@ func _log_interaction(port: MachinePort) -> void:
 func _add_wire() -> void:
 	var start_port: MachinePort = _current_ports[0]
 	var end_port: MachinePort = _current_ports[1]
-	var new_wire: MachineWire = MachineWire.new(start_port, end_port, _current_wire_type)
-	_current_solution.append(new_wire)
+	var wire: MachineWire = MachineWire.new(start_port, end_port, _current_wire_type)
+	_current_solution.append(wire)
 	_current_ports.clear()
-	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", new_wire)
+	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire)
+	_create_wire_mesh(wire)
+	emit_signal("wire_added", wire.get_type())
+
+
+func _create_wire_mesh(_wire: MachineWire) -> void:
+	# TODO
+	# create wire mesh with bone 0 starting at start port
+	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
+	# bones 1 to length - 1 are angled along a parabolic curve on the z axis
+	# 	note: we can use three different predefined parabolic curves so that wires don't intersect with each other
+	# final bone goes straight into destination port
+	pass
 
 
 # Note: This is not used anywhere yet
-# TODO: Allow players to remove wires by performing some input with their mouse over them
+# TODO: Allow players to remove wires by performing some input with their mouse over them (this will be connected to a signal)
 func _remove_wire(wire: MachineWire) -> void:
 	var wire_index: int = _current_solution.find(wire)
+	var wire_type: String = _current_solution[wire_index].get_type()
 	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1), ": ", _current_solution[wire_index])
 	_current_solution.remove_at(wire_index)
 	_current_ports.clear()
+	emit_signal("wire_removed", wire_type)
 
 
-# Note: The order of wires in _wire_solution and _current_solution matters right now
-# TODO: The order should not matter; the player should be able to add wires in any order
 func _check_solution() -> bool:
 	if _current_solution.size() == NUM_WIRES:
 		for i: int in range(_wire_solution.size()):
@@ -163,8 +177,6 @@ func _generate_clues() -> void:
 		
 		clueset.add_clue(wire_item, start_port_item, true)
 		clueset.add_clue(start_port_item, end_port_item, true)
-	
-	print("[WIRE_MODULE][GENERATE_CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
 	if _difficulty > 1:
