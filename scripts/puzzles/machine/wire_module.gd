@@ -9,7 +9,7 @@ enum Axis {X, Y, Z}
 @export var port_colors: Array[Material]
 
 const NUM_WIRES: int = 3
-const POSSIBLE_WIRE_TYPES: Array[String] = ["A", "B", "C"]
+const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 
 @onready var _difficulty: int = randi_range(1, 3)
 @onready var _start_ports: Array[Node] = $StartPorts.get_children()
@@ -114,6 +114,8 @@ func _add_wire() -> void:
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", wire_index, ": ", new_wire)
 
 
+# Note: This is not used anywhere yet
+# TODO: Allow players to remove wires by performing some input with their mouse over them
 func _remove_wire(wire: MachineWire) -> void:
 	var wire_index: int = _current_solution.find(wire)
 	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1), ": ", _current_solution[wire_index])
