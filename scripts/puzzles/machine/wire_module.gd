@@ -64,7 +64,12 @@ func _generate_solution() -> void:
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var wire_type: String = _possible_wire_types[i]
-		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type, "roman" + str(i + 1))
+		var wire_code: String
+		match wire_type:
+			"I": wire_code = "roman1"
+			"II": wire_code = "roman2"
+			"III": wire_code = "roman3"
+		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type, wire_code)
 		_wire_solution.append(new_wire)
 	_wire_solution.shuffle()
 	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
