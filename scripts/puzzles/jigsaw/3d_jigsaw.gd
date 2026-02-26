@@ -37,16 +37,24 @@ func get_hint_colors() -> Dictionary:
 		"triangle_port": wirecolors[2].albedo_color,
 	}
 	return colorDict;
-func set_hint(arr : Array) -> void:
-	hintList.append(arr)
+
+func add_clueset(clueset : Clueset) -> void:
+	for clue in clueset.get_clues():
+		var arr : Array = [];
+		arr.append(clue._item1.codes);
+		arr.append([clue.is_positive()]);
+		arr.append(clue._item2.codes);
+		hintList.append(arr)
 
 func generate_shapes() -> void:
 	hintColors = get_hint_colors()
 	draw_shapes_from_puzzle(0,Vector2(-3,0))
-	draw_shapes_from_puzzle(1,Vector2(-3,0))
+	#draw_shapes_from_puzzle(1,Vector2(-3,0))
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
 
 func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
+	var node : puzzlePieceOrganizer = puzzlePieceOrganizer.new();
+	pieces.add_child(node);
 	for shapeIndex : int in puzzleArr[puzzleIndex].size():
 		var st : SurfaceTool = SurfaceTool.new()
 		var m : JigsawPiece = jigsawPiece.instantiate();
@@ -69,7 +77,7 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 			m.hint = hintList.pop_front();
 		
 		
-		pieces.add_child(m);
+		node.add_child(m);
 		randomize();
 		m.position.x += vec[0] + randf_range(-2,2);
 		m.position.y += vec[1] + randf_range(-1,1);
