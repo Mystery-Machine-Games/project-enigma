@@ -106,14 +106,14 @@ func _ready() -> void:
 		),
 	}
 	
-	$ResetButton.pressed.connect(_generate_puzzle)
+	$UI/ResetButton.pressed.connect(_generate_puzzle)
 	_generate_puzzle()
 
 func _process(_delta: float) -> void:
 	_solved = _is_solved()
 	
-	$SolutionText.visible = _solved
-	$ResetButton.disabled = not _solved
+	$UI/SolutionText.visible = _solved
+	$UI/ResetButton.disabled = not _solved
 
 func _generate_puzzle() -> void:
 	var input_keys: Array = inputs.keys()
