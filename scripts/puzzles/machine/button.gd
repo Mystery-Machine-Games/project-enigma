@@ -1,6 +1,8 @@
 class_name MachineButton
 extends StaticBody3D
 
+@export var code: String
+
 @onready var _anim_player: AnimationPlayer = $AnimationPlayer
 
 var _mouse_over: bool = false

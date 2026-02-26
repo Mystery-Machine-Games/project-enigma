@@ -96,8 +96,11 @@ func _to_string() -> String:
 	var output: String = ""
 	for clue: Clue in _clues:
 		var items: Array[Item] = clue.get_items()
-		if clue.is_positive(): output += items[0].get_text() + " --> " + items[1].get_text() + "\n"
-		else: output += items[0].get_text() + " -/-> " + items[1].get_text() + "\n"
+		if items.size() == 2:
+			if clue.is_positive(): output += items[0].get_text_with_codes() + " --> " + items[1].get_text_with_codes() + "\n"
+			else: output += items[0].get_text_with_codes() + " -/-> " + items[1].get_text_with_codes() + "\n"
+		else:
+			print("[CLUESET][TO_STRING] Error: clue does not have 2 items")
 	return output
 
 

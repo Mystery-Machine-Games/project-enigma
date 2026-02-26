@@ -119,7 +119,9 @@ func _generate_clues() -> void:
 	for i: int in range(_buttons.size()):
 		var button: StaticBody3D = _buttons[i]
 		var interaction_num: int = _interaction_nums[i]
-		clueset.add_item("Button", button, ["code"], button.name, true)
+		var machine_button: MachineButton = button
+		var button_code: String = machine_button.code
+		clueset.add_item("Button", button, [button_code], button.name, true)
 		
 		var order_text: String
 		match i + 1:
@@ -160,10 +162,16 @@ func _generate_clues() -> void:
 			3: order_text = "3rd"
 		var order_item: Item = clueset.find_item(order_text)
 		
-		var clue_text: String
+		var interaction_text: String
+		var unit_text: String
 		match _interaction:
-			Interaction.PRESS: clue_text = "press " + str(interaction_num) + " times"
-			Interaction.HOLD: clue_text = "hold for " + str(interaction_num) + " seconds"
+			Interaction.PRESS: 
+				interaction_text = "press"
+				unit_text = "times"
+			Interaction.HOLD: 
+				interaction_text = "hold"
+				unit_text = "seconds"
+		var clue_text: String = interaction_text + " " + str(interaction_num) + " " + unit_text
 		var interaction_vertex: Item = clueset.find_item(clue_text)
 		
 		clueset.add_clue(button_item, order_item, true)

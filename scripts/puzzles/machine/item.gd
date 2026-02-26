@@ -24,6 +24,14 @@ func get_text() -> String:
 	return _text
 
 
+func get_text_with_codes() -> String:
+	var output: String = _text + "(codes: "
+	for code: String in _codes:
+		output += code
+	output += ")"
+	return output
+
+
 func get_data() -> Variant:
 	return _data
 
