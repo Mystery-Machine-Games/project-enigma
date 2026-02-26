@@ -98,3 +98,6 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 3.00
 code = "triangle_port"
 
 [node name="Wires" type="Node3D" parent="WireModule" unique_id=90808353]
+
+[connection signal="clueset_generated" from="ButtonModule" to="." method="add_clueset"]
+[connection signal="clueset_generated" from="WireModule" to="." method="add_clueset"]

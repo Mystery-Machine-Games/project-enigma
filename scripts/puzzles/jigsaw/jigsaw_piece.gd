@@ -35,6 +35,7 @@ func _ready() -> void:
 	$previewMesh/Sprite3D.position.z = width;
 	#$previewMesh/SubViewport/Polygon2D.polygon = poly;
 	viewport.position.z = width;
+	
 	if hint.size() > 0:
 		polygon.clues = hint;
 	polygon.hintColors = hintColors;
