@@ -12,7 +12,7 @@ enum Axis {X, Y, Z}
 const NUM_WIRES: int = 3
 const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 
-@onready var _difficulty: int = randi_range(1, 3)
+@onready var _difficulty: int
 @onready var _start_ports: Array[Node] = $StartPorts.get_children()
 @onready var _end_ports: Array[Node] = $EndPorts.get_children()
 @onready var _possible_port_colors: Array[Material] = port_colors.duplicate()
@@ -202,16 +202,19 @@ func _generate_clues() -> void:
 		clueset.add_clue(start_port_item, end_port_item, true)
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty > 1:
+	if _difficulty >= 0:
 		clueset.assumption_replacement()
-	if _difficulty > 2:
+	if _difficulty == 1:
 		clueset.assumption_replacement()
 	
-	print("[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
+	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 
 
 func change_wire(new_wire: String) -> void:
 	_current_ports.clear()
 	_current_wire_type = new_wire
 	print("[WIRE_MODULE][CHANGE_WIRE] Changed wire to wire ", new_wire)
-	# +anything else that needs to be done here
+
+
+func set_difficulty(difficulty: int) -> void:
+	_difficulty = difficulty

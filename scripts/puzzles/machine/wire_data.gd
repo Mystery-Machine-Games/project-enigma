@@ -31,5 +31,5 @@ func ports_are_equal(wire: MachineWireData) -> bool:
 
 
 func _to_string() -> String:
-	var output: String = _start_port.name + " -> " + _end_port.name
+	var output: String = _type + ": " + _start_port.name + " -> " + _end_port.name
 	return output

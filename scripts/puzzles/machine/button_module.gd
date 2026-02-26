@@ -10,7 +10,7 @@ const NUM_BUTTONS: int = 3
 # Depending on whether the interaction is PRESS or HOLD, these numbers determine the # of presses or the time to hold, respectively
 const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 
-@onready var _difficulty: int = randi_range(1, 3) # 1 being easiest
+@onready var _difficulty: int
 @onready var _possible_button_colors: Array[Material] = button_colors.duplicate()
 @onready var _interaction: Interaction = Interaction.values().pick_random()
 @onready var _buttons: Array[Node] = get_children()
@@ -164,9 +164,13 @@ func _generate_clues() -> void:
 	#print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty > 1:
+	if _difficulty >= 0:
 		clueset.assumption_replacement()
-	if _difficulty > 2:
+	if _difficulty == 1:
 		clueset.assumption_replacement()
 	
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
+
+
+func set_difficulty(difficulty: int) -> void:
+	_difficulty = difficulty
