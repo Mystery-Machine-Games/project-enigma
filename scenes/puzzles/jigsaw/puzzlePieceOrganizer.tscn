@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cx55wn4ogxdta"]
+
+[ext_resource type="Script" uid="uid://dg0ugwu6rdt0e" path="res://scripts/puzzles/jigsaw/puzzle_piece_organizer.gd" id="1_ud0nr"]
+
+[node name="PuzzlePieceOrganizer" type="Node3D" unique_id=2073689479]
+script = ExtResource("1_ud0nr")

@@ -45,7 +45,6 @@ var typeToSprite : Dictionary = {
 	"roman2":spriteData.new("res://assets/textures/roman2.png",Vector2(0,0)),
 	"roman3":spriteData.new("res://assets/textures/roman3.png",Vector2(0,0)),
 }
-var arrow : Array = ["res://icon.svg","res://icon.svg"];
 # a clue is made up of two items and a bool
 # an item is made up of an array of sprites 
 var clues : Array[Array] = [

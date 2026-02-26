@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://x3allhxl0f2l"]
 
 [ext_resource type="Script" uid="uid://bhlpsxndiei5a" path="res://scripts/puzzles/jigsaw/hint_sprite.gd" id="1_66gjg"]
-[ext_resource type="Texture2D" uid="uid://dsmp2082cks8i" path="res://icon.svg" id="1_htgbl"]
+[ext_resource type="Texture2D" uid="uid://utmnnec6ol7s" path="res://assets/tempframe.png" id="2_u0t71"]
 
 [node name="Polygon2D" type="Polygon2D" unique_id=1096175393]
 clip_children = 1
@@ -11,4 +11,4 @@ script = ExtResource("1_66gjg")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1910912351]
 position = Vector2(64, 64)
-texture = ExtResource("1_htgbl")
+texture = ExtResource("2_u0t71")
