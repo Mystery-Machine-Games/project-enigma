@@ -2,8 +2,17 @@ class_name MachinePort
 extends StaticBody3D
 
 var _mouse_over: bool = false
+var _filled: bool = false
 
 signal port_pressed
+
+
+func set_filled(filled: bool) -> void:
+	_filled = filled
+
+
+func is_filled() -> bool:
+	return _filled
 
 
 func _on_mouse_entered() -> void:

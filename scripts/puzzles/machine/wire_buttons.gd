@@ -14,3 +14,17 @@ func _ready() -> void:
 func connect_signals(function: Callable) -> void:
 	for button: WireButton in _wire_buttons:
 		button.wire_changed.connect(function)
+
+
+func hide_button(type: String) -> void:
+	for button: WireButton in _wire_buttons:
+		if button.wire_type == type:
+			button.hide()
+			break
+
+
+func show_button(type: String) -> void:
+	for button: WireButton in _wire_buttons:
+		if button.wire_type == type:
+			button.show()
+			break

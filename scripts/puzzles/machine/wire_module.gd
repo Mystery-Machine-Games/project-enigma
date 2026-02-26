@@ -3,6 +3,7 @@ extends Node3D
 
 enum Axis {X, Y, Z}
 
+@export var wire_scene: PackedScene
 @export var start_port_positions: Array[Vector3]
 @export var end_port_distance: float
 @export var port_axis: Axis
@@ -17,8 +18,8 @@ const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 @onready var _possible_port_colors: Array[Material] = port_colors.duplicate()
 @onready var _possible_wire_types: Array[String] = POSSIBLE_WIRE_TYPES.duplicate()
 
-var _wire_solution: Array[MachineWire]
-var _current_solution: Array[MachineWire]
+var _wire_solution: Array[MachineWireData]
+var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
 var _current_wire_type: String
 
@@ -63,7 +64,7 @@ func _generate_solution() -> void:
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var wire_type: String = _possible_wire_types[i]
-		var new_wire: MachineWire = MachineWire.new(start_port, end_port, wire_type)
+		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type)
 		_wire_solution.append(new_wire)
 	_wire_solution.shuffle()
 	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
@@ -94,31 +95,45 @@ func _connect_signals() -> void:
 
 
 func _log_interaction(port: MachinePort) -> void:
-	if _current_ports.size() == 0 and _start_ports.find(port) != -1:
-		_current_ports.append(port)
-	elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
-		_current_ports.append(port)
+	if !port.is_filled():
+		if _current_ports.size() == 0 and _start_ports.find(port) != -1:
+			_current_ports.append(port)
+		elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
+			_current_ports.append(port)
+		else:
+			print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
 	else:
-		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
+		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Filled")
 	if _current_ports.size() == 2:
 		_add_wire()
 	if _check_solution(): emit_signal("wires_correct")
 
 
 func _add_wire() -> void:
+	if _current_wire_type == "": # Can only add wire if holding one
+		return
 	var start_port: MachinePort = _current_ports[0]
 	var end_port: MachinePort = _current_ports[1]
-	var wire: MachineWire = MachineWire.new(start_port, end_port, _current_wire_type)
-	_current_solution.append(wire)
+	start_port.set_filled(true)
+	end_port.set_filled(true)
+	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type)
+	var wire_instance: Node3D = wire_scene.instantiate()
+	$Wires.add_child(wire_instance)
+	wire_instance.position = start_port.position
+	var wire: MachineWire = wire_instance
+	wire.set_data(wire_data)
+	wire.wire_clicked.connect(_remove_wire)
+	_current_solution.append(wire.get_data())
 	_current_ports.clear()
-	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire)
-	_create_wire_mesh(wire)
-	emit_signal("wire_added", wire.get_type())
+	_current_wire_type = ""
+	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire.get_data())
+	_position_wire_mesh(wire)
+	emit_signal("wire_added", wire.get_data().get_type())
 
 
-func _create_wire_mesh(_wire: MachineWire) -> void:
+func _position_wire_mesh(_wire: MachineWire) -> void:
 	# TODO
-	# create wire mesh with bone 0 starting at start port
+	# angle bone 0 straight out of start port
 	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
 	# bones 1 to length - 1 are angled along a parabolic curve on the z axis
 	# 	note: we can use three different predefined parabolic curves so that wires don't intersect with each other
@@ -126,13 +141,21 @@ func _create_wire_mesh(_wire: MachineWire) -> void:
 	pass
 
 
-# Note: This is not used anywhere yet
-# TODO: Allow players to remove wires by performing some input with their mouse over them (this will be connected to a signal)
-func _remove_wire(wire: MachineWire) -> void:
-	var wire_index: int = _current_solution.find(wire)
-	var wire_type: String = _current_solution[wire_index].get_type()
-	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", str(wire_index + 1), ": ", _current_solution[wire_index])
-	_current_solution.remove_at(wire_index)
+func _remove_wire(wire_type: String) -> void:
+	for child: Node3D in $Wires.get_children():
+		var wire: MachineWire = child
+		if wire.get_data().get_type() == wire_type:
+			wire.queue_free()
+	for i: int in range(_current_solution.size()):
+		var wire_data: MachineWireData = _current_solution[i]
+		var start_port: MachinePort = wire_data.get_start_port()
+		var end_port: MachinePort = wire_data.get_end_port()
+		start_port.set_filled(false)
+		end_port.set_filled(false)
+		if wire_data.get_type() == wire_type:
+			_current_solution.remove_at(i)
+			break
+	print("[WIRE_MODULE][LOG_INTERACTION] Removed wire ", wire_type)
 	_current_ports.clear()
 	emit_signal("wire_removed", wire_type)
 
@@ -140,8 +163,8 @@ func _remove_wire(wire: MachineWire) -> void:
 func _check_solution() -> bool:
 	if _current_solution.size() == NUM_WIRES:
 		for i: int in range(_wire_solution.size()):
-			var solution_wire: MachineWire = _wire_solution[i]
-			var current_wire: MachineWire = _current_solution[i]
+			var solution_wire: MachineWireData = _wire_solution[i]
+			var current_wire: MachineWireData = _current_solution[i]
 			if !current_wire.ports_are_equal(solution_wire):
 				print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incorrect")
 				return false
@@ -157,7 +180,7 @@ func _generate_clues() -> void:
 	
 	# Add all items
 	for i: int in range(NUM_WIRES):
-		var wire: MachineWire = _wire_solution[i]
+		var wire: MachineWireData = _wire_solution[i]
 		clueset.add_item(wire, "Head", "Wire " + wire.get_type())
 		clueset.add_item(wire.get_start_port(), "Start", "starts at " + wire.get_start_port().name)
 		clueset.add_item(wire.get_end_port(), "End", "ends at " + wire.get_end_port().name)
@@ -169,7 +192,7 @@ func _generate_clues() -> void:
 	for i: int in range(NUM_WIRES):
 		if i == assumption_index: continue
 		
-		var wire: MachineWire = _wire_solution[i]
+		var wire: MachineWireData = _wire_solution[i]
 		
 		var wire_item: Item = clueset.find_item("Wire " + wire.get_type())
 		var start_port_item: Item = clueset.find_item("starts at " + wire.get_start_port().name)
@@ -188,6 +211,7 @@ func _generate_clues() -> void:
 
 
 func change_wire(new_wire: String) -> void:
+	_current_ports.clear()
 	_current_wire_type = new_wire
 	print("[WIRE_MODULE][CHANGE_WIRE] Changed wire to wire ", new_wire)
 	# +anything else that needs to be done here
