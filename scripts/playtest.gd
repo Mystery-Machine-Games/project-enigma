@@ -7,11 +7,18 @@ var _use_test_world: bool = true
 
 func _ready() -> void:
 	_swap_scenes(_use_test_world)
+	%Swap.input_event.connect(_on_swap_input_event)
 
 func _input(event: InputEvent) -> void:
-	if (event.is_action_pressed("swap_playtest_scene")
-		or event.is_action_pressed("unfocus_item") and not _use_test_world):
+	if (event.is_action_pressed("unfocus_item") and not _use_test_world):
 		_use_test_world = not _use_test_world
+		_swap_scenes(_use_test_world)
+
+func _on_swap_input_event(camera: Node, event: InputEvent, event_position: Vector3, normal: Vector3, shape_idx: int) -> void:
+	if (event is InputEventMouseButton
+		and event.button_index == MOUSE_BUTTON_LEFT
+		and event.pressed):
+		_use_test_world = false
 		_swap_scenes(_use_test_world)
 
 func _swap_scenes(use_test_world: bool) -> void:
