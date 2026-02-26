@@ -16,6 +16,7 @@ func _ready() -> void:
 	_wire_module.wires_correct.connect(_set_wires_correct)
 	_button_module.set_difficulty(difficulty)
 	_wire_module.set_difficulty(difficulty)
+	#$"../../../3DJigsaw".generate_shapes();
 
 
 func _set_wires_correct() -> void:

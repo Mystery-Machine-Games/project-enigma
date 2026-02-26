@@ -9,20 +9,124 @@ var debug : bool = false;
 var width : int = 5;
 var mult : float = 100;
 var seed : int = randi();
-
+var hintColors : Dictionary = {};
 var offset : Vector3 = Vector3(0,0,0);
 var currentSelected : Node3D =  null;
+var hintList : Array = [];
 
 @export var areaLayer : int;
 @export var bodyLayer: int;
 @export var pieces : Node3D;
 @export var camera : Camera3D;
+
 func _ready() -> void:
 	camera = $"../Path3D/PlayerCharacter".get_camera();
 	$plane.collision_layer = bodyLayer
-	initialize_shape_arr();
-	draw_shapes_from_puzzle(0)
+	await initialize_shape_arr();
+	generate_shapes()
+
+func get_hint_colors() -> Dictionary:
+	var buttoncolors : Array = $"../LyleFocusBox/FocusHandle/Machine".get_button_module()._possible_button_colors
+	var wirecolors : Array = $"../LyleFocusBox/FocusHandle/Machine".get_wire_module()._possible_port_colors
+	var colorDict : Dictionary = {
+		"circle_button": buttoncolors[0].albedo_color,
+		"square_button": buttoncolors[1].albedo_color,
+		"triangle_button": buttoncolors[2].albedo_color,
+		"circle_port": wirecolors[0].albedo_color,
+		"square_port": wirecolors[1].albedo_color,
+		"triangle_port": wirecolors[2].albedo_color,
+	}
+	return colorDict;
+func set_hint(arr : Array) -> void:
+	hintList.append(arr)
+
+func generate_shapes() -> void:
+	hintColors = get_hint_colors()
+	draw_shapes_from_puzzle(0,Vector2(-3,0))
+	draw_shapes_from_puzzle(1,Vector2(-3,0))
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
+
+func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
+	for shapeIndex : int in puzzleArr[puzzleIndex].size():
+		var st : SurfaceTool = SurfaceTool.new()
+		var m : JigsawPiece = jigsawPiece.instantiate();
+		st.begin(Mesh.PRIMITIVE_TRIANGLES)
+		#st.set_color(Color(randf(), randf(), randf()))
+		#st.set_uv(Vector2(0, 0))
+		
+		for index : int in puzzleTriangleArr[puzzleIndex][shapeIndex]:
+			var vec3 : Vector3 = puzzleArr[puzzleIndex][shapeIndex][index];
+			st.add_vertex(vec3/mult);
+		
+		m.poly = flatShapeArr[puzzleIndex][shapeIndex];
+		m.m = st.commit();
+		m.width = width/(mult - 25)
+		m.spriteScale = 300.0/mult
+		m.seed = seed;
+		m.layer = areaLayer;
+		m.hintColors = hintColors;
+		if hintList.size() > 0:
+			m.hint = hintList.pop_front();
+		
+		
+		pieces.add_child(m);
+		randomize();
+		m.position.x += vec[0] + randf_range(-2,2);
+		m.position.y += vec[1] + randf_range(-1,1);
+
+func _physics_process(_delta : float) -> void:
+	if currentSelected:
+		currentSelected.get_parent().global_position.x = (shoot_ray() + offset).x;
+		currentSelected.get_parent().global_position.z = (shoot_ray() + offset).z;
+	if Input.is_action_just_pressed("leftclick"):
+		#print("pressed")
+		var temp : Dictionary = detect_piece();
+		if temp:
+			print(temp.collider.is_in_group("puzzlepieces"))
+		if temp && temp.collider.is_in_group("puzzlepieces"):
+			currentSelected = temp.collider;
+			currentSelected.get_parent().float_up(true);
+			offset = currentSelected.global_position - temp.position;
+			#currentSelected.global_position.y = 0.1
+	if Input.is_action_just_released("leftclick"):
+		
+		if currentSelected:
+			currentSelected.get_parent().float_up(false);
+		currentSelected = null;
+
+func shoot_ray() -> Vector3: #used for mouse tracking
+	#var camera : Camera3D = $pivot/Camera3D
+	var raylength : int = 1000;
+	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
+	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
+	var space : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
+	var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.new();
+	ray.collide_with_areas = false;
+	ray.from = from;
+	ray.to = to;
+	ray.collision_mask = bodyLayer;
+	var result : Dictionary = space.intersect_ray(ray);
+	if !result.is_empty():
+		#print(result)
+		return result.position;
+	return Vector3(0,0,0);
+	
+func detect_piece() -> Dictionary: #used for jigsaw piece
+	var raylength : int = 1000;
+	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
+	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
+	var space : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
+	var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.new();
+	ray.collide_with_bodies = false;
+	ray.collide_with_areas = true;
+	ray.from = from;
+	ray.to = to;
+	ray.collision_mask = areaLayer;
+	var result : Dictionary = space.intersect_ray(ray);
+	if !result.is_empty():
+		#print(result)
+		return result;
+	return {};
 
 func initialize_shape_arr() -> void:
 	var file : FileAccess = FileAccess.open(jigsawDataPath, FileAccess.READ)		#print(JSON.parse_string(file.get_as_text()))
@@ -97,98 +201,3 @@ func initialize_shape_arr() -> void:
 		num += 1;
 		puzzleTriangleArr.append(shapeTriangleArr)
 		puzzleArr.append(shapeArr)
-
-func draw_shapes_from_puzzle(puzzleIndex : int) -> void:
-	var initialsize : int = pieces.get_children().size()
-	for shapeIndex : int in puzzleArr[puzzleIndex].size():
-		#if shapeIndex != 1:
-			#continue;
-		var st : SurfaceTool = SurfaceTool.new()
-		var m : JigsawPiece = jigsawPiece.instantiate();
-		st.begin(Mesh.PRIMITIVE_TRIANGLES)
-		st.set_color(Color(randf(), randf(), randf()))
-		st.set_uv(Vector2(0, 0))
-		
-		for index : int in puzzleTriangleArr[puzzleIndex][shapeIndex]:
-			var vec3 : Vector3 = puzzleArr[puzzleIndex][shapeIndex][index];
-			#print(vec3/300)
-			st.add_vertex(vec3/mult);
-		
-		#print(flatShapeArr[puzzleIndex][shapeIndex])
-		m.poly = flatShapeArr[puzzleIndex][shapeIndex];
-		m.m = st.commit();
-		m.width = width/(mult - 25)
-		m.spriteScale = 300.0/mult
-		m.seed = seed;
-		m.layer = areaLayer;
-		initialsize += 1;
-		
-		pieces.add_child(m);
-		randomize();
-		#m.position.x += randf_range(-3,3);
-		#return;
-
-func shoot_ray() -> Vector3:
-	#var camera : Camera3D = $pivot/Camera3D
-	var raylength : int = 1000;
-	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
-	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
-	var space : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
-	var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.new();
-	ray.collide_with_areas = false;
-	ray.from = from;
-	ray.to = to;
-	ray.collision_mask = bodyLayer;
-	var result : Dictionary = space.intersect_ray(ray);
-	if !result.is_empty():
-		#print(result)
-		return result.position;
-	return Vector3(0,0,0);
-	
-func detect_piece() -> Dictionary:
-	var raylength : int = 1000;
-	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
-	var to : Vector3 = from + camera.project_ray_normal(camera.get_viewport().get_mouse_position()) * raylength;
-	var space : PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
-	var ray : PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.new();
-	ray.collide_with_bodies = false;
-	ray.collide_with_areas = true;
-	ray.from = from;
-	ray.to = to;
-	ray.collision_mask = areaLayer;
-	var result : Dictionary = space.intersect_ray(ray);
-	if !result.is_empty():
-		#print(result)
-		return result;
-	return {};
-
-func _physics_process(_delta : float) -> void:
-	#print($pivot/Camera3D.project_ray_normal($pivot/Camera3D.get_viewport().get_mouse_position()).slide(Vector3(0.5,0.5,0).normalized()))
-	if currentSelected:
-		#currentSelected.global_position.y = 0.1
-		currentSelected.get_parent().global_position.x = (shoot_ray() + offset).x;
-		currentSelected.get_parent().global_position.z = (shoot_ray() + offset).z;
-	if Input.is_action_just_pressed("leftclick"):
-		#print("pressed")
-		var temp : Dictionary = detect_piece();
-		if temp:
-			print(temp.collider.is_in_group("puzzlepieces"))
-		if temp && temp.collider.is_in_group("puzzlepieces"):
-			currentSelected = temp.collider;
-			currentSelected.get_parent().float_up(true);
-			offset = currentSelected.global_position - temp.position;
-			#currentSelected.global_position.y = 0.1
-	if Input.is_action_just_released("leftclick"):
-		#currentSelected.global_position.y = 0
-		if currentSelected:
-			currentSelected.get_parent().float_up(false);
-		currentSelected = null;
-		
-	#if Input.is_action_pressed("ui_accept"):
-		#$pivot.rotation_degrees += Vector3(0,speed,0);
-	#if Input.is_action_pressed("q"):
-		#if currentSelected:
-			#currentSelected.rotation_degrees += Vector3(0,0,3);
-	#if Input.is_action_pressed("e"):
-		#if currentSelected:
-			#currentSelected.rotation_degrees += Vector3(0,0,3);

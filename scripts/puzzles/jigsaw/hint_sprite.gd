@@ -1,9 +1,11 @@
+class_name PuzzleHint
 extends Polygon2D
 
 var spriteDict : Dictionary = {
 	0:
 		{"type1":"res://icon.svg","type2": "res://icon.svg"}
 }
+var hintColors : Dictionary = {};
 class spriteData:
 	var pos: Vector2;
 	var path: String;
@@ -48,10 +50,10 @@ var arrow : Array = ["res://icon.svg","res://icon.svg"];
 # an item is made up of an array of sprites 
 var clues : Array[Array] = [
 	[["hashtag","1centered"],["positive"],["circle_button"]],
-	[["roman1"],["negative"],["circle_button"]],
-	[["triangle_port"],["positive"],["circle_button"]],
-	[["hold"],["positive"],["circle_button"]],
-	[["hold","1","times"],["positive"],["circle_button"]],
+	[["roman1"],["negative"],["square_button"]],
+	[["triangle_port"],["positive"],["triangle_button"]],
+	[["hold"],["positive"],["circle_port"]],
+	[["hold","1","times"],["positive"],["square_port"]],
 ];
 
 #array of clues
@@ -92,6 +94,8 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 				tempsprite.scale = typeToSprite[clues[n][x][y]].size * itemSize / tempsprite.get_rect().size[1]
 				tempsprite.flip_h = true;
 				add_child(tempsprite);
+				if hintColors.has(clues[n][x][y]):
+					tempsprite.modulate = hintColors[clues[n][x][y]];
 				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - typeToSprite[clues[n][x][y]].pos;
 				#print(currentY)
 			

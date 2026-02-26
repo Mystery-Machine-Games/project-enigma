@@ -6,10 +6,12 @@ var layer : int = 0;
 var poly : PackedVector2Array = [];
 var spriteScale : float = 1;
 var seed : int = 0;
+var hint : Array = [];
+var hintColors : Dictionary = {};
 @export var mesh : MeshInstance3D;
 @export var previewMesh : MeshInstance3D;
 @export var collider : CollisionShape3D;
-@export var polygon : Polygon2D;
+@export var polygon : PuzzleHint;
 @export var viewport : Sprite3D;
 @export var area : Area3D;
 
@@ -33,6 +35,9 @@ func _ready() -> void:
 	$previewMesh/Sprite3D.position.z = width;
 	#$previewMesh/SubViewport/Polygon2D.polygon = poly;
 	viewport.position.z = width;
+	if hint.size() > 0:
+		polygon.clues = hint;
+	polygon.hintColors = hintColors;
 	polygon.construct(poly,seed);
 
 func float_up(boolean : bool) -> void:
