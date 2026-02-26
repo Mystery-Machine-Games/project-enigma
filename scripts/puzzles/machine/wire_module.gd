@@ -137,11 +137,18 @@ func _add_wire() -> void:
 	_current_ports.clear()
 	_current_wire_type = ""
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire.get_data())
-	_position_wire_mesh(wire)
+	_angle_wire_mesh(wire)
 	emit_signal("wire_added", wire.get_data().get_type())
 
 
-func _position_wire_mesh(_wire: MachineWire) -> void:
+func _angle_wire_mesh(wire: MachineWire) -> void:
+	var wire_data: MachineWireData = wire.get_data()
+	var start_port: MachinePort = wire_data.get_start_port()
+	var end_port: MachinePort = wire_data.get_end_port()
+	wire.global_rotation_degrees = Vector3(0, -180, 90)
+	#wire.global_rotate(Vector3(0, 0, 1), rad_to_deg(90))s
+	#wire.global_rotate(Vector3(1, 0, 0), rad_to_deg(180))
+	
 	# TODO
 	# angle bone 0 straight out of start port
 	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
