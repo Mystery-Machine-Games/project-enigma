@@ -88,6 +88,10 @@ func get_assumption_items() -> Array[Item]:
 	return _assumption_items
 
 
+func get_clues() -> Array[Clue]:
+	return _clues
+
+
 func _to_string() -> String:
 	var output: String = ""
 	for clue: Clue in _clues:
