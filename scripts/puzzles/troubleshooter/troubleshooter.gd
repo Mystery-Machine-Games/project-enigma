@@ -26,7 +26,8 @@ var solutions: Dictionary[String, Variant]
 @onready var _gauge_solution: Node3D = %Solutions/Gauge
 @onready var _color_solution: MeshInstance3D = %Solutions/Color
 
-var button_state: int = 0
+var _solved: bool = false
+var _button_state: int = 0
 
 func _ready() -> void:
 	inputs = {
@@ -34,8 +35,8 @@ func _ready() -> void:
 			_button,
 			_button.pressed,
 			func (_b: Button) -> float:
-				button_state = wrapi(button_state + 1, 0, BUTTON_STATES)
-				return button_state,
+				_button_state = wrapi(_button_state + 1, 0, BUTTON_STATES)
+				return _button_state,
 			func (v: int) -> float: return vc.convert_discrete_to_intermediate(
 				v,
 				range(BUTTON_STATES)
@@ -105,6 +106,16 @@ func _ready() -> void:
 		),
 	}
 	
+	$ResetButton.pressed.connect(_generate_puzzle)
+	_generate_puzzle()
+
+func _process(_delta: float) -> void:
+	_solved = _is_solved()
+	
+	$SolutionText.visible = _solved
+	$ResetButton.disabled = not _solved
+
+func _generate_puzzle() -> void:
 	var input_keys: Array = inputs.keys()
 	var output_keys: Array = outputs.keys()
 	output_keys.shuffle()
@@ -116,15 +127,23 @@ func _ready() -> void:
 
 	for i: String in input_to_output:
 		var o: String = input_to_output[i]
+		
+		# Connect inputs and outputs
 		inputs[i].signal_triggered.connect(func (..._args: Array) -> void:
 			outputs[o].set_from_intermediate(inputs[i].get_as_intermediate())
 			print(outputs[o].check_is_solved())
 		)
+		
+		# Initialize output state
+		outputs[o].set_from_intermediate(inputs[i].get_as_intermediate())
 		outputs[o].set_solution_from_intermediate(inputs[i].get_random_as_intermediate())
+		# Ensure outputs don't start solved
+		while outputs[o].check_is_solved():
+			outputs[o].set_solution_from_intermediate(inputs[i].get_random_as_intermediate())
 
-func is_solved() -> bool:
-	for i_name: String in inputs:
-		if solutions.get(i_name) != inputs[i_name].get_raw():
+func _is_solved() -> bool:
+	for o: String in outputs:
+		if not outputs[o].check_is_solved():
 			return false
 		
 	return true
