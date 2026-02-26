@@ -38,7 +38,7 @@ func _ready() -> void:
 				return button_state,
 			func (v: int) -> float: return vc.convert_discrete_to_intermediate(
 				v,
-				range(BUTTON_STATES + 1)
+				range(BUTTON_STATES)
 			),
 			func () -> int: return randi() % BUTTON_STATES
 		),
