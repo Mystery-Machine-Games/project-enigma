@@ -6,8 +6,8 @@ var _assumption_items: Array[Item] # Vertices unconnected to any other vertices
 var _clues: Array[Clue]
 
 
-func add_item(data: Variant, type: String, text: String = "") -> Item:
-	var new_item: Item = Item.new(type, text, data)
+func add_item(category: String, data: Variant, codes: Array[String], text: String = "", head: bool = false) -> Item:
+	var new_item: Item = Item.new(category, data, codes, text, head)
 	_items.append(new_item)
 	_assumption_items.append(new_item)
 	return new_item
@@ -41,16 +41,16 @@ func find_item(text: String) -> Item:
 func pick_random_assumption_item() -> Item:
 	_assumption_items.shuffle()
 	for item: Item in _assumption_items:
-		if item.get_type() != "Head":
+		if !item.is_head():
 			return item
 	push_error("[CLUESET][ERROR] Couldn't find random assumption item")
 	return null
 
 
-func pick_random_positive_clue(type: String) -> Clue:
+func pick_random_positive_clue(category: String) -> Clue:
 	_clues.shuffle()
 	for clue: Clue in _clues:
-		if clue.get_items()[1].get_type() == type:
+		if clue.get_items()[1].get_category() == category:
 			return clue
 	push_error("[CLUESET][ERROR] Couldn't find random positive clue")
 	return null
@@ -60,9 +60,9 @@ func pick_random_positive_clue(type: String) -> Clue:
 func assumption_replacement() -> Clue:
 	# Pick random assumption item
 	var assumption_item: Item = pick_random_assumption_item()
-	# Pick random positive clue ending in the same type as the assumption item
-	var assumption_item_type: String = assumption_item.get_type()
-	var clue: Clue = pick_random_positive_clue(assumption_item_type)
+	# Pick random positive clue ending in the same category as the assumption item
+	var assumption_item_category: String = assumption_item.get_category()
+	var clue: Clue = pick_random_positive_clue(assumption_item_category)
 	
 	clue.set_items(clue.get_items()[0], assumption_item)
 	clue.set_positive(false)
@@ -96,8 +96,11 @@ func _to_string() -> String:
 	var output: String = ""
 	for clue: Clue in _clues:
 		var items: Array[Item] = clue.get_items()
-		if clue.is_positive(): output += items[0].get_text() + " --> " + items[1].get_text() + "\n"
-		else: output += items[0].get_text() + " -/-> " + items[1].get_text() + "\n"
+		if items.size() == 2:
+			if clue.is_positive(): output += items[0].get_text_with_codes() + " --> " + items[1].get_text_with_codes() + "\n"
+			else: output += items[0].get_text_with_codes() + " -/-> " + items[1].get_text_with_codes() + "\n"
+		else:
+			print("[CLUESET][TO_STRING] Error: clue does not have 2 items")
 	return output
 
 
