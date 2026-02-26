@@ -1,6 +1,8 @@
 class_name MachinePort
 extends StaticBody3D
 
+@export var code: String
+
 var _mouse_over: bool = false
 var _filled: bool = false
 

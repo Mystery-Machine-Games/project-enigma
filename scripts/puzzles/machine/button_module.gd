@@ -119,20 +119,27 @@ func _generate_clues() -> void:
 	for i: int in range(_buttons.size()):
 		var button: StaticBody3D = _buttons[i]
 		var interaction_num: int = _interaction_nums[i]
-		clueset.add_item(button, "Head", button.name)
+		clueset.add_item("Button", button, ["code"], button.name, true)
 		
 		var order_text: String
 		match i + 1:
 			1: order_text = "1st"
 			2: order_text = "2nd"
 			3: order_text = "3rd"
-		clueset.add_item(i + 1, "Order", order_text)
+		clueset.add_item("Order", i + 1, [str(i+1)], order_text)
 		
 		var interaction_text: String
+		var unit_text: String
 		match _interaction:
-			Interaction.PRESS: interaction_text = "press " + str(interaction_num) + " times"
-			Interaction.HOLD: interaction_text = "hold for " + str(interaction_num) + " seconds"
-		clueset.add_item(interaction_num, "Interaction", interaction_text)
+			Interaction.PRESS: 
+				interaction_text = "press"
+				unit_text = "times"
+			Interaction.HOLD: 
+				interaction_text = "hold"
+				unit_text = "seconds"
+		var clue_text: String = interaction_text + " " + str(interaction_num) + " " + unit_text
+		
+		clueset.add_item("Interaction", interaction_num, [interaction_text, str(interaction_num), unit_text], clue_text)
 		
 	# Choose random assumption (no clues associated with it)
 	var assumption_index: int = randi_range(0, _buttons.size() - 1)
@@ -153,11 +160,11 @@ func _generate_clues() -> void:
 			3: order_text = "3rd"
 		var order_item: Item = clueset.find_item(order_text)
 		
-		var interaction_text: String
+		var clue_text: String
 		match _interaction:
-			Interaction.PRESS: interaction_text = "press " + str(interaction_num) + " times"
-			Interaction.HOLD: interaction_text = "hold for " + str(interaction_num) + " seconds"
-		var interaction_vertex: Item = clueset.find_item(interaction_text)
+			Interaction.PRESS: clue_text = "press " + str(interaction_num) + " times"
+			Interaction.HOLD: clue_text = "hold for " + str(interaction_num) + " seconds"
+		var interaction_vertex: Item = clueset.find_item(clue_text)
 		
 		clueset.add_clue(button_item, order_item, true)
 		clueset.add_clue(order_item, interaction_vertex, true)
