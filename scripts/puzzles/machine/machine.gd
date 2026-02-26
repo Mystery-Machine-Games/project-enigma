@@ -1,4 +1,9 @@
+class_name Machine
 extends Node3D
+
+enum Difficulty {ONE, TWO}
+
+@export var difficulty: Difficulty
 
 @onready var _button_module: ButtonModule = $ButtonModule
 @onready var _wire_module: WireModule = $WireModule
@@ -9,6 +14,8 @@ signal machineFixed;
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
 	_wire_module.wires_correct.connect(_set_wires_correct)
+	_button_module.set_difficulty(difficulty)
+	_wire_module.set_difficulty(difficulty)
 
 
 func _set_wires_correct() -> void:

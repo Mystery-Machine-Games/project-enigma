@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cggt2qur8f54a"]
+
+[ext_resource type="PackedScene" uid="uid://d0vfthncymtcp" path="res://assets/meshes/wire.glb" id="1_qd4d0"]
+[ext_resource type="Script" uid="uid://b4rll5fu83yj0" path="res://scripts/puzzles/machine/wire.gd" id="2_veigl"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_veigl"]
+radius = 1.0
+height = 8.53418
+
+[node name="Wire" unique_id=1056601399 instance=ExtResource("1_qd4d0")]
+script = ExtResource("2_veigl")
+
+[node name="InteractionArea" type="Area3D" parent="." index="1" unique_id=1419073794]
+
+[node name="InteractionCollider" type="CollisionShape3D" parent="InteractionArea" index="0" unique_id=459780933]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.032715, 0)
+shape = SubResource("CapsuleShape3D_veigl")
+
+[connection signal="mouse_entered" from="InteractionArea" to="." method="_on_interaction_area_mouse_entered"]
+[connection signal="mouse_exited" from="InteractionArea" to="." method="_on_interaction_area_mouse_exited"]

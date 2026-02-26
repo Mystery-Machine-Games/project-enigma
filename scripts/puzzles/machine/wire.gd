@@ -1,35 +1,29 @@
 class_name MachineWire
 extends Node3D
 
-var _start_port: StaticBody3D
-var _end_port: StaticBody3D
-var _type: String
+var _data: MachineWireData
+var _interaction_area: Area3D
+var _mouse_over: bool
+
+signal wire_clicked
 
 
-func _init(start_port: StaticBody3D, end_port: StaticBody3D, type: String) -> void:
-	_start_port = start_port
-	_end_port = end_port
-	_type = type
+func get_data() -> MachineWireData:
+	return _data
 
 
-func get_start_port() -> StaticBody3D:
-	return _start_port
+func set_data(data: MachineWireData) -> void:
+	_data = data
 
 
-func get_end_port() -> StaticBody3D:
-	return _end_port
+func _on_interaction_area_mouse_entered() -> void:
+	_mouse_over = true
 
 
-func get_type() -> String:
-	return _type
+func _on_interaction_area_mouse_exited() -> void:
+	_mouse_over = false
 
 
-func ports_are_equal(wire: MachineWire) -> bool:
-	if _start_port == wire.get_start_port() and _end_port == wire.get_end_port():
-		return true
-	return false
-
-
-func _to_string() -> String:
-	var output: String = _start_port.name + " -> " + _end_port.name
-	return output
+func _input(event: InputEvent) -> void:
+	if _mouse_over and event.is_action_pressed("interact"):
+		emit_signal("wire_clicked", _data.get_type())

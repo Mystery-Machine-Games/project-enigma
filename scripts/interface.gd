@@ -1,3 +1,4 @@
+class_name Interface
 extends Control
 
 @onready var _wire_buttons: WireButtons = $WireButtonsContainer

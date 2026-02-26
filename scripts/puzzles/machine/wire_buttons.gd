@@ -1,16 +1,30 @@
 class_name WireButtons
-extends Node
+extends VBoxContainer
 
-signal wire_changed
-
-
-func _on_wire_a_button_pressed() -> void:
-	emit_signal("wire_changed", "A")
+var _wire_buttons: Array[WireButton]
 
 
-func _on_wire_b_button_pressed() -> void:
-	emit_signal("wire_changed", "B")
+func _ready() -> void:
+	var children: Array[Node] = get_children()
+	for child: Node in children:
+		if child is WireButton:
+			_wire_buttons.append(child)
 
 
-func _on_wire_c_button_pressed() -> void:
-	emit_signal("wire_changed", "C")
+func connect_signals(function: Callable) -> void:
+	for button: WireButton in _wire_buttons:
+		button.wire_changed.connect(function)
+
+
+func hide_button(type: String) -> void:
+	for button: WireButton in _wire_buttons:
+		if button.wire_type == type:
+			button.hide()
+			break
+
+
+func show_button(type: String) -> void:
+	for button: WireButton in _wire_buttons:
+		if button.wire_type == type:
+			button.show()
+			break
