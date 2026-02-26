@@ -55,7 +55,7 @@ func generate_shapes() -> void:
 		print(n)
 	hintColors = get_hint_colors()
 	draw_shapes_from_puzzle(0,Vector2(-3,0))
-	draw_shapes_from_puzzle(1,Vector2(0,0))
+	draw_shapes_from_puzzle(1,Vector2(-3,0))
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
 
 func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
@@ -87,8 +87,8 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 		
 		node.add_child(m);
 		randomize();
-		m.position.x += vec[0] #+ randf_range(-2,2);
-		m.position.y += vec[1] #+ randf_range(-1,1);
+		m.position.x += vec[0] + randf_range(-2,2);
+		m.position.y += vec[1] + randf_range(-1,1);
 
 func _physics_process(_delta : float) -> void:
 	if currentSelected:

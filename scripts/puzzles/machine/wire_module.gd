@@ -128,6 +128,7 @@ func _add_wire() -> void:
 		"III": wire_code += "3"
 	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type, wire_code)
 	var wire_instance: Node3D = wire_scene.instantiate()
+
 	$Wires.add_child(wire_instance)
 	wire_instance.position = start_port.position
 	var wire: MachineWire = wire_instance
@@ -146,6 +147,15 @@ func _angle_wire_mesh(wire: MachineWire) -> void:
 	var start_port: MachinePort = wire_data.get_start_port()
 	var end_port: MachinePort = wire_data.get_end_port()
 	wire.global_rotation_degrees = Vector3(0, -180, 90)
+	print(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
+	var tempvec : Vector2 = Vector2(wire.global_rotation_degrees[0],wire.global_rotation_degrees[1]);
+	tempvec = tempvec.rotated(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
+	
+	if start_port.global_position.z > end_port.global_position.z:
+		tempvec[1] *= -1;
+	wire.global_rotation_degrees = Vector3(tempvec[0],tempvec[1],wire.global_rotation_degrees[2])
+	
+	#wire.global_rotation_degrees 
 	#wire.global_rotate(Vector3(0, 0, 1), rad_to_deg(90))s
 	#wire.global_rotate(Vector3(1, 0, 0), rad_to_deg(180))
 	
