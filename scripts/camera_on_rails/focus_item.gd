@@ -32,6 +32,8 @@ func set_pos_and_rot() -> void:
 	focus_rotation = focusPointArr[focusIndex].global_rotation
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_focused:
+		if $"../Interface".visible == true:
+			$"../Interface".visible = false;
 		return
 	if is_focused && $"../Interface".visible == false:
 		$"../Interface".visible = true;

@@ -4,13 +4,56 @@ var spriteDict : Dictionary = {
 	0:
 		{"type1":"res://icon.svg","type2": "res://icon.svg"}
 }
+class spriteData:
+	var pos: Vector2;
+	var path: String;
+	var size: Vector2;
+	func _init(path : String, pos : Vector2 = Vector2(0,0), size : Vector2 = Vector2(1,1)) -> void:
+		self.path = path;
+		self.pos = pos;
+		self.size = size;
+var typeToSprite : Dictionary = {
+	"positive":spriteData.new("res://assets/textures/positive.png"),
+	"negative":spriteData.new("res://assets/textures/negative.png"),
+	"triangle_button":spriteData.new("res://assets/textures/triangle_button.png"),
+	"circle_button":spriteData.new("res://assets/textures/circle_button.png"),
+	"square_button":spriteData.new("res://assets/textures/square_button.png"),
+	"pressed":spriteData.new("res://assets/textures/press.png",Vector2(-5,-5)),
+	"hold":spriteData.new("res://assets/textures/hold.png",Vector2(-5,-5)),
+	"times":spriteData.new("res://assets/textures/times.png",Vector2(7,3),Vector2(0.5,0.5)),
+	"clock":spriteData.new("res://assets/textures/seconds.png",Vector2(7,3),Vector2(0.5,0.5)),
+	"hashtag":spriteData.new("res://assets/textures/hashtag.png",Vector2(-7,0)),
+	"1":spriteData.new("res://assets/textures/1.png",Vector2(2,5),Vector2(0.6,0.6)),
+	"2":spriteData.new("res://assets/textures/2.png",Vector2(2,5),Vector2(0.6,0.6)),
+	"3":spriteData.new("res://assets/textures/3.png",Vector2(2,5),Vector2(0.6,0.6)),
+	"4":spriteData.new("res://assets/textures/4.png",Vector2(2,5),Vector2(0.6,0.6)),
+	"5":spriteData.new("res://assets/textures/5.png",Vector2(2,5),Vector2(0.6,0.6)),
+	
+	"1centered":spriteData.new("res://assets/textures/1.png"),
+	"2centered":spriteData.new("res://assets/textures/2.png"),
+	"3centered":spriteData.new("res://assets/textures/3.png"),
+	"4centered":spriteData.new("res://assets/textures/4.png"),
+	"5centered":spriteData.new("res://assets/textures/5.png"),
+	"triangle_port":spriteData.new("res://assets/textures/triangle_port.png",Vector2(0,0)),
+	"circle_port":spriteData.new("res://assets/textures/circle_port.png",Vector2(0,0)),
+	"square_port":spriteData.new("res://assets/textures/square_port.png",Vector2(0,0)),
+	"button":spriteData.new("res://assets/textures/button.png",Vector2(0,0)),
+	"wire":spriteData.new("res://assets/textures/wire.png",Vector2(0,0)),
+	"roman1":spriteData.new("res://assets/textures/roman1.png",Vector2(0,0)),
+	"roman2":spriteData.new("res://assets/textures/roman2.png",Vector2(0,0)),
+	"roman3":spriteData.new("res://assets/textures/roman3.png",Vector2(0,0)),
+}
 var arrow : Array = ["res://icon.svg","res://icon.svg"];
-var clues : Array[Clue] = [
-	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
-	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
-	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1),
-	Clue.new(Item.new("type1","text",0),Item.new("type1","text",0),1)
+# a clue is made up of two items and a bool
+# an item is made up of an array of sprites 
+var clues : Array[Array] = [
+	[["hashtag","1centered"],["positive"],["circle_button"]],
+	[["roman1"],["negative"],["circle_button"]],
+	[["triangle_port"],["positive"],["circle_button"]],
+	[["hold"],["positive"],["circle_button"]],
+	[["hold","1","times"],["positive"],["circle_button"]],
 ];
+
 #array of clues
 #clues are comprised of 2 items and a positive
 func construct(poly : PackedVector2Array, seed : int) -> void:
@@ -35,30 +78,25 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 	
 	currentY = 0.5 * itemSize;
 	
-	for n : int in numClues:
+	for n : int in clues.size(): # clues[n] is an array
 		
-		var spriteArr : Array = []
 		
-		var items : Array[Item] = clues[n].get_items();
-		spriteArr.append(spriteDict[items[0].get_data()][items[0].get_type()]);
-		spriteArr.append(arrow[int(clues[n].is_positive())])
-		spriteArr.append(spriteDict[items[1].get_data()][items[1].get_type()]);
-
-		spriteArr.reverse();
-		#gapspace = (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
-		currentX = (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
+		var gapspace : float = (canvasSize[0] - clues[n].size() * itemSize)/(clues[n].size() + 1);
+		currentX = gapspace;
 		linePoints.append(currentY)
-		
-		for x in spriteArr.size():
-			var tempsprite : Sprite2D = Sprite2D.new();
-			tempsprite.texture = load(spriteArr[x]);
-			tempsprite.scale = Vector2(1,1) * itemSize / tempsprite.get_rect().size[1]
-			tempsprite.flip_h = true;
-			add_child(tempsprite);
-			tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0);
-			#print(currentY)
+		clues[n].reverse();
+		for x : int in clues[n].size(): #clues[n][x] is an array
+			for y: int in clues[n][x].size():
+				var tempsprite : Sprite2D = Sprite2D.new();
+				tempsprite.texture = load(typeToSprite[clues[n][x][y]].path);
+				tempsprite.scale = typeToSprite[clues[n][x][y]].size * itemSize / tempsprite.get_rect().size[1]
+				tempsprite.flip_h = true;
+				add_child(tempsprite);
+				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - typeToSprite[clues[n][x][y]].pos;
+				#print(currentY)
+			
 			currentX += 1 * itemSize;
-			currentX += (canvasSize[0] - spriteArr.size() * itemSize)/(spriteArr.size() + 1);
+			currentX += gapspace;
 		currentY += 1.5 * itemSize;
 		
 	#print(linePoints)

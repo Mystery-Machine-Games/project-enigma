@@ -125,7 +125,7 @@ func draw_shapes_from_puzzle(puzzleIndex : int) -> void:
 		
 		pieces.add_child(m);
 		randomize();
-		m.position.x += randf_range(-3,3);
+		#m.position.x += randf_range(-3,3);
 		#return;
 
 func shoot_ray() -> Vector3:

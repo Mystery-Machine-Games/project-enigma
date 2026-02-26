@@ -9,7 +9,7 @@ enum Difficulty {ONE, TWO}
 @onready var _wire_module: WireModule = $WireModule
 
 var _wires_correct: bool = false
-
+signal machineFixed;
 
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
@@ -25,6 +25,7 @@ func _set_wires_correct() -> void:
 func _check_solution() -> void:
 	if _wires_correct:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
+		machineFixed.emit();
 
 
 func get_wire_module() -> WireModule:
