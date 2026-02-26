@@ -11,6 +11,8 @@ enum Difficulty {ONE, TWO}
 var _wires_correct: bool = false
 signal machineFixed;
 
+var cluesetArr : Array[Clueset] = [];
+
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
 	_wire_module.wires_correct.connect(_set_wires_correct)
@@ -35,3 +37,6 @@ func get_wire_module() -> WireModule:
 
 func get_button_module() -> ButtonModule:
 	return _button_module
+
+func add_clueset(clueset : Clueset) -> void:
+	cluesetArr.append(clueset);

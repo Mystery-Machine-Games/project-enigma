@@ -26,7 +26,7 @@ var _current_wire_type: String
 signal wire_added
 signal wire_removed
 signal wires_correct
-
+signal clueset_generated;
 
 func _ready() -> void:
 	_pick_random_colors()
@@ -223,7 +223,7 @@ func _generate_clues() -> void:
 		clueset.assumption_replacement()
 	
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
-
+	clueset_generated.emit(clueset)
 
 func change_wire(new_wire: String) -> void:
 	_current_ports.clear()

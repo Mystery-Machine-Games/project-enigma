@@ -15,15 +15,15 @@ class spriteData:
 		self.pos = pos;
 		self.size = size;
 var typeToSprite : Dictionary = {
-	"positive":spriteData.new("res://assets/textures/positive.png"),
-	"negative":spriteData.new("res://assets/textures/negative.png"),
+	"true":spriteData.new("res://assets/textures/positive.png"),
+	"false":spriteData.new("res://assets/textures/negative.png"),
 	"triangle_button":spriteData.new("res://assets/textures/triangle_button.png"),
 	"circle_button":spriteData.new("res://assets/textures/circle_button.png"),
 	"square_button":spriteData.new("res://assets/textures/square_button.png"),
-	"pressed":spriteData.new("res://assets/textures/press.png",Vector2(-5,-5)),
+	"press":spriteData.new("res://assets/textures/press.png",Vector2(-5,-5)),
 	"hold":spriteData.new("res://assets/textures/hold.png",Vector2(-5,-5)),
 	"times":spriteData.new("res://assets/textures/times.png",Vector2(7,3),Vector2(0.5,0.5)),
-	"clock":spriteData.new("res://assets/textures/seconds.png",Vector2(7,3),Vector2(0.5,0.5)),
+	"seconds":spriteData.new("res://assets/textures/seconds.png",Vector2(7,3),Vector2(0.5,0.5)),
 	"hashtag":spriteData.new("res://assets/textures/hashtag.png",Vector2(-7,0)),
 	"1":spriteData.new("res://assets/textures/1.png",Vector2(2,5),Vector2(0.6,0.6)),
 	"2":spriteData.new("res://assets/textures/2.png",Vector2(2,5),Vector2(0.6,0.6)),
@@ -47,7 +47,7 @@ var typeToSprite : Dictionary = {
 }
 # a clue is made up of two items and a bool
 # an item is made up of an array of sprites 
-var clues : Array[Array] = [
+var clues : Array = [
 	[["hashtag","1centered"],["positive"],["circle_button"]],
 	[["roman1"],["negative"],["square_button"]],
 	[["triangle_port"],["positive"],["triangle_button"]],
@@ -78,24 +78,25 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 	var currentSprite : Resource = load("res://icon.svg");
 	
 	currentY = 0.5 * itemSize;
-	
+	print("clues")
+	print(clues)
 	for n : int in clues.size(): # clues[n] is an array
-		
+		var temp : Array = clues[n].duplicate()
 		
 		var gapspace : float = (canvasSize[0] - clues[n].size() * itemSize)/(clues[n].size() + 1);
 		currentX = gapspace;
 		linePoints.append(currentY)
-		clues[n].reverse();
-		for x : int in clues[n].size(): #clues[n][x] is an array
-			for y: int in clues[n][x].size():
+		temp.reverse();
+		for x : int in temp.size(): #clues[n][x] is an array
+			for y: int in temp[x].size():
 				var tempsprite : Sprite2D = Sprite2D.new();
-				tempsprite.texture = load(typeToSprite[clues[n][x][y]].path);
-				tempsprite.scale = typeToSprite[clues[n][x][y]].size * itemSize / tempsprite.get_rect().size[1]
+				tempsprite.texture = load(typeToSprite[temp[x][y]].path);
+				tempsprite.scale = typeToSprite[temp[x][y]].size * itemSize / tempsprite.get_rect().size[1]
 				tempsprite.flip_h = true;
 				add_child(tempsprite);
-				if hintColors.has(clues[n][x][y]):
-					tempsprite.modulate = hintColors[clues[n][x][y]];
-				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - typeToSprite[clues[n][x][y]].pos;
+				if hintColors.has(temp[x][y]):
+					tempsprite.modulate = hintColors[temp[x][y]];
+				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - typeToSprite[temp[x][y]].pos;
 				#print(currentY)
 			
 			currentX += 1 * itemSize;

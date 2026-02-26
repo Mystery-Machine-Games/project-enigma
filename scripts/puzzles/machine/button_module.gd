@@ -18,7 +18,7 @@ const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 var _interaction_history: Dictionary[Node, float]
 
 signal buttons_correct
-
+signal clueset_generated;
 
 func _ready() -> void:
 	_pick_random_colors()
@@ -185,7 +185,7 @@ func _generate_clues() -> void:
 		clueset.assumption_replacement()
 	
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
-
+	clueset_generated.emit(clueset);
 
 func set_difficulty(difficulty: int) -> void:
 	_difficulty = difficulty
