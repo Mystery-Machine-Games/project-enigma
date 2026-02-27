@@ -3,67 +3,138 @@
 [ext_resource type="Script" uid="uid://bnwyfjjw3wlow" path="res://scripts/puzzles/troubleshooter/troubleshooter.gd" id="1_3lmp5"]
 [ext_resource type="Texture2D" uid="uid://da4853pwbn6j0" path="res://assets/textures/wave_sprite.png" id="2_aeq80"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_aeq80"]
+size = Vector3(2, 0.5, 0.3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_oiekm"]
+height = 0.5
+
 [sub_resource type="BoxMesh" id="BoxMesh_3lmp5"]
 size = Vector3(2, 0.5, 0.3)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_3lmp5"]
 height = 0.5
 
-[node name="Troubleshooter" type="Node" unique_id=1845440645]
+[node name="Troubleshooter" type="Node3D" unique_id=143111394]
 script = ExtResource("1_3lmp5")
 
-[node name="Inputs" type="Control" parent="." unique_id=29652854]
+[node name="UI" type="Control" parent="." unique_id=914549868]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Button" type="Button" parent="Inputs" unique_id=1940827841]
-unique_name_in_owner = true
+[node name="InputsLabel" type="Label" parent="UI" unique_id=747906702]
 layout_mode = 0
-offset_left = 297.0
-offset_top = 15.0
-offset_right = 359.0
-offset_bottom = 46.0
+offset_left = 475.0
+offset_top = 16.0
+offset_right = 543.0
+offset_bottom = 39.0
+text = "Outputs:"
+
+[node name="OutputsLabel" type="Label" parent="UI" unique_id=1362654190]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 5.0
+offset_right = 82.0
+offset_bottom = 28.0
+text = "Inputs:"
+
+[node name="SolutionsLabel" type="Label" parent="UI" unique_id=954401448]
+layout_mode = 0
+offset_left = 481.0
+offset_top = 297.0
+offset_right = 550.0
+offset_bottom = 320.0
+text = "Solution:"
+
+[node name="Inputs" type="Control" parent="UI" unique_id=29652854]
+unique_name_in_owner = true
+anchors_preset = 0
+offset_right = 442.0
+offset_bottom = 497.0
+
+[node name="Button" type="Button" parent="UI/Inputs" unique_id=1940827841]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 139.0
+offset_right = 89.0
+offset_bottom = 170.0
 text = "Button"
 
-[node name="SpinBox" type="SpinBox" parent="Inputs" unique_id=813934381]
-unique_name_in_owner = true
+[node name="SpinBox" type="SpinBox" parent="UI/Inputs" unique_id=813934381]
 layout_mode = 0
-offset_right = 86.5
-offset_bottom = 31.0
-max_value = 1.0
+offset_left = 29.0
+offset_top = 44.0
+offset_right = 115.5
+offset_bottom = 75.0
+max_value = 5.0
 rounded = true
 
-[node name="HSlider" type="HSlider" parent="Inputs" unique_id=101319337]
-unique_name_in_owner = true
+[node name="HSlider" type="HSlider" parent="UI/Inputs" unique_id=101319337]
 layout_mode = 0
-offset_top = 99.0
-offset_right = 433.0
-offset_bottom = 255.0
+offset_left = 27.0
+offset_top = 161.0
+offset_right = 321.0
+offset_bottom = 317.0
+
+[node name="SolutionText" type="Label" parent="UI" unique_id=160896446]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 382.0
+offset_right = 187.0
+offset_bottom = 405.0
+text = "Solved!"
+
+[node name="ResetButton" type="Button" parent="UI" unique_id=974773576]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 430.0
+offset_right = 224.0
+offset_bottom = 461.0
+text = "Generate New"
 
 [node name="Outputs" type="Node3D" parent="." unique_id=51364693]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7535897, 0)
 
 [node name="Wave" type="Sprite3D" parent="Outputs" unique_id=816726576]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6746297, 0)
 texture = ExtResource("2_aeq80")
 hframes = 2
 
 [node name="Gauge" type="Node3D" parent="Outputs" unique_id=1460343822]
-unique_name_in_owner = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Outputs/Gauge" unique_id=1234745598]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-mesh = SubResource("BoxMesh_3lmp5")
+mesh = SubResource("BoxMesh_aeq80")
 
 [node name="Color" type="MeshInstance3D" parent="Outputs" unique_id=2043996448]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.2403854, 0, 0)
+mesh = SubResource("CylinderMesh_oiekm")
+
+[node name="Solutions" type="Node3D" parent="." unique_id=2095195966]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.89510185, 0)
+
+[node name="Wave" type="Sprite3D" parent="Solutions" unique_id=305912849]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6746297, 0)
+texture = ExtResource("2_aeq80")
+hframes = 2
+
+[node name="Gauge" type="Node3D" parent="Solutions" unique_id=1994898192]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Solutions/Gauge" unique_id=43366013]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
+mesh = SubResource("BoxMesh_3lmp5")
+
+[node name="Color" type="MeshInstance3D" parent="Solutions" unique_id=688478898]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -1.2403854, 0, 0)
 mesh = SubResource("CylinderMesh_3lmp5")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1889743384]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-current = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0081159, 0, 2)
+fov = 90.0
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Camera3D" unique_id=912797949]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=912797949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

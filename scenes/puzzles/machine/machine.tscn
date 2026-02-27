@@ -67,6 +67,7 @@ script = ExtResource("5_eo4jl")
 wire_scene = ExtResource("13_2v7of")
 start_port_positions = Array[Vector3]([Vector3(-4, 4, -4), Vector3(-4, 4, 0), Vector3(-4, 4, 4)])
 end_port_distance = 7.0
+port_axis = null
 port_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("5_pt243"), ExtResource("8_5odi2")])
 
 [node name="StartPorts" type="Node3D" parent="WireModule" unique_id=313087301]
