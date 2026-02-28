@@ -13,11 +13,14 @@ signal machineFixed;
 
 var cluesetArr : Array[Clueset] = [];
 
+
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
 	_wire_module.wires_correct.connect(_set_wires_correct)
 	_button_module.set_difficulty(difficulty)
 	_wire_module.set_difficulty(difficulty)
+	_button_module.initialize_puzzle()
+	_wire_module.initialize_puzzle()
 	#$"../../../3DJigsaw".generate_shapes();
 
 

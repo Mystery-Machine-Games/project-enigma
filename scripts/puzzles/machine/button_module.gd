@@ -20,7 +20,8 @@ var _interaction_history: Dictionary[Node, float]
 signal buttons_correct
 signal clueset_generated;
 
-func _ready() -> void:
+
+func initialize_puzzle() -> void:
 	_pick_random_colors()
 	_apply_colors()
 	_pick_random_interaction_nums()

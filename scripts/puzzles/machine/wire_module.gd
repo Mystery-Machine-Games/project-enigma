@@ -12,12 +12,12 @@ enum Axis {X, Y, Z}
 const NUM_WIRES: int = 3
 const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 
-@onready var _difficulty: int
 @onready var _start_ports: Array[Node] = $StartPorts.get_children()
 @onready var _end_ports: Array[Node] = $EndPorts.get_children()
 @onready var _possible_port_colors: Array[Material] = port_colors.duplicate()
 @onready var _possible_wire_types: Array[String] = POSSIBLE_WIRE_TYPES.duplicate()
 
+var _difficulty: int
 var _wire_solution: Array[MachineWireData]
 var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
@@ -28,7 +28,8 @@ signal wire_removed
 signal wires_correct
 signal clueset_generated;
 
-func _ready() -> void:
+
+func initialize_puzzle() -> void:
 	_pick_random_colors()
 	_apply_colors()
 	_generate_solution()
