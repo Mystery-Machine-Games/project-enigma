@@ -28,9 +28,9 @@ static var _sprite_types : Dictionary = {
 	"square_port":SpriteData.new("res://assets/textures/square_port.png",Vector2(0,0)),
 	"button":SpriteData.new("res://assets/textures/button.png",Vector2(0,0)),
 	"wire":SpriteData.new("res://assets/textures/wire.png",Vector2(0,0)),
-	"roman1":SpriteData.new("res://assets/textures/roman1.png",Vector2(0,0)),
-	"roman2":SpriteData.new("res://assets/textures/roman2.png",Vector2(0,0)),
-	"roman3":SpriteData.new("res://assets/textures/roman3.png",Vector2(0,0)),
+	"I":SpriteData.new("res://assets/textures/roman1.png",Vector2(0,0)),
+	"II":SpriteData.new("res://assets/textures/roman2.png",Vector2(0,0)),
+	"III":SpriteData.new("res://assets/textures/roman3.png",Vector2(0,0)),
 }
 
 

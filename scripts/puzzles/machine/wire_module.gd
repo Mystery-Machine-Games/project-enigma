@@ -65,12 +65,7 @@ func _generate_solution() -> void:
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var wire_type: String = _possible_wire_types[i]
-		var wire_code: String
-		match wire_type:
-			"I": wire_code = "roman1"
-			"II": wire_code = "roman2"
-			"III": wire_code = "roman3"
-		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type, wire_code)
+		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type)
 		_wire_solution.append(new_wire)
 	_wire_solution.shuffle()
 	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
@@ -122,12 +117,7 @@ func _add_wire() -> void:
 	var end_port: MachinePort = _current_ports[1]
 	start_port.set_filled(true)
 	end_port.set_filled(true)
-	var wire_code: String = "roman"
-	match _current_wire_type:
-		"I": wire_code += "1"
-		"II": wire_code += "2"
-		"III": wire_code += "3"
-	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type, wire_code)
+	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type)
 	var wire_instance: Node3D = wire_scene.instantiate()
 
 	$Wires.add_child(wire_instance)
@@ -212,8 +202,8 @@ func _generate_clues() -> void:
 		var wire: MachineWireData = _wire_solution[i]
 		var start_port: MachinePort = wire.get_start_port()
 		var end_port: MachinePort = wire.get_end_port()
-		var wire_code: String = wire.get_code()
-		clueset.add_item("Wire", wire, [wire_code], "Wire " + wire.get_type(), true)
+		var wire_type: String = wire.get_type()
+		clueset.add_item("Wire", wire, [wire_type], "Wire " + wire.get_type(), true)
 		clueset.add_item("Start", start_port, [start_port.code], "starts at " + start_port.code)
 		clueset.add_item("End", end_port, [end_port.code], "ends at " + end_port.code)
 	
