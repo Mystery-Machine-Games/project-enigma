@@ -129,7 +129,7 @@ func _generate_clues() -> void:
 			1: order_text = "1st"
 			2: order_text = "2nd"
 			3: order_text = "3rd"
-		clueset.add_item("Order", i + 1, [str(i+1)], order_text)
+		clueset.add_item("Order", i + 1, ["hashtag", str(i+1) + "centered"], order_text)
 		
 		var interaction_text: String
 		var unit_text: String
