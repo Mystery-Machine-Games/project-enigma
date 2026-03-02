@@ -40,8 +40,6 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 	var currentSprite : Resource = load("res://icon.svg");
 	
 	currentY = 0.5 * itemSize;
-	print("clues")
-	print(clues)
 	for n : int in clues.size(): # clues[n] is an array
 		var temp: Array = clues[n].duplicate()
 		
@@ -60,10 +58,7 @@ func construct(poly : PackedVector2Array, seed : int) -> void:
 				if hintColors.has(temp[x][y]):
 					tempsprite.modulate = hintColors[temp[x][y]];
 				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - sprite_data.get_pos();
-				#print(currentY)
 			
 			currentX += 1 * itemSize;
 			currentX += gapspace;
 		currentY += 1.5 * itemSize;
-		
-	#print(linePoints)
