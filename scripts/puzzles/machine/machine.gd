@@ -1,7 +1,7 @@
 class_name Machine
 extends Node3D
 
-enum Difficulty {ONE, TWO}
+enum Difficulty {EASY, MEDIUM, HARD}
 
 @export var difficulty: Difficulty
 

@@ -1,5 +1,5 @@
 class_name MachineWireData
-extends Node3D
+extends Object
 
 var _start_port: StaticBody3D
 var _end_port: StaticBody3D

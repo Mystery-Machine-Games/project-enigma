@@ -1,11 +1,18 @@
 class_name MachineWire
 extends Node3D
 
+@onready var type_sprite: Sprite3D = $WireTypeSprite
+
 var _data: MachineWireData
 var _interaction_area: Area3D
 var _mouse_over: bool
 
 signal wire_clicked
+
+
+func set_type_sprite() -> void:
+	# TODO type_sprite.texture = PuzzleHint.typeToSprite[_data.get_type()]
+	pass
 
 
 func get_data() -> MachineWireData:

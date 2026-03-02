@@ -134,6 +134,7 @@ func _add_wire() -> void:
 	wire_instance.position = start_port.position
 	var wire: MachineWire = wire_instance
 	wire.set_data(wire_data)
+	wire.set_type_sprite()
 	wire.wire_clicked.connect(_remove_wire)
 	_current_solution.append(wire.get_data())
 	_current_ports.clear()
@@ -235,9 +236,9 @@ func _generate_clues() -> void:
 		clueset.add_clue(start_port_item, end_port_item, true)
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty >= 0:
+	if _difficulty > 0:
 		clueset.assumption_replacement()
-	if _difficulty == 1:
+	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))

@@ -180,9 +180,9 @@ func _generate_clues() -> void:
 	#print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty >= 0:
+	if _difficulty > 0:
 		clueset.assumption_replacement()
-	if _difficulty == 1:
+	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
