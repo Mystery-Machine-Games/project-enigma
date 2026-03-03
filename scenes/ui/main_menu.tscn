@@ -1,0 +1,171 @@
+[gd_scene format=3 uid="uid://cb4fo4cgb86y4"]
+
+[ext_resource type="Theme" uid="uid://cmkw3oj66pneq" path="res://assets/themes/default_theme.tres" id="1_fe2o3"]
+[ext_resource type="Script" uid="uid://5rdaso1owdeb" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+[ext_resource type="PackedScene" uid="uid://8rpttrdlmp1u" path="res://scenes/ui/input_mapper.tscn" id="3_1g8jr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
+bg_color = Color(0.44199523, 0.7165368, 0.87937987, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MainMenu" type="Control" unique_id=1705860502]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fe2o3")
+script = ExtResource("1_sl1te")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=599905935]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1624578708]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1018014766]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Project Engima"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=29278281]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1658140412]
+layout_mode = 2
+text = "Play"
+
+[node name="Options" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=588570405]
+layout_mode = 2
+text = "Options"
+
+[node name="Credits" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=2146139608]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1506566172]
+layout_mode = 2
+text = "Quit"
+
+[node name="OptionsMenu" type="Panel" parent="." unique_id=153323809]
+unique_name_in_owner = true
+visible = false
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu" unique_id=1739372778]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=2131613276]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Options"
+
+[node name="Audio" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=860504905]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Audio"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu/VBoxContainer" unique_id=288695780]
+layout_mode = 2
+
+[node name="MasterVolume" type="Label" parent="OptionsMenu/VBoxContainer/HBoxContainer" unique_id=1308648853]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="HSlider" type="HSlider" parent="OptionsMenu/VBoxContainer/HBoxContainer" unique_id=1855652596]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Controls" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=1393866662]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Controls"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/VBoxContainer" unique_id=1821210453]
+layout_mode = 2
+
+[node name="MoveLeft" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1863612274 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "move_left"
+
+[node name="MoveRight" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1646280632 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "move_right"
+
+[node name="FocusItem" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1724853877 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "focus_item"
+
+[node name="UnfocusItem" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=734576739 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "unfocus_item"
+
+[node name="ToggleMachineView" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1744894379 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "toggle_machine_view"
+
+[node name="ToggleClue" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=951172595 instance=ExtResource("3_1g8jr")]
+layout_mode = 2
+action = "toggle_clue"
+
+[node name="CreditsPanel" type="Panel" parent="." unique_id=519159911]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -89.5
+offset_right = 83.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sl1te")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel" unique_id=915335674]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -81.0
+offset_right = 81.0
+offset_bottom = 138.0
+grow_horizontal = 2
+text = "A Vertical Slice
+By Mystery Machine
+
+Lyle Watkins
+Jerry Peng
+Brian Chung"
+fit_content = true
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Quit" to="." method="_on_quit_pressed"]
