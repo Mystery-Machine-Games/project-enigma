@@ -2,7 +2,6 @@ class_name ButtonModule
 extends Node3D
 
 @export var button_positions: Array[Vector3]
-@export var button_colors: Array[Material]
 
 enum Interaction {PRESS, HOLD}
 
@@ -11,7 +10,7 @@ const NUM_BUTTONS: int = 3
 const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 
 @onready var _difficulty: int
-@onready var _possible_button_colors: Array[Material] = button_colors.duplicate()
+@onready var _possible_button_colors: Array[Material]
 @onready var _interaction: Interaction = Interaction.values().pick_random()
 @onready var _buttons: Array[Node] = get_children()
 @onready var _interaction_nums: Array[int] = POSSIBLE_INTERACTION_NUMS.duplicate()
@@ -32,7 +31,8 @@ func initialize_puzzle() -> void:
 
 
 func _pick_random_colors() -> void:
-	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
+	var num_to_remove: int = _possible_button_colors.size() - NUM_BUTTONS
+	for i: int in range(num_to_remove):
 		var random_color_index: int = randi_range(0, _possible_button_colors.size() - 1)
 		_possible_button_colors.remove_at(random_color_index)
 	_possible_button_colors.shuffle()
@@ -188,5 +188,10 @@ func _generate_clues() -> void:
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset);
 
+
 func set_difficulty(difficulty: int) -> void:
 	_difficulty = difficulty
+
+
+func set_colors(colors: Array[Material]) -> void:
+	_possible_button_colors = colors.duplicate()

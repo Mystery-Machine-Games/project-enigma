@@ -5,14 +5,9 @@
 [ext_resource type="Script" uid="uid://qpomrsjkwt0n" path="res://scripts/puzzles/machine/button_module.gd" id="2_i4f25"]
 [ext_resource type="PackedScene" uid="uid://1u3s5hr0dndu" path="res://scenes/puzzles/machine/circle_port.tscn" id="3_448ux"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="4_i4f25"]
-[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="4_p2qya"]
 [ext_resource type="PackedScene" uid="uid://de1jabgt3m35r" path="res://scenes/puzzles/machine/square_button.tscn" id="5_25hvn"]
 [ext_resource type="Script" uid="uid://cl8kg5nfilsjm" path="res://scripts/puzzles/machine/wire_module.gd" id="5_eo4jl"]
-[ext_resource type="Material" uid="uid://c2khn4yg0axgk" path="res://assets/materials/blue.tres" id="5_pt243"]
 [ext_resource type="PackedScene" uid="uid://bbduosud7uguw" path="res://scenes/puzzles/machine/triangle_button.tscn" id="6_aee78"]
-[ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/yellow.tres" id="6_vbi22"]
-[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/green.tres" id="7_agykd"]
-[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/purple.tres" id="8_5odi2"]
 [ext_resource type="PackedScene" uid="uid://cggt2qur8f54a" path="res://scenes/puzzles/machine/wire.tscn" id="13_2v7of"]
 [ext_resource type="PackedScene" uid="uid://dd3kgd7bersai" path="res://scenes/puzzles/machine/square_port.tscn" id="14_vbi22"]
 [ext_resource type="PackedScene" uid="uid://cdqj1or43bdhf" path="res://scenes/puzzles/machine/triangle_port.tscn" id="15_agykd"]
@@ -48,7 +43,6 @@ size = Vector3(6.689453, 1, 9.444611)
 [node name="ButtonModule" type="Node3D" parent="." unique_id=929345143]
 script = ExtResource("2_i4f25")
 button_positions = Array[Vector3]([Vector3(-5.5, 3, -4), Vector3(-5.5, 3, 0), Vector3(-5.5, 3, 4)])
-button_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("5_pt243"), ExtResource("8_5odi2")])
 
 [node name="CircleButton" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5, 3, -4)
@@ -67,8 +61,6 @@ script = ExtResource("5_eo4jl")
 wire_scene = ExtResource("13_2v7of")
 start_port_positions = Array[Vector3]([Vector3(-4, 4, -4), Vector3(-4, 4, 0), Vector3(-4, 4, 4)])
 end_port_distance = 7.0
-port_axis = null
-port_colors = Array[Material]([ExtResource("4_p2qya"), ExtResource("6_vbi22"), ExtResource("7_agykd"), ExtResource("5_pt243"), ExtResource("8_5odi2")])
 
 [node name="StartPorts" type="Node3D" parent="WireModule" unique_id=313087301]
 

@@ -7,14 +7,14 @@ enum Axis {X, Y, Z}
 @export var start_port_positions: Array[Vector3]
 @export var end_port_distance: float
 @export var port_axis: Axis
-@export var port_colors: Array[Material]
 
 const NUM_WIRES: int = 3
 const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 
 @onready var _start_ports: Array[Node] = $StartPorts.get_children()
 @onready var _end_ports: Array[Node] = $EndPorts.get_children()
-@onready var _possible_port_colors: Array[Material] = port_colors.duplicate()
+@onready var _possible_port_colors: Array[Material]
+@onready var _possible_wire_colors: Array[Material]
 @onready var _possible_wire_types: Array[String] = POSSIBLE_WIRE_TYPES.duplicate()
 
 var _difficulty: int
@@ -26,7 +26,7 @@ var _current_wire_type: String
 signal wire_added
 signal wire_removed
 signal wires_correct
-signal clueset_generated;
+signal clueset_generated
 
 
 func initialize_puzzle() -> void:
@@ -39,9 +39,13 @@ func initialize_puzzle() -> void:
 
 
 func _pick_random_colors() -> void:
-	for i: int in range(port_colors.size() - NUM_WIRES):
-		var random_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
-		_possible_port_colors.remove_at(random_color_index)
+	var num_to_remove: int = _possible_port_colors.size() - NUM_WIRES
+	for i: int in range(num_to_remove):
+		var random_port_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
+		var random_wire_color_index: int = randi_range(0, _possible_wire_colors.size() - 1)
+		_possible_port_colors.remove_at(random_port_color_index)
+		_possible_wire_colors.remove_at(random_wire_color_index)
+	_possible_wire_colors.shuffle()
 
 
 # Note: Must be applied before shuffling the port arrays so that their shapes match up to colors
@@ -111,8 +115,8 @@ func _log_interaction(port: MachinePort) -> void:
 
 
 func _add_wire() -> void:
-	if _current_wire_type == "": # Can only add wire if holding one
-		return
+	if _current_wire_type == "": return # Can only add wire if holding one
+
 	var start_port: MachinePort = _current_ports[0]
 	var end_port: MachinePort = _current_ports[1]
 	start_port.set_filled(true)
@@ -128,24 +132,33 @@ func _add_wire() -> void:
 	wire.wire_clicked.connect(_remove_wire)
 	_current_solution.append(wire.get_data())
 	_current_ports.clear()
-	_current_wire_type = ""
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire.get_data())
 	_angle_wire_mesh(wire)
+
+	# Apply random color to wire
+	var wire_color_index: int
+	match _current_wire_type:
+		"I": wire_color_index = 0
+		"II": wire_color_index = 1
+		"III": wire_color_index = 2
+	wire.set_color(_possible_wire_colors[wire_color_index])
+	
 	emit_signal("wire_added", wire.get_data().get_type())
+	_current_wire_type = ""
 
 
 func _angle_wire_mesh(wire: MachineWire) -> void:
 	var wire_data: MachineWireData = wire.get_data()
-	var start_port: MachinePort = wire_data.get_start_port()
-	var end_port: MachinePort = wire_data.get_end_port()
+	#var start_port: MachinePort = wire_data.get_start_port()
+	#var end_port: MachinePort = wire_data.get_end_port()
 	wire.global_rotation_degrees = Vector3(0, -180, 90)
-	print(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
-	var tempvec : Vector2 = Vector2(wire.global_rotation_degrees[0],wire.global_rotation_degrees[1]);
-	tempvec = tempvec.rotated(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
+	#print(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
+	#var tempvec : Vector2 = Vector2(wire.global_rotation_degrees[0],wire.global_rotation_degrees[1]);
+	#tempvec = tempvec.rotated(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
 	
-	if start_port.global_position.z > end_port.global_position.z:
-		tempvec[1] *= -1;
-	wire.global_rotation_degrees = Vector3(tempvec[0],tempvec[1],wire.global_rotation_degrees[2])
+	#if start_port.global_position.z > end_port.global_position.z:
+	#	tempvec[1] *= -1;
+	#wire.global_rotation_degrees = Vector3(tempvec[0],tempvec[1],wire.global_rotation_degrees[2])
 	
 	#wire.global_rotation_degrees 
 	#wire.global_rotate(Vector3(0, 0, 1), rad_to_deg(90))s
@@ -234,6 +247,7 @@ func _generate_clues() -> void:
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset)
 
+
 func change_wire(new_wire: String) -> void:
 	_current_ports.clear()
 	_current_wire_type = new_wire
@@ -242,3 +256,8 @@ func change_wire(new_wire: String) -> void:
 
 func set_difficulty(difficulty: int) -> void:
 	_difficulty = difficulty
+
+
+func set_colors(port_colors: Array[Material], wire_colors: Array[Material]) -> void:
+	_possible_port_colors = port_colors.duplicate()
+	_possible_wire_colors = wire_colors.duplicate()

@@ -4,6 +4,10 @@ extends Node3D
 enum Difficulty {EASY, MEDIUM, HARD}
 
 @export var difficulty: Difficulty
+@export var colors_shared: bool # TODO: Whether or not ports, wires, and buttons can share the same colors
+@export var port_colors: Array[Material]
+@export var wire_colors: Array[Material]
+@export var button_colors: Array[Material]
 
 @onready var _button_module: ButtonModule = $ButtonModule
 @onready var _wire_module: WireModule = $WireModule
@@ -19,6 +23,8 @@ func _ready() -> void:
 	_wire_module.wires_correct.connect(_set_wires_correct)
 	_button_module.set_difficulty(difficulty)
 	_wire_module.set_difficulty(difficulty)
+	_button_module.set_colors(button_colors)
+	_wire_module.set_colors(port_colors, wire_colors)
 	_button_module.initialize_puzzle()
 	_wire_module.initialize_puzzle()
 	#$"../../../3DJigsaw".generate_shapes();
