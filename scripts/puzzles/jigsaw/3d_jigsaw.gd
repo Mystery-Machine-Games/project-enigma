@@ -11,7 +11,8 @@ var mult : float = 100;
 var seed : int = randi();
 var hintColors : Dictionary = {};
 var offset : Vector3 = Vector3(0,0,0);
-var currentSelected : Node3D =  null;
+var currentSelected : JigsawPiece = null;
+var selectedPos : Vector3 = Vector3(0,0,0)
 var hintList : Array = [];
 
 @export var areaLayer : int;
@@ -51,17 +52,20 @@ func add_clueset(clueset : Clueset) -> void:
 func generate_shapes() -> void:
 	for n : Clueset in $"../LyleFocusBox/FocusHandle/Machine".cluesetArr:
 		add_clueset(n);
-	for n : Array in hintList:
-		print(n)
+	#for n : Array in hintList:
+		#print(n)
 	hintColors = get_hint_colors()
-	draw_shapes_from_puzzle(0,Vector2(-3,0))
-	draw_shapes_from_puzzle(1,Vector2(-3,0))
+	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(-3,0))
+	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(0,0))
+	
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
 
 func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
-	var newList : Array = hintList.pop_front();
 	
+	var newList : Array = hintList.pop_front();
+	#print(puzzleIndex)
 	var node : puzzlePieceOrganizer = puzzlePieceOrganizer.new();
+	node.puzzleCompleteSignal.connect(puzzle_complete)
 	pieces.add_child(node);
 	for shapeIndex : int in puzzleArr[puzzleIndex].size():
 		var st : SurfaceTool = SurfaceTool.new()
@@ -75,39 +79,65 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 			st.add_vertex(vec3/mult);
 		
 		m.poly = flatShapeArr[puzzleIndex][shapeIndex];
+		#print(m.poly)
 		m.m = st.commit();
 		m.width = width/(mult - 25)
 		m.spriteScale = 300.0/mult
 		m.seed = seed;
 		m.layer = areaLayer;
 		m.hintColors = hintColors;
-		if newList.size() > 0:
-			m.hint = newList.duplicate();;
+		m.hint = newList.duplicate();
+		
+			
 		
 		
 		node.add_child(m);
 		randomize();
 		m.position.x += vec[0] + randf_range(-2,2);
 		m.position.y += vec[1] + randf_range(-1,1);
+	node.initialize_pieces()
+	for firstnode : JigsawPiece in node.get_children():
+		for secondnode in node.get_children():
+			if secondnode == firstnode:
+				continue;
+			var num : int = 0;
+			for vertex : Vector2 in firstnode.poly:
+				if vertex in secondnode.poly:
+					num += 1;
+			if num >= 2:
+				firstnode.adjacentPieces.append(secondnode)
+		#print(firstnode.adjacentPieces)
+			#find all shapes that share 2 vertices with this shape
 
+var startingPos : Vector3 = Vector3.ZERO;
 func _physics_process(_delta : float) -> void:
 	if currentSelected:
-		currentSelected.get_parent().global_position.x = (shoot_ray() + offset).x;
-		currentSelected.get_parent().global_position.z = (shoot_ray() + offset).z;
+		var group : Array = currentSelected.get_parent().get_group_for_piece(currentSelected)
+		if group.size() == 0:
+			#something has gone terribly wrong:
+			pass
+		else:
+			for node : Node3D in group:
+				node.global_position.x = (shoot_ray() + selectedPos).x;
+				node.global_position.z = (shoot_ray() + selectedPos).z;
+	
 	if Input.is_action_just_pressed("leftclick"):
 		#print("pressed")
 		var temp : Dictionary = detect_piece();
-		if temp:
-			print(temp.collider.is_in_group("puzzlepieces"))
+		#if temp:
+			#print(temp.collider.is_in_group("puzzlepieces"))
 		if temp && temp.collider.is_in_group("puzzlepieces"):
-			currentSelected = temp.collider;
-			currentSelected.get_parent().float_up(true);
-			offset = currentSelected.global_position - temp.position;
+			currentSelected = temp.collider.get_parent();
+			#currentSelected.get_parent().float_up(true);
+			selectedPos = temp.collider.global_position - temp.position;
 			#currentSelected.global_position.y = 0.1
-	if Input.is_action_just_released("leftclick"):
 		
+	if Input.is_action_just_released("leftclick"):
+		var arr : Array = [];
+		#if currentSelected:
+			#currentSelected.get_parent().float_up(false);
 		if currentSelected:
-			currentSelected.get_parent().float_up(false);
+			currentSelected.try_organize();
 		currentSelected = null;
 
 func shoot_ray() -> Vector3: #used for mouse tracking
@@ -173,20 +203,20 @@ func initialize_shape_arr() -> void:
 				if n == 1: 
 					temp.reverse();
 					pass
-				if num == 2 && count == 1:
-					print(temp)
+				#if num == 2 && count == 1:
+					#print(temp)
 				var vertexArr : Array[Vector3] = []
 				for vertex : Array in temp:
 					var x : float = vertex[0];
 					var y : float = vertex[1];
 					vertexArr.append(Vector3(x,y,n * width))
 				var tempTRI : PackedInt32Array = Geometry2D.triangulate_polygon(temp);
-				if num == 2 && count == 1:
-					print(tempTRI)
+				#if num == 2 && count == 1:
+					#print(tempTRI)
 				for index : int in tempTRI.size():
 					tempTRI[index] += currentShape.size();
-				if num == 2 && count == 1:
-					print(tempTRI)
+				#if num == 2 && count == 1:
+					#print(tempTRI)
 				#if num == 2:
 					#tempTRI.reverse();
 				currentShape.append_array(vertexArr)
@@ -217,3 +247,11 @@ func initialize_shape_arr() -> void:
 		num += 1;
 		puzzleTriangleArr.append(shapeTriangleArr)
 		puzzleArr.append(shapeArr)
+
+func puzzle_complete(hints : Array) -> void:
+	var temp : PuzzleHint = load("res://scenes/puzzles/jigsaw/hint_sprite.tscn").instantiate()
+	$"../Interface/Control".add_child(temp)
+	temp.clues = hints
+	temp.hintColors = hintColors;
+	temp.construct([],0,false);
+	

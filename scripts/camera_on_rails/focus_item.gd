@@ -24,6 +24,9 @@ var is_focused: bool = false
 ## Tween for rotating item in focus mode
 var _item_rotation_tween: Tween
 
+## Machine interface, focusing on the item shows/hides it
+@onready var interface : Control = $"../Interface";
+
 func _ready() -> void:
 	set_pos_and_rot();
 
@@ -33,11 +36,11 @@ func set_pos_and_rot() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_focused:
-		if $"../Interface".visible == true:
-			$"../Interface".visible = false;
+		if interface.visible == true:
+			interface.visible = false;
 		return
-	if is_focused && $"../Interface".visible == false:
-		$"../Interface".visible = true;
+	if is_focused && interface.visible == false:
+		interface.visible = true;
 	if event.is_action_pressed("item_yaw_left") and _try_initialize_rotation():
 		_item_rotation_tween.tween_property(
 			_focus_handle,

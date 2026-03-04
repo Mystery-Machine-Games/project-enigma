@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://dv0evc7da5qli"]
+[gd_scene format=3 uid="uid://i1nj22awkxic"]
 
 [ext_resource type="PackedScene" uid="uid://h3kjpccnqvq4" path="res://scenes/camera_on_rails/test_world_camera_rail.tscn" id="1_dx2l5"]
-[ext_resource type="Script" uid="uid://duugbd0patkrx" path="res://scripts/playtest.gd" id="1_lnicu"]
+[ext_resource type="Script" path="res://scripts/playtest.gd" id="1_lnicu"]
 [ext_resource type="PackedScene" uid="uid://dijkme62tle4l" path="res://scenes/puzzles/troubleshooter/troubleshooter.tscn" id="2_lnicu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lnicu"]

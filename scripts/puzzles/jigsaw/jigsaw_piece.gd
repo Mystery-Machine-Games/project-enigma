@@ -8,6 +8,8 @@ var spriteScale : float = 1;
 var seed : int = 0;
 var hint : Array = [];
 var hintColors : Dictionary = {};
+var group : Array = [self];
+var adjacentPieces : Array = [];
 @export var mesh : MeshInstance3D;
 @export var previewMesh : MeshInstance3D;
 @export var collider : CollisionShape3D;
@@ -57,3 +59,12 @@ func float_up(boolean : bool) -> void:
 		tween.finished.connect(get_parent().try_organize_pieces);
 		await tween.finished;
 		previewMesh.visible = false;
+
+func try_organize() -> void:
+	get_parent().try_organize_pieces(self);
+
+func return_selected() -> Array:
+	return group;
+
+func get_hints() -> Array:
+	return hint;
