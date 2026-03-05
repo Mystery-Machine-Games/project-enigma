@@ -3,6 +3,7 @@ extends Node3D
 
 @onready var type_sprite: Sprite3D = $WireTypeSprite
 @onready var wire_mesh: MeshInstance3D = $Armature/Skeleton3D/Wire
+@onready var skeleton: Skeleton3D = $Armature/Skeleton3D
 
 var _data: MachineWireData
 var _mouse_over: bool
@@ -20,6 +21,10 @@ func set_color(color: Material) -> void:
 
 func get_data() -> MachineWireData:
 	return _data
+
+
+func get_skeleton() -> Skeleton3D:
+	return skeleton
 
 
 func set_data(data: MachineWireData) -> void:

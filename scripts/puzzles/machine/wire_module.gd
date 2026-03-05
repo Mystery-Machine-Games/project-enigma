@@ -149,27 +149,25 @@ func _add_wire() -> void:
 
 func _angle_wire_mesh(wire: MachineWire) -> void:
 	var wire_data: MachineWireData = wire.get_data()
-	#var start_port: MachinePort = wire_data.get_start_port()
-	#var end_port: MachinePort = wire_data.get_end_port()
-	wire.global_rotation_degrees = Vector3(0, -180, 90)
-	#print(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
-	#var tempvec : Vector2 = Vector2(wire.global_rotation_degrees[0],wire.global_rotation_degrees[1]);
-	#tempvec = tempvec.rotated(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
-	
-	#if start_port.global_position.z > end_port.global_position.z:
-	#	tempvec[1] *= -1;
-	#wire.global_rotation_degrees = Vector3(tempvec[0],tempvec[1],wire.global_rotation_degrees[2])
-	
-	#wire.global_rotation_degrees 
-	#wire.global_rotate(Vector3(0, 0, 1), rad_to_deg(90))s
-	#wire.global_rotate(Vector3(1, 0, 0), rad_to_deg(180))
+	var start_port: MachinePort = wire_data.get_start_port()
+	var end_port: MachinePort = wire_data.get_end_port()
+	#wire.global_rotation_degrees = Vector3(0, -180, 90)
 	
 	# TODO
+	var wire_skeleton: Skeleton3D = wire.get_skeleton()
+	var start_bone: int = wire_skeleton.find_bone("Bone")
+	var end_bone: int = wire_skeleton.find_bone("Bone.008")
+	var start_bone_pos: Vector3 = wire_skeleton.get_bone_pose_position(start_bone)
+	# Make any changes on the pos and update the bone
+	#wire_skeleton.set_bone_global_pose(start_bone, start_port.transform)
+	wire_skeleton.set_bone_pose_rotation(start_bone, Quaternion(Vector3(0, 1, 0), 90))
 	# angle bone 0 straight out of start port
+	#wire_skeleton.set_bone_global_pose(0, start_port.transform)
 	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
 	# bones 1 to length - 1 are angled along a parabolic curve on the z axis
 	# 	note: we can use three different predefined parabolic curves so that wires don't intersect with each other
 	# final bone goes straight into destination port
+	#wire_skeleton.set_bone_global_pose(9, end_port.transform)
 	pass
 
 
