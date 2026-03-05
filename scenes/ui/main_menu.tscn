@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://cb4fo4cgb86y4"]
+
+[ext_resource type="Theme" uid="uid://cmkw3oj66pneq" path="res://assets/themes/default_theme.tres" id="1_fe2o3"]
+[ext_resource type="Script" uid="uid://5rdaso1owdeb" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
+bg_color = Color(0.44199523, 0.7165368, 0.87937987, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="MainMenu" type="Control" unique_id=1705860502]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_fe2o3")
+script = ExtResource("1_sl1te")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=599905935]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=1624578708]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CenterContainer/VBoxContainer" unique_id=1018014766]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Project Engima"
+horizontal_alignment = 1
+
+[node name="Buttons" type="VBoxContainer" parent="CenterContainer/VBoxContainer" unique_id=29278281]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1658140412]
+layout_mode = 2
+text = "Play"
+
+[node name="Options" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=588570405]
+layout_mode = 2
+text = "Options"
+
+[node name="Credits" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=2146139608]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1506566172]
+layout_mode = 2
+text = "Quit"
+
+[node name="CreditsPanel" type="PanelContainer" parent="." unique_id=1520115323]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+clip_contents = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.5
+offset_top = -89.5
+offset_right = 83.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sl1te")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel" unique_id=915335674]
+layout_mode = 2
+text = "A Vertical Slice
+By Mystery Machine
+
+Lyle Watkins
+Jerry Peng
+Brian Chung"
+fit_content = true
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Quit" to="." method="_on_quit_pressed"]

@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cjsq0kjgvtkm7"]
+
+[ext_resource type="PackedScene" uid="uid://8rpttrdlmp1u" path="res://scenes/ui/input_mapper.tscn" id="1_ta2k2"]
+[ext_resource type="Script" uid="uid://dhudlky6m0l5k" path="res://scripts/ui/options_menu.gd" id="1_wj2x4"]
+
+[node name="OptionsMenu" type="PanelContainer" unique_id=233441118]
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wj2x4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=336355767]
+layout_mode = 2
+
+[node name="Options" type="Label" parent="VBoxContainer" unique_id=676568135]
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+text = "Options"
+
+[node name="Audio" type="Label" parent="VBoxContainer" unique_id=1308083327]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Audio"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1815722753]
+layout_mode = 2
+
+[node name="MasterVolume" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=451766755]
+layout_mode = 2
+text = "Master Volume"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer" unique_id=130197555]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Controls" type="Label" parent="VBoxContainer" unique_id=1677033843]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Controls"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1179591332]
+layout_mode = 2
+
+[node name="MoveLeft" parent="VBoxContainer/VBoxContainer" unique_id=1863612274 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "move_left"
+
+[node name="MoveRight" parent="VBoxContainer/VBoxContainer" unique_id=1891970914 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "move_right"
+
+[node name="FocusItem" parent="VBoxContainer/VBoxContainer" unique_id=1172618929 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "focus_item"
+
+[node name="UnfocusItem" parent="VBoxContainer/VBoxContainer" unique_id=1895176203 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "unfocus_item"
+
+[node name="ToggleMachineView" parent="VBoxContainer/VBoxContainer" unique_id=1404772683 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "toggle_machine_view"
+
+[node name="ToggleClue" parent="VBoxContainer/VBoxContainer" unique_id=176547108 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "toggle_clue"
+
+[node name="Return" type="Button" parent="VBoxContainer" unique_id=794473135]
+layout_mode = 2
+text = "Return"
+
+[connection signal="pressed" from="VBoxContainer/Return" to="." method="_on_return_pressed"]

@@ -22,7 +22,6 @@ func _on_swap_input_event(camera: Node, event: InputEvent, event_position: Vecto
 		_swap_scenes(_use_test_world)
 
 func _swap_scenes(use_test_world: bool) -> void:
-	print("Swapping scenes")
 	if use_test_world:
 		$TestWorld.show()
 		$Troubleshooter.hide()
