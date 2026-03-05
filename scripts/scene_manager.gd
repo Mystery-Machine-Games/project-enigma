@@ -1,41 +1,95 @@
 extends Node
 
-const MAIN_MENU_PATH: String = "res://scenes/ui/main_menu.tscn"
-const GAMEPLAY_ENTRY_PATH: String = "res://scenes/playtest.tscn"
-const PAUSE_MENU_PATH: String = "res://scenes/ui/pause_menu.tscn"
+enum Scene {
+	NONE,
+	MAIN_MENU,
+	GAMEPLAY,
+	PAUSE,
+	OPTIONS,
+}
 
-var _main_menu: MainMenu = preload(MAIN_MENU_PATH).instantiate()
-var _gameplay_entry: Node
-var _pause_menu: Node
+const SCENE_PATHS: Dictionary[Scene, String] = {
+	Scene.MAIN_MENU: "res://scenes/ui/main_menu.tscn",
+	Scene.PAUSE: "res://scenes/ui/pause_menu.tscn",
+	Scene.OPTIONS: "res://scenes/ui/options_menu.tscn",
+	Scene.GAMEPLAY: "res://scenes/playtest.tscn",
+}
 
-var _is_playing: bool = false
+var _scenes: Dictionary[Scene, Node] = {
+	Scene.NONE: null,
+	Scene.MAIN_MENU: preload(SCENE_PATHS[Scene.MAIN_MENU]).instantiate(),
+	Scene.GAMEPLAY: null,
+	Scene.PAUSE: preload(SCENE_PATHS[Scene.PAUSE]).instantiate(),
+	Scene.OPTIONS: preload(SCENE_PATHS[Scene.OPTIONS]).instantiate(),
+}
+var _current_scene: Scene = Scene.NONE
+var _is_playing: bool:
+	get:
+		return _scenes[Scene.GAMEPLAY] != null
 
 func _ready() -> void:
-	add_child(_main_menu)
-	_main_menu.game_start_requested.connect(_on_game_start)
+	var _main_menu: MainMenu = _scenes[Scene.MAIN_MENU]
+	_main_menu.game_start_requested.connect(_on_request_game_start)
+	_main_menu.options_menu_requested.connect(_on_request_options_menu)
+	_open_as_current_scene(Scene.MAIN_MENU)
+	
+	var _pause_menu: PauseMenu = _scenes[Scene.PAUSE]
+	_pause_menu.main_menu_requested.connect(_on_request_main_menu)
+	_pause_menu.options_requested.connect(_on_request_options_menu)
+	_pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	
+	var _options_menu: OptionsMenu = _scenes[Scene.OPTIONS]
+	_options_menu.options_close_requested.connect(_on_request_options_close)
 
 func _input(event: InputEvent) -> void:
 	if _is_playing and event.is_action_pressed("pause"):
 		get_tree().paused = not get_tree().paused
-		if get_tree().paused:
-			add_child(_pause_menu)
+		if _current_scene == Scene.PAUSE:
+			_close_current_scene()
+			get_tree().paused = false
 		else:
-			remove_child(_pause_menu)
+			get_tree().paused = true
+			_open_as_current_scene(Scene.PAUSE)
+		
 		get_viewport().set_input_as_handled()
 
-func _on_game_start() -> void:
-	_is_playing = true
+func _on_request_game_start() -> void:
+	if _is_playing:
+		_scenes[Scene.GAMEPLAY].free()
+	_scenes[Scene.GAMEPLAY] = (load(SCENE_PATHS[Scene.GAMEPLAY]) as PackedScene).instantiate()
+	_scenes[Scene.GAMEPLAY].process_mode = Node.PROCESS_MODE_PAUSABLE
+	_switch_current_scene(Scene.GAMEPLAY)
+
+func _on_request_main_menu() -> void:
+	_switch_current_scene(Scene.MAIN_MENU)
+	get_tree().paused = false
+	_scenes[Scene.GAMEPLAY].queue_free()
+	_scenes[Scene.GAMEPLAY] = null
+
+func _on_request_options_menu() -> void:
+	_open_as_current_scene(Scene.OPTIONS)
 	
-	if _gameplay_entry:
-		_gameplay_entry.free()
-	_gameplay_entry = load(GAMEPLAY_ENTRY_PATH).instantiate()
-	_gameplay_entry.process_mode = Node.PROCESS_MODE_PAUSABLE
-	
-	if _pause_menu:
-		_pause_menu.free()
-	_pause_menu = load(PAUSE_MENU_PATH).instantiate()
-	_pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
-	
-	add_child(_gameplay_entry)
-	remove_child(_main_menu)
-	
+func _on_request_options_close() -> void:
+	if _current_scene == Scene.PAUSE:
+		_close_current_scene()
+
+func _open_as_current_scene(scene: Scene) -> void:
+	var next_scene: Variant = _scenes.get(scene)
+	if not next_scene:
+		push_error("[scene_manager] Scene does not exist")
+		return
+
+	print("Opening %s" % scene)
+	@warning_ignore("unsafe_cast")
+	add_child(next_scene as Node)
+	_current_scene = scene
+
+func _close_current_scene() -> void:
+	print("Closing %s" % _current_scene)
+	remove_child(_scenes[_current_scene])
+	_current_scene = Scene.NONE
+
+func _switch_current_scene(scene: Scene) -> void:
+	_close_current_scene()
+	_open_as_current_scene(scene)
+	_current_scene = scene
