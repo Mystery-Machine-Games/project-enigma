@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cvnoeqi4xpbto" path="res://assets/textures/roman3.png" id="3_bci3j"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="3_ndipe"]
 [ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/copper.tres" id="4_1pkcl"]
-[ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="6_1pkcl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_veigl"]
 radius = 1.0
@@ -46,9 +45,6 @@ texture = ExtResource("3_bci3j")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3" unique_id=314420584]
 libraries/ = SubResource("AnimationLibrary_dsjuq")
-
-[node name="Machine" parent="." index="4" unique_id=459262496 instance=ExtResource("6_1pkcl")]
-transform = Transform3D(-4.3711385e-08, 1, -8.742278e-08, -1, -4.3711385e-08, 0, 0, 8.742278e-08, 1, -4, 3, -3.059797e-07)
 
 [connection signal="mouse_entered" from="InteractionArea" to="." method="_on_interaction_area_mouse_entered"]
 [connection signal="mouse_exited" from="InteractionArea" to="." method="_on_interaction_area_mouse_exited"]

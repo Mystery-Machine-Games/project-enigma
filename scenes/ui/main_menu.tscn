@@ -2,7 +2,6 @@
 
 [ext_resource type="Theme" uid="uid://cmkw3oj66pneq" path="res://assets/themes/default_theme.tres" id="1_fe2o3"]
 [ext_resource type="Script" uid="uid://5rdaso1owdeb" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
-[ext_resource type="PackedScene" uid="uid://8rpttrdlmp1u" path="res://scenes/ui/input_mapper.tscn" id="3_1g8jr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
 bg_color = Color(0.44199523, 0.7165368, 0.87937987, 1)
@@ -56,79 +55,7 @@ text = "Credits"
 layout_mode = 2
 text = "Quit"
 
-[node name="OptionsMenu" type="Panel" parent="." unique_id=153323809]
-unique_name_in_owner = true
-visible = false
-z_index = 2
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu" unique_id=1739372778]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Options" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=2131613276]
-layout_mode = 2
-theme_type_variation = &"HeaderLarge"
-text = "Options"
-
-[node name="Audio" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=860504905]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Audio"
-
-[node name="HBoxContainer" type="HBoxContainer" parent="OptionsMenu/VBoxContainer" unique_id=288695780]
-layout_mode = 2
-
-[node name="MasterVolume" type="Label" parent="OptionsMenu/VBoxContainer/HBoxContainer" unique_id=1308648853]
-layout_mode = 2
-text = "Master Volume"
-
-[node name="HSlider" type="HSlider" parent="OptionsMenu/VBoxContainer/HBoxContainer" unique_id=1855652596]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Controls" type="Label" parent="OptionsMenu/VBoxContainer" unique_id=1393866662]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Controls"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsMenu/VBoxContainer" unique_id=1821210453]
-layout_mode = 2
-
-[node name="MoveLeft" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1863612274 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "move_left"
-
-[node name="MoveRight" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1646280632 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "move_right"
-
-[node name="FocusItem" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1724853877 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "focus_item"
-
-[node name="UnfocusItem" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=734576739 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "unfocus_item"
-
-[node name="ToggleMachineView" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=1744894379 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "toggle_machine_view"
-
-[node name="ToggleClue" parent="OptionsMenu/VBoxContainer/VBoxContainer" unique_id=951172595 instance=ExtResource("3_1g8jr")]
-layout_mode = 2
-action = "toggle_clue"
-
-[node name="CreditsPanel" type="Panel" parent="." unique_id=519159911]
+[node name="CreditsPanel" type="PanelContainer" parent="." unique_id=1520115323]
 unique_name_in_owner = true
 visible = false
 z_index = 1
@@ -148,14 +75,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sl1te")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel" unique_id=915335674]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -81.0
-offset_right = 81.0
-offset_bottom = 138.0
-grow_horizontal = 2
+layout_mode = 2
 text = "A Vertical Slice
 By Mystery Machine
 
