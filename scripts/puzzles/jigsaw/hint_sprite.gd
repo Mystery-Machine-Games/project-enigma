@@ -5,7 +5,6 @@ var spriteDict : Dictionary = {
 	0:
 		{"type1":"res://icon.svg","type2": "res://icon.svg"}
 }
-var hintColors : Dictionary = {};
 
 # a clue is made up of two items and a bool
 # an item is made up of an array of sprites 
