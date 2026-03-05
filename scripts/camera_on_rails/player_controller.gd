@@ -82,26 +82,6 @@ func _physics_process(_delta: float) -> void:
 				tween_time,
 			)
 			_focus_tween.chain().tween_callback(_reset_tween)
-	# Handle unfocus action
-	if Input.is_action_just_pressed("unfocus_item") and _focused_item:
-		if _focus_tween:
-			_focus_tween.kill()
-		_focus_tween = create_tween().set_parallel()
-		var tween_time: float = %Head.position.length() / _focused_item.focus_speed
-		_focus_tween.tween_property(
-			%Head,
-			"rotation",
-			LOOK_ROTATION_OFFSET,
-			tween_time,
-		)
-		_focus_tween.tween_property(
-			%Head,
-			"position",
-			Vector3.ZERO,
-			tween_time,
-		)
-		_focus_tween.chain().tween_callback(_reset_tween)
-		_focus_on(null)
 	
 	if Input.is_action_just_pressed("ui_accept") and _focused_item && _focused_item.focusPointArr.size() > 1:
 		# Cancel any running focus animation
@@ -143,6 +123,25 @@ func _unhandled_input(event: InputEvent) -> void:
 			+ _camera.project_ray_normal(event.position)
 			* FOCUS_RAY_LENGTH
 		)
+	elif event.is_action_pressed("unfocus_item") and _focused_item:
+		if _focus_tween:
+			_focus_tween.kill()
+		_focus_tween = create_tween().set_parallel()
+		var tween_time: float = %Head.position.length() / _focused_item.focus_speed
+		_focus_tween.tween_property(
+			%Head,
+			"rotation",
+			LOOK_ROTATION_OFFSET,
+			tween_time,
+		)
+		_focus_tween.tween_property(
+			%Head,
+			"position",
+			Vector3.ZERO,
+			tween_time,
+		)
+		_focus_tween.chain().tween_callback(_reset_tween)
+		_focus_on(null)
 
 
 ## Sets focus on focus_item. If focus_item is null, unfocuses.

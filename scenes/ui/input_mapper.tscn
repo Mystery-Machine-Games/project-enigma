@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://8rpttrdlmp1u"]
+
+[ext_resource type="Script" uid="uid://d1uht48fn4bml" path="res://scripts/ui/input_mapper.gd" id="1_0vmcq"]
+
+[node name="InputMapper" type="HBoxContainer" unique_id=1863612274]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = -20.0
+offset_right = 98.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_0vmcq")
+action = "test_remap"
+
+[node name="ActionName" type="Label" parent="." unique_id=100121659]
+layout_mode = 2
+text = "Input Action"
+
+[node name="EventMapButton" type="Button" parent="." unique_id=1095965460]
+layout_mode = 2
+toggle_mode = true
+text = "Input Event"
