@@ -7,17 +7,17 @@ enum Axis {X, Y, Z}
 @export var start_port_positions: Array[Vector3]
 @export var end_port_distance: float
 @export var port_axis: Axis
-@export var port_colors: Array[Material]
 
 const NUM_WIRES: int = 3
 const POSSIBLE_WIRE_TYPES: Array[String] = ["I", "II", "III"]
 
-@onready var _difficulty: int
 @onready var _start_ports: Array[Node] = $StartPorts.get_children()
 @onready var _end_ports: Array[Node] = $EndPorts.get_children()
-@onready var _possible_port_colors: Array[Material] = port_colors.duplicate()
+@onready var _possible_port_colors: Array[Material]
+@onready var _possible_wire_colors: Array[Material]
 @onready var _possible_wire_types: Array[String] = POSSIBLE_WIRE_TYPES.duplicate()
 
+var _difficulty: int
 var _wire_solution: Array[MachineWireData]
 var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
@@ -26,9 +26,10 @@ var _current_wire_type: String
 signal wire_added
 signal wire_removed
 signal wires_correct
-signal clueset_generated;
+signal clueset_generated
 
-func _ready() -> void:
+
+func initialize_puzzle() -> void:
 	_pick_random_colors()
 	_apply_colors()
 	_generate_solution()
@@ -38,9 +39,13 @@ func _ready() -> void:
 
 
 func _pick_random_colors() -> void:
-	for i: int in range(port_colors.size() - NUM_WIRES):
-		var random_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
-		_possible_port_colors.remove_at(random_color_index)
+	var num_to_remove: int = _possible_port_colors.size() - NUM_WIRES
+	for i: int in range(num_to_remove):
+		var random_port_color_index: int = randi_range(0, _possible_port_colors.size() - 1)
+		var random_wire_color_index: int = randi_range(0, _possible_wire_colors.size() - 1)
+		_possible_port_colors.remove_at(random_port_color_index)
+		_possible_wire_colors.remove_at(random_wire_color_index)
+	_possible_wire_colors.shuffle()
 
 
 # Note: Must be applied before shuffling the port arrays so that their shapes match up to colors
@@ -64,12 +69,7 @@ func _generate_solution() -> void:
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var wire_type: String = _possible_wire_types[i]
-		var wire_code: String
-		match wire_type:
-			"I": wire_code = "roman1"
-			"II": wire_code = "roman2"
-			"III": wire_code = "roman3"
-		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type, wire_code)
+		var new_wire: MachineWireData = MachineWireData.new(start_port, end_port, wire_type)
 		_wire_solution.append(new_wire)
 	_wire_solution.shuffle()
 	print("[WIRE_MODULE][READY]\nWire solution:\n", _wire_solution)
@@ -115,56 +115,59 @@ func _log_interaction(port: MachinePort) -> void:
 
 
 func _add_wire() -> void:
-	if _current_wire_type == "": # Can only add wire if holding one
-		return
+	if _current_wire_type == "": return # Can only add wire if holding one
+
 	var start_port: MachinePort = _current_ports[0]
 	var end_port: MachinePort = _current_ports[1]
 	start_port.set_filled(true)
 	end_port.set_filled(true)
-	var wire_code: String = "roman"
-	match _current_wire_type:
-		"I": wire_code += "1"
-		"II": wire_code += "2"
-		"III": wire_code += "3"
-	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type, wire_code)
+	var wire_data: MachineWireData = MachineWireData.new(start_port, end_port, _current_wire_type)
 	var wire_instance: Node3D = wire_scene.instantiate()
 
 	$Wires.add_child(wire_instance)
 	wire_instance.position = start_port.position
 	var wire: MachineWire = wire_instance
 	wire.set_data(wire_data)
+	wire.set_type_sprite()
 	wire.wire_clicked.connect(_remove_wire)
 	_current_solution.append(wire.get_data())
 	_current_ports.clear()
-	_current_wire_type = ""
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire.get_data())
 	_angle_wire_mesh(wire)
+
+	# Apply random color to wire
+	var wire_color_index: int
+	match _current_wire_type:
+		"I": wire_color_index = 0
+		"II": wire_color_index = 1
+		"III": wire_color_index = 2
+	wire.set_color(_possible_wire_colors[wire_color_index])
+	
 	emit_signal("wire_added", wire.get_data().get_type())
+	_current_wire_type = ""
 
 
 func _angle_wire_mesh(wire: MachineWire) -> void:
 	var wire_data: MachineWireData = wire.get_data()
 	var start_port: MachinePort = wire_data.get_start_port()
 	var end_port: MachinePort = wire_data.get_end_port()
-	wire.global_rotation_degrees = Vector3(0, -180, 90)
-	print(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
-	var tempvec : Vector2 = Vector2(wire.global_rotation_degrees[0],wire.global_rotation_degrees[1]);
-	tempvec = tempvec.rotated(Vector3(1,0,0).angle_to(end_port.position - start_port.position));
-	
-	if start_port.global_position.z > end_port.global_position.z:
-		tempvec[1] *= -1;
-	wire.global_rotation_degrees = Vector3(tempvec[0],tempvec[1],wire.global_rotation_degrees[2])
-	
-	#wire.global_rotation_degrees 
-	#wire.global_rotate(Vector3(0, 0, 1), rad_to_deg(90))s
-	#wire.global_rotate(Vector3(1, 0, 0), rad_to_deg(180))
+	#wire.global_rotation_degrees = Vector3(0, -180, 90)
 	
 	# TODO
+	var wire_skeleton: Skeleton3D = wire.get_skeleton()
+	var start_bone: int = wire_skeleton.find_bone("Bone")
+	var end_bone: int = wire_skeleton.find_bone("Bone.008")
+	var start_bone_pos: Vector3 = wire_skeleton.get_bone_pose_position(start_bone)
+	# Make any changes on the pos and update the bone
+	#wire_skeleton.set_bone_global_pose(start_bone, start_port.transform)
+	wire_skeleton.set_bone_pose_rotation(start_bone, Quaternion(Vector3(0, 1, 0), 90))
 	# angle bone 0 straight out of start port
+	#wire_skeleton.set_bone_global_pose(0, start_port.transform)
 	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
 	# bones 1 to length - 1 are angled along a parabolic curve on the z axis
 	# 	note: we can use three different predefined parabolic curves so that wires don't intersect with each other
 	# final bone goes straight into destination port
+	#wire_skeleton.set_bone_global_pose(9, end_port.transform)
 	pass
 
 
@@ -210,8 +213,8 @@ func _generate_clues() -> void:
 		var wire: MachineWireData = _wire_solution[i]
 		var start_port: MachinePort = wire.get_start_port()
 		var end_port: MachinePort = wire.get_end_port()
-		var wire_code: String = wire.get_code()
-		clueset.add_item("Wire", wire, [wire_code], "Wire " + wire.get_type(), true)
+		var wire_type: String = wire.get_type()
+		clueset.add_item("Wire", wire, [wire_type], "Wire " + wire.get_type(), true)
 		clueset.add_item("Start", start_port, [start_port.code], "starts at " + start_port.code)
 		clueset.add_item("End", end_port, [end_port.code], "ends at " + end_port.code)
 	
@@ -234,13 +237,14 @@ func _generate_clues() -> void:
 		clueset.add_clue(start_port_item, end_port_item, true)
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty >= 0:
+	if _difficulty > 0:
 		clueset.assumption_replacement()
-	if _difficulty == 1:
+	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset)
+
 
 func change_wire(new_wire: String) -> void:
 	_current_ports.clear()
@@ -250,3 +254,8 @@ func change_wire(new_wire: String) -> void:
 
 func set_difficulty(difficulty: int) -> void:
 	_difficulty = difficulty
+
+
+func set_colors(port_colors: Array[Material], wire_colors: Array[Material]) -> void:
+	_possible_port_colors = port_colors.duplicate()
+	_possible_wire_colors = wire_colors.duplicate()

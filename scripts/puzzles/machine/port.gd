@@ -29,5 +29,6 @@ func _input(event: InputEvent) -> void:
 	if _mouse_over and event.is_action_pressed("interact"):
 		emit_signal("port_pressed", self)
 
+
 func get_color() -> StandardMaterial3D:
 	return get_node("PortMesh").material_override

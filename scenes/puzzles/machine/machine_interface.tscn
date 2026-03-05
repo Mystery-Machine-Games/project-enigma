@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bofcpnigvw2u5"]
 
-[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/interface.gd" id="1_lw6my"]
+[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/puzzles/machine/machine_interface.gd" id="1_lw6my"]
 [ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="1_tg63u"]
 [ext_resource type="Script" uid="uid://fsjwcnulwaem" path="res://scripts/puzzles/machine/wire_button.gd" id="2_lw6my"]
 

@@ -52,8 +52,6 @@ func add_clueset(clueset : Clueset) -> void:
 func generate_shapes() -> void:
 	for n : Clueset in $"../LyleFocusBox/FocusHandle/Machine".cluesetArr:
 		add_clueset(n);
-	#for n : Array in hintList:
-		#print(n)
 	hintColors = get_hint_colors()
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(-3,0))
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(0,0))
@@ -122,10 +120,7 @@ func _physics_process(_delta : float) -> void:
 				node.global_position.z = (shoot_ray() + selectedPos).z;
 	
 	if Input.is_action_just_pressed("leftclick"):
-		#print("pressed")
 		var temp : Dictionary = detect_piece();
-		#if temp:
-			#print(temp.collider.is_in_group("puzzlepieces"))
 		if temp && temp.collider.is_in_group("puzzlepieces"):
 			currentSelected = temp.collider.get_parent();
 			#currentSelected.get_parent().float_up(true);
@@ -153,7 +148,6 @@ func shoot_ray() -> Vector3: #used for mouse tracking
 	ray.collision_mask = bodyLayer;
 	var result : Dictionary = space.intersect_ray(ray);
 	if !result.is_empty():
-		#print(result)
 		return result.position;
 	return Vector3(0,0,0);
 	
@@ -170,7 +164,6 @@ func detect_piece() -> Dictionary: #used for jigsaw piece
 	ray.collision_mask = areaLayer;
 	var result : Dictionary = space.intersect_ray(ray);
 	if !result.is_empty():
-		#print(result)
 		return result;
 	return {};
 
@@ -203,20 +196,14 @@ func initialize_shape_arr() -> void:
 				if n == 1: 
 					temp.reverse();
 					pass
-				#if num == 2 && count == 1:
-					#print(temp)
 				var vertexArr : Array[Vector3] = []
 				for vertex : Array in temp:
 					var x : float = vertex[0];
 					var y : float = vertex[1];
 					vertexArr.append(Vector3(x,y,n * width))
 				var tempTRI : PackedInt32Array = Geometry2D.triangulate_polygon(temp);
-				#if num == 2 && count == 1:
-					#print(tempTRI)
 				for index : int in tempTRI.size():
 					tempTRI[index] += currentShape.size();
-				#if num == 2 && count == 1:
-					#print(tempTRI)
 				#if num == 2:
 					#tempTRI.reverse();
 				currentShape.append_array(vertexArr)

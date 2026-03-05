@@ -6,10 +6,20 @@
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3DJigsaw.tscn" id="5_mul8f"]
 [ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
+[ext_resource type="Material" uid="uid://c2khn4yg0axgk" path="res://assets/materials/blue.tres" id="6_446pb"]
+[ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="7_edjj0"]
+[ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/orange.tres" id="7_lluq4"]
 [ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/interface.gd" id="7_qykuv"]
 [ext_resource type="Script" uid="uid://dfcgkp6x5buda" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
 [ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="8_klpmy"]
 [ext_resource type="Script" uid="uid://fsjwcnulwaem" path="res://scripts/puzzles/machine/wire_button.gd" id="9_2v6h7"]
+[ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/yellow.tres" id="8_scah1"]
+[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/green.tres" id="9_uqirj"]
+[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/purple.tres" id="10_n58o4"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="11_jd810"]
+[ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/pink.tres" id="12_lluq4"]
+[ext_resource type="Material" uid="uid://dknyajtivc1ct" path="res://assets/materials/teal.tres" id="12_scah1"]
+[ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/lime.tres" id="14_uqirj"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -105,6 +115,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24175882)
 
 [node name="Machine" parent="LyleFocusBox/FocusHandle" index="0" unique_id=459262496 instance=ExtResource("5_ojn01")]
 transform = Transform3D(0.00067368994, 0, 0.09999773, 0, 0.1, 0, -0.09999773, 0, 0.00067368994, 0, 0, 0)
+port_colors = Array[Material]([ExtResource("6_446pb"), ExtResource("7_lluq4"), ExtResource("8_scah1")])
+wire_colors = Array[Material]([ExtResource("9_uqirj"), ExtResource("10_n58o4"), ExtResource("11_jd810")])
+button_colors = Array[Material]([ExtResource("12_scah1"), ExtResource("12_lluq4"), ExtResource("14_uqirj")])
 
 [node name="FocusPoint" type="Marker3D" parent="LyleFocusBox" index="2" unique_id=1780292693]
 transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.9138717, 0, 0.5202774, 1.1541008)

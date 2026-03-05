@@ -2,7 +2,6 @@ class_name ButtonModule
 extends Node3D
 
 @export var button_positions: Array[Vector3]
-@export var button_colors: Array[Material]
 
 enum Interaction {PRESS, HOLD}
 
@@ -11,7 +10,7 @@ const NUM_BUTTONS: int = 3
 const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 
 @onready var _difficulty: int
-@onready var _possible_button_colors: Array[Material] = button_colors.duplicate()
+@onready var _possible_button_colors: Array[Material]
 @onready var _interaction: Interaction = Interaction.values().pick_random()
 @onready var _buttons: Array[Node] = get_children()
 @onready var _interaction_nums: Array[int] = POSSIBLE_INTERACTION_NUMS.duplicate()
@@ -20,7 +19,8 @@ var _interaction_history: Dictionary[Node, float]
 signal buttons_correct
 signal clueset_generated;
 
-func _ready() -> void:
+
+func initialize_puzzle() -> void:
 	_pick_random_colors()
 	_apply_colors()
 	_pick_random_interaction_nums()
@@ -31,7 +31,8 @@ func _ready() -> void:
 
 
 func _pick_random_colors() -> void:
-	for i: int in range(POSSIBLE_INTERACTION_NUMS.size() - NUM_BUTTONS):
+	var num_to_remove: int = _possible_button_colors.size() - NUM_BUTTONS
+	for i: int in range(num_to_remove):
 		var random_color_index: int = randi_range(0, _possible_button_colors.size() - 1)
 		_possible_button_colors.remove_at(random_color_index)
 	_possible_button_colors.shuffle()
@@ -128,7 +129,7 @@ func _generate_clues() -> void:
 			1: order_text = "1st"
 			2: order_text = "2nd"
 			3: order_text = "3rd"
-		clueset.add_item("Order", i + 1, [str(i+1)], order_text)
+		clueset.add_item("Order", i + 1, ["hashtag", str(i+1) + "centered"], order_text)
 		
 		var interaction_text: String
 		var unit_text: String
@@ -179,13 +180,18 @@ func _generate_clues() -> void:
 	#print("[BUTTON_MODULE][GENERATE CLUES]\nClueset (before replacements):\n", str(clueset))
 	
 	# Follow procedure to replace positive weight edges with negative weight edges
-	if _difficulty >= 0:
+	if _difficulty > 0:
 		clueset.assumption_replacement()
-	if _difficulty == 1:
+	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset);
 
+
 func set_difficulty(difficulty: int) -> void:
 	_difficulty = difficulty
+
+
+func set_colors(colors: Array[Material]) -> void:
+	_possible_button_colors = colors.duplicate()

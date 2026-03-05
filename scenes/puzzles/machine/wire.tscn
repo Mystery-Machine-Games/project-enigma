@@ -2,19 +2,53 @@
 
 [ext_resource type="PackedScene" uid="uid://d0vfthncymtcp" path="res://assets/meshes/wire.glb" id="1_qd4d0"]
 [ext_resource type="Script" uid="uid://b4rll5fu83yj0" path="res://scripts/puzzles/machine/wire.gd" id="2_veigl"]
+[ext_resource type="Texture2D" uid="uid://cvnoeqi4xpbto" path="res://assets/textures/roman3.png" id="3_bci3j"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="3_ndipe"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/copper.tres" id="4_1pkcl"]
+[ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="6_1pkcl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_veigl"]
 radius = 1.0
 height = 8.53418
 
+[sub_resource type="Animation" id="Animation_873pa"]
+resource_name = "pose_test"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Armature/Skeleton3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dsjuq"]
+_data = {
+&"pose_test": SubResource("Animation_873pa")
+}
+
 [node name="Wire" unique_id=1056601399 instance=ExtResource("1_qd4d0")]
+transform = Transform3D(-4.371139e-08, 4.371139e-08, 1, 1, 1.9106855e-15, 4.371139e-08, 0, 1, -4.371139e-08, 0, 0, 0)
 script = ExtResource("2_veigl")
+
+[node name="Wire" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(40343138) index="0" unique_id=1018983724]
+surface_material_override/0 = ExtResource("3_ndipe")
+surface_material_override/1 = ExtResource("4_1pkcl")
 
 [node name="InteractionArea" type="Area3D" parent="." index="1" unique_id=1419073794]
 
 [node name="InteractionCollider" type="CollisionShape3D" parent="InteractionArea" index="0" unique_id=459780933]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.032715, 0)
 shape = SubResource("CapsuleShape3D_veigl")
+
+[node name="WireTypeSprite" type="Sprite3D" parent="." index="2" unique_id=2012688402]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 4, 0)
+texture = ExtResource("3_bci3j")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3" unique_id=314420584]
+libraries/ = SubResource("AnimationLibrary_dsjuq")
+
+[node name="Machine" parent="." index="4" unique_id=459262496 instance=ExtResource("6_1pkcl")]
+transform = Transform3D(-4.3711385e-08, 1, -8.742278e-08, -1, -4.3711385e-08, 0, 0, 8.742278e-08, 1, -4, 3, -3.059797e-07)
 
 [connection signal="mouse_entered" from="InteractionArea" to="." method="_on_interaction_area_mouse_entered"]
 [connection signal="mouse_exited" from="InteractionArea" to="." method="_on_interaction_area_mouse_exited"]
