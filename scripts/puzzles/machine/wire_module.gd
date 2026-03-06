@@ -133,7 +133,7 @@ func _add_wire() -> void:
 	_current_solution.append(wire.get_data())
 	_current_ports.clear()
 	print("[WIRE_MODULE][LOG_INTERACTION] Added wire ", _current_wire_type, ": ", wire.get_data())
-	_angle_wire_mesh(wire)
+	_set_wire_pose(wire)
 
 	# Apply random color to wire
 	var wire_color_index: int
@@ -147,7 +147,7 @@ func _add_wire() -> void:
 	_current_wire_type = ""
 
 
-func _angle_wire_mesh(wire: MachineWire) -> void:
+func _set_wire_pose(wire: MachineWire) -> void:
 	var wire_data: MachineWireData = wire.get_data()
 	var start_port: MachinePort = wire_data.get_start_port()
 	var end_port: MachinePort = wire_data.get_end_port()
@@ -155,15 +155,11 @@ func _angle_wire_mesh(wire: MachineWire) -> void:
 	var start_port_index: int = _start_ports.find(start_port)
 	var end_port_index: int = _end_ports.find(end_port)
 	
-	if start_port_index == end_port_index:
-		pass # Do nothing, ports are in-line
-	elif end_port_index - start_port_index == 1:
-		print("end port to start port diff = 1")
+	if end_port_index - start_port_index == 1:
 		anim_player.play("right")
 	elif start_port_index - end_port_index == 1:
 		anim_player.play("left")
 	elif end_port_index - start_port_index == 2:
-		print("end port to start port diff = 2")
 		anim_player.play("far_right")
 	elif start_port_index - end_port_index == 2:
 		anim_player.play("far_left")
