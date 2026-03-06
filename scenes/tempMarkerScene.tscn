@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://c2n4klcu17ldu"]
-
-[sub_resource type="SphereMesh" id="SphereMesh_wkgei"]
-
-[node name="TempMarkerScene" type="MeshInstance3D" unique_id=656229242]
-mesh = SubResource("SphereMesh_wkgei")

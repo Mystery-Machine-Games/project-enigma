@@ -29,3 +29,6 @@ external/
 
 # Local development directory
 _dev/
+
+# MacOS files
+.DS_Store

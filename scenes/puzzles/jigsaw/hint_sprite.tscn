@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://x3allhxl0f2l"]
 
 [ext_resource type="Script" uid="uid://bhlpsxndiei5a" path="res://scripts/puzzles/jigsaw/hint_sprite.gd" id="1_66gjg"]
-[ext_resource type="Texture2D" uid="uid://utmnnec6ol7s" path="res://assets/tempframe.png" id="2_u0t71"]
+[ext_resource type="Texture2D" uid="uid://utmnnec6ol7s" path="res://assets/temp_frame.png" id="2_u0t71"]
 
 [node name="Polygon2D" type="Polygon2D" unique_id=1096175393]
 clip_children = 1
-polygon = PackedVector2Array(-299, 19.5)
+polygon = PackedVector2Array(0, 0, 128, 0, 128, 128, 0, 128)
 uv = PackedVector2Array(-299, 19.5)
 script = ExtResource("1_66gjg")
 
