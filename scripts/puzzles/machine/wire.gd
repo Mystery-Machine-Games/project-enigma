@@ -4,6 +4,7 @@ extends Node3D
 @onready var type_sprite: Sprite3D = $WireTypeSprite
 @onready var wire_mesh: MeshInstance3D = $Armature/Skeleton3D/Wire
 @onready var skeleton: Skeleton3D = $Armature/Skeleton3D
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
 
 var _data: MachineWireData
 var _mouse_over: bool
@@ -25,6 +26,10 @@ func get_data() -> MachineWireData:
 
 func get_skeleton() -> Skeleton3D:
 	return skeleton
+
+
+func get_anim_player() -> AnimationPlayer:
+	return anim_player
 
 
 func set_data(data: MachineWireData) -> void:

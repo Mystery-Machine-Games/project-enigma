@@ -151,24 +151,22 @@ func _angle_wire_mesh(wire: MachineWire) -> void:
 	var wire_data: MachineWireData = wire.get_data()
 	var start_port: MachinePort = wire_data.get_start_port()
 	var end_port: MachinePort = wire_data.get_end_port()
-	#wire.global_rotation_degrees = Vector3(0, -180, 90)
+	var anim_player: AnimationPlayer = wire.get_anim_player()
+	var start_port_index: int = _start_ports.find(start_port)
+	var end_port_index: int = _end_ports.find(end_port)
 	
-	# TODO
-	var wire_skeleton: Skeleton3D = wire.get_skeleton()
-	var start_bone: int = wire_skeleton.find_bone("Bone")
-	var end_bone: int = wire_skeleton.find_bone("Bone.008")
-	var start_bone_pos: Vector3 = wire_skeleton.get_bone_pose_position(start_bone)
-	# Make any changes on the pos and update the bone
-	#wire_skeleton.set_bone_global_pose(start_bone, start_port.transform)
-	wire_skeleton.set_bone_pose_rotation(start_bone, Quaternion(Vector3(0, 1, 0), 90))
-	# angle bone 0 straight out of start port
-	#wire_skeleton.set_bone_global_pose(0, start_port.transform)
-	# bones 1 to length - 1 are angled linearly toward end port on the x/y plane
-	# bones 1 to length - 1 are angled along a parabolic curve on the z axis
-	# 	note: we can use three different predefined parabolic curves so that wires don't intersect with each other
-	# final bone goes straight into destination port
-	#wire_skeleton.set_bone_global_pose(9, end_port.transform)
-	pass
+	if start_port_index == end_port_index:
+		pass # Do nothing, ports are in-line
+	elif end_port_index - start_port_index == 1:
+		print("end port to start port diff = 1")
+		anim_player.play("right")
+	elif start_port_index - end_port_index == 1:
+		anim_player.play("left")
+	elif end_port_index - start_port_index == 2:
+		print("end port to start port diff = 2")
+		anim_player.play("far_right")
+	elif start_port_index - end_port_index == 2:
+		anim_player.play("far_left")
 
 
 func _remove_wire(wire_type: String) -> void:
