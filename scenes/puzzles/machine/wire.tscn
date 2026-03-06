@@ -580,7 +580,7 @@ tracks/19/enabled = true
 tracks/19/path = NodePath("WireTypeSprite")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, 0.9999999, 4, 3)
+tracks/19/keys = PackedFloat32Array(0, 1, 0.9999999, 5.0000005, 2.9999998)
 
 [sub_resource type="Animation" id="Animation_gbav5"]
 resource_name = "center_right"
@@ -716,7 +716,7 @@ tracks/18/enabled = true
 tracks/18/path = NodePath("WireTypeSprite")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
-tracks/18/keys = PackedFloat32Array(0, 1, 1.0000001, 1.9999999, -1.9999996)
+tracks/18/keys = PackedFloat32Array(0, 1, 1, 1.0000001, -0.9999996)
 tracks/19/type = "rotation_3d"
 tracks/19/imported = false
 tracks/19/enabled = true

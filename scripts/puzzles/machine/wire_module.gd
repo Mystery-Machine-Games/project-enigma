@@ -100,6 +100,7 @@ func _connect_signals() -> void:
 
 
 func _log_interaction(port: MachinePort) -> void:
+	#print("[WIRE_MODULE][LOG_INTERACTION] _current_ports = ", _current_ports)
 	if !port.is_filled():
 		if _current_ports.size() == 0 and _start_ports.find(port) != -1:
 			_current_ports.append(port)
