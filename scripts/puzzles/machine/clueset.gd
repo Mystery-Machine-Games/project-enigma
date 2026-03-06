@@ -4,6 +4,7 @@ extends Object
 var _items: Array[Item]
 var _assumption_items: Array[Item] # Vertices unconnected to any other vertices
 var _clues: Array[Clue]
+var _header: Array[String]
 
 
 func add_item(category: String, data: Variant, codes: Array[String], text: String = "", head: bool = false) -> Item:
@@ -90,6 +91,14 @@ func get_assumption_items() -> Array[Item]:
 
 func get_clues() -> Array[Clue]:
 	return _clues
+
+
+func set_header(header: Array[String]) -> void:
+	_header = header.duplicate()
+
+
+func get_header() -> Array[String]:
+	return _header
 
 
 func _to_string() -> String:

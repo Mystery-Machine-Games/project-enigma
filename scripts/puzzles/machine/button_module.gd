@@ -185,6 +185,12 @@ func _generate_clues() -> void:
 	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
+	var header: Array[String] = ["button"]
+	var sorted_nums: Array[int] = _interaction_nums.duplicate()
+	sorted_nums.sort()
+	for num: int in sorted_nums:
+		header.append(str(num))
+	clueset.set_header(header)
 	print("[BUTTON_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset);
 

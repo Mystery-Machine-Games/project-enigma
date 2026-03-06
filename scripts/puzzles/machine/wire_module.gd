@@ -237,6 +237,7 @@ func _generate_clues() -> void:
 	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
+	clueset.set_header(["wire", "I", "II", "III"])
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset)
 
