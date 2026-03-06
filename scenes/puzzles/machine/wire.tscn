@@ -294,7 +294,7 @@ tracks/19/enabled = true
 tracks/19/path = NodePath("WireTypeSprite")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, 0.9999998, 3.9999998, 4)
+tracks/19/keys = PackedFloat32Array(0, 1, 0.99999976, 5, 6)
 
 [sub_resource type="Animation" id="Animation_0o2vx"]
 resource_name = "far_right"
@@ -437,7 +437,7 @@ tracks/19/enabled = true
 tracks/19/path = NodePath("WireTypeSprite")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, 1.0000001, 2.9999998, -3.9999998)
+tracks/19/keys = PackedFloat32Array(0, 1, 0.9999999, 1.9999999, -1.9999996)
 
 [sub_resource type="Animation" id="Animation_k1pwp"]
 resource_name = "center_left"
@@ -580,7 +580,7 @@ tracks/19/enabled = true
 tracks/19/path = NodePath("WireTypeSprite")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
-tracks/19/keys = PackedFloat32Array(0, 1, 0.99999994, 4, 2)
+tracks/19/keys = PackedFloat32Array(0, 1, 0.9999999, 4, 3)
 
 [sub_resource type="Animation" id="Animation_gbav5"]
 resource_name = "center_right"
