@@ -19,10 +19,11 @@ var hintList : Array = [];
 @export var bodyLayer: int;
 @export var pieces : Node3D;
 @export var camera : Camera3D;
+@export var plane : RigidBody3D;
 
 func _ready() -> void:
 	camera = $"../Path3D/PlayerCharacter".get_camera();
-	$plane.collision_layer = bodyLayer
+	plane.collision_layer = bodyLayer
 	await initialize_shape_arr();
 	generate_shapes()
 
@@ -91,8 +92,8 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 		
 		node.add_child(m);
 		randomize();
-		m.position.x += vec[0] + randf_range(-2,2);
-		m.position.y += vec[1] + randf_range(-1,1);
+		m.position.x += vec[0] #+ randf_range(-2,2);
+		m.position.y += vec[1] #+ randf_range(-1,1);
 	node.initialize_pieces()
 	for firstnode : JigsawPiece in node.get_children():
 		for secondnode in node.get_children():
@@ -116,8 +117,10 @@ func _physics_process(_delta : float) -> void:
 			pass
 		else:
 			for node : Node3D in group:
-				node.global_position.x = (shoot_ray() + selectedPos).x;
-				node.global_position.z = (shoot_ray() + selectedPos).z;
+				var ray :Vector3 = shoot_ray() 
+				if ray:
+					node.global_position.x = (ray + selectedPos).x;
+					node.global_position.z = (ray + selectedPos).z;
 	
 	if Input.is_action_just_pressed("leftclick"):
 		var temp : Dictionary = detect_piece();
@@ -241,4 +244,5 @@ func puzzle_complete(hints : Array) -> void:
 	temp.clues = hints
 	temp.hintColors = hintColors;
 	temp.construct([],0,false);
+	temp.position.x = ($"../Interface/Control".get_children().size()-1) * 200;
 	

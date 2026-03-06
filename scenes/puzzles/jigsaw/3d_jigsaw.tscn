@@ -2,9 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cp5srjs2iyudk" path="res://scripts/puzzles/jigsaw/3d_jigsaw.gd" id="1_8frpf"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cg3wf"]
-size = Vector3(20, 0.1, 20)
-
 [node name="3DJigsaw" type="Node3D" unique_id=947779380 node_paths=PackedStringArray("pieces")]
 script = ExtResource("1_8frpf")
 areaLayer = 1
@@ -12,11 +9,3 @@ bodyLayer = 1
 pieces = NodePath("puzzle pieces")
 
 [node name="puzzle pieces" type="Node3D" parent="." unique_id=882357373]
-
-[node name="plane" type="RigidBody3D" parent="." unique_id=940442116]
-collision_mask = 0
-gravity_scale = 0.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="plane" unique_id=2049245418]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-shape = SubResource("BoxShape3D_cg3wf")
