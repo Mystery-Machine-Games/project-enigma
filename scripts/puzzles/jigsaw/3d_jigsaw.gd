@@ -1,6 +1,6 @@
 extends Node3D
 
-var jigsawPiece : PackedScene = preload("res://scenes/puzzles/jigsaw/JigsawPiece.tscn");
+var jigsawPiece : PackedScene = preload("res://scenes/puzzles/jigsaw/jigsaw_piece.tscn");
 var jigsawDataPath : String = "res://assets/jerryMisc/data.txt";
 var puzzleArr : Array[Array] = []
 var puzzleTriangleArr : Array = []
