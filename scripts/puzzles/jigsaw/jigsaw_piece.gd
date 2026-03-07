@@ -10,6 +10,7 @@ var hint : Array = [];
 var hintColors : Dictionary = {};
 var group : Array = [self];
 var adjacentPieces : Array = [];
+var header : Array =  [];
 @export var mesh : MeshInstance3D;
 @export var previewMesh : MeshInstance3D;
 @export var collider : CollisionShape3D;
@@ -40,6 +41,8 @@ func _ready() -> void:
 	
 	if hint.size() > 0:
 		polygon.clues = hint;
+	if header.size() > 0:
+		polygon.header = header;
 	polygon.hintColors = hintColors;
 	polygon.construct(poly,seed);
 

@@ -3,13 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
-[ext_resource type="PackedScene" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
+[ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
 [ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
 [ext_resource type="Material" uid="uid://c2khn4yg0axgk" path="res://assets/materials/blue.tres" id="6_446pb"]
 [ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/orange.tres" id="7_lluq4"]
 [ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/puzzles/machine/machine_interface.gd" id="7_qykuv"]
-[ext_resource type="Script" uid="uid://dih0x6h5y2sfr" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
+[ext_resource type="Script" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
 [ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="8_klpmy"]
 [ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/yellow.tres" id="8_scah1"]
 [ext_resource type="Script" uid="uid://fsjwcnulwaem" path="res://scripts/puzzles/machine/wire_button.gd" id="9_2v6h7"]
@@ -19,10 +19,12 @@
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/pink.tres" id="12_lluq4"]
 [ext_resource type="Material" uid="uid://dknyajtivc1ct" path="res://assets/materials/teal.tres" id="12_scah1"]
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/lime.tres" id="14_uqirj"]
+[ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
+[ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 1.065, 0, 0, 0, 0, 0, 0, 0, -1.535, 0, 0, 1, 1.0030812, 0, 3.2067497),
+"points": PackedVector3Array(0, 0, 0, 1.065, 0, 0, 0, 0, 0, 0, 0, -1.535, 0, 0, 1, 1.0030812, 0, 2.0055604),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -43,7 +45,7 @@ size = Vector3(1.5, 1, 5)
 albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
-radius = 0.72
+radius = 0.9792048
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3hq15"]
 radius = 1.3
@@ -51,7 +53,15 @@ radius = 1.3
 [sub_resource type="BoxShape3D" id="BoxShape3D_jd810"]
 size = Vector3(13.370361, 0.1, 7.0811157)
 
+[sub_resource type="Environment" id="Environment_t167l"]
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 3.0
+
 [node name="TestWorld" unique_id=1275245254 instance=ExtResource("1_r73vw")]
+
+[node name="MeshInstance3D" parent="Setup/Floor" parent_id_path=PackedInt32Array(736828130) index="1" unique_id=592287391]
+visible = false
 
 [node name="Path3D" type="Path3D" parent="." index="1" unique_id=939577834]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 1.5, -2)
@@ -62,6 +72,7 @@ transform = Transform3D(-4.37108e-08, 0, -0.9999865, 0, 0.99999225, 0, 0.9999865
 
 [node name="Counter" type="StaticBody3D" parent="." index="2" unique_id=2056954246]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3910902, 0, -3.7470071)
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Counter" index="0" unique_id=2099096514]
 shape = SubResource("BoxShape3D_mgeuf")
@@ -74,10 +85,12 @@ mesh = SubResource("BoxMesh_oylrk")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.168395, 0, -0.49337673)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Counter2" index="0" unique_id=1471864794]
+visible = false
 shape = SubResource("BoxShape3D_e3r2b")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Counter2" index="1" unique_id=1462534574]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, 0)
+visible = false
 mesh = SubResource("BoxMesh_oylrk")
 
 [node name="Wall" parent="." index="4" unique_id=1596152033 instance=ExtResource("3_ymsyd")]
@@ -85,6 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8147202, 0, -0.24205041)
 
 [node name="Wall2" parent="." index="5" unique_id=333103062 instance=ExtResource("3_ymsyd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.4441605, 0, -0.23160136)
+visible = false
 
 [node name="Wall3" parent="." index="6" unique_id=2016587851 instance=ExtResource("3_ymsyd")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.6459179, 0, -8.059682)
@@ -103,13 +117,14 @@ mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
 [node name="LyleFocusBox" type="Area3D" parent="." index="9" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.8169742, 0.8046534, 0.6790142)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0681787, 0.8046534, -0.39957404)
 input_ray_pickable = false
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint"), NodePath("FocusPoint2")]
 _focus_handle = NodePath("FocusHandle")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LyleFocusBox" index="0" unique_id=1245662200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30333292, 0)
 shape = SubResource("SphereShape3D_j1yni")
 
 [node name="FocusHandle" type="Node3D" parent="LyleFocusBox" index="1" unique_id=1767559984]
@@ -128,7 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.913
 transform = Transform3D(1, -3.769781e-08, -2.158537e-08, 3.769781e-08, 0.5061843, 0.8624253, -2.158537e-08, -0.8624253, 0.5061843, 0, 1.1878084, 0.3133769)
 
 [node name="JerryFocusBox" type="Area3D" parent="." index="10" unique_id=180049619 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.1022027, 0.8046534, -1.5902604)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0217366, 0.8046534, -2.5900998)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint")]
 _focus_handle = NodePath("FocusHandle")
@@ -141,10 +156,10 @@ unique_name_in_owner = true
 
 [node name="FocusPoint" type="Marker3D" parent="JerryFocusBox" index="2" unique_id=1509393533]
 unique_name_in_owner = true
-transform = Transform3D(1, -2.4922182e-08, -3.0458175e-08, 3.5141788e-08, 0.21707004, 0.9761562, -1.7716378e-08, -0.9761562, 0.21707004, -2.9802322e-08, 0.75397146, 0.58980036)
+transform = Transform3D(1, -1.8769741e-08, -1.5921279e-08, 2.3617222e-08, 0.5496354, 0.83540475, -6.929433e-09, -0.83540475, 0.5496354, 0.23627663, 1.0122591, 0.81394744)
 
 [node name="3DJigsaw" parent="." index="11" unique_id=947779380 node_paths=PackedStringArray("plane") instance=ExtResource("5_mul8f")]
-transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 3.097918, 0.71913576, -1.6231687)
+transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 4.017452, 0.71913576, -2.6230083)
 areaLayer = 2
 bodyLayer = 2
 plane = NodePath("plane")
@@ -158,7 +173,7 @@ transform = Transform3D(1, 0, 1.8626451e-08, 0, 1, 0, -1.8626451e-08, 0, 1, 1.04
 shape = SubResource("BoxShape3D_jd810")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="12" unique_id=1766527839]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.266509, -0.7901053)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, 0.8710696)
 
 [node name="Interface" type="Control" parent="." index="13" unique_id=1143050847]
 layout_mode = 3
@@ -241,6 +256,17 @@ offset_bottom = 185.0
 
 [node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="14" unique_id=14493092]
 script = ExtResource("8_3hq15")
+
+[node name="desk" type="MeshInstance3D" parent="." index="15" unique_id=1101713897]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.2163444, -1.492364, -4.988626)
+mesh = ExtResource("20_snonn")
+
+[node name="pencilholder" type="MeshInstance3D" parent="." index="16" unique_id=1633484262]
+transform = Transform3D(-0.8772468, 0, -0.48003972, 0, 1, 0, 0.48003972, 0, -0.8772468, 5.745341, -1.4541664, -2.551506)
+mesh = ExtResource("21_t167l")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="17" unique_id=173731445]
+environment = SubResource("Environment_t167l")
 
 [connection signal="pressed" from="Interface/WireButtonsContainer/WireButton1" to="Interface/WireButtonsContainer/WireButton1" method="_on_pressed"]
 [connection signal="pressed" from="Interface/WireButtonsContainer/WireButton2" to="Interface/WireButtonsContainer/WireButton2" method="_on_pressed"]

@@ -68,7 +68,7 @@ func _physics_process(_delta: float) -> void:
 				%Head.global_position
 				- _focused_item.focus_position
 			).length()
-			var tween_time: float = tween_distance / _focused_item.focus_speed
+			var tween_time: float = 0.8#tween_distance / _focused_item.focus_speed
 			_focus_tween.tween_property(
 				%Head,
 				"global_rotation",
@@ -98,7 +98,7 @@ func _physics_process(_delta: float) -> void:
 			%Head.global_position
 			- _focused_item.focus_position
 		).length()
-		var tween_time: float = tween_distance / _focused_item.focus_speed
+		var tween_time: float = 0.8 #tween_distance / _focused_item.focus_speed
 		_focus_tween.tween_property(
 			%Head,
 			"global_rotation",
@@ -127,7 +127,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if _focus_tween:
 			_focus_tween.kill()
 		_focus_tween = create_tween().set_parallel()
-		var tween_time: float = %Head.position.length() / _focused_item.focus_speed
+		var tween_time: float = 0.8#%Head.position.length() / _focused_item.focus_speed
 		_focus_tween.tween_property(
 			%Head,
 			"rotation",
@@ -151,12 +151,18 @@ func _focus_on(focus_item: FocusItem) -> void:
 		return
 
 	if _focused_item:
+		#unfocus
 		_focused_item.is_focused = false
 	if focus_item:
+		#focus on new, unfocus old
+		
+		
 		_focused_item = focus_item
 		_focused_item.is_focused = true
+		
 	else:
 		_focused_item = null
+	
 
 
 func _reset_tween() -> void:

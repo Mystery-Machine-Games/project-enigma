@@ -14,6 +14,8 @@ var offset : Vector3 = Vector3(0,0,0);
 var currentSelected : JigsawPiece = null;
 var selectedPos : Vector3 = Vector3(0,0,0)
 var hintList : Array = [];
+var headerList : Array = [];
+
 
 @export var areaLayer : int;
 @export var bodyLayer: int;
@@ -53,6 +55,8 @@ func add_clueset(clueset : Clueset) -> void:
 func generate_shapes() -> void:
 	for n : Clueset in $"../LyleFocusBox/FocusHandle/Machine".cluesetArr:
 		add_clueset(n);
+		headerList.append(n.get_header())
+	
 	hintColors = get_hint_colors()
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(-3,0))
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(0,0))
@@ -62,6 +66,7 @@ func generate_shapes() -> void:
 func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 	
 	var newList : Array = hintList.pop_front();
+	var newHeader : Array = headerList.pop_front();
 	#print(puzzleIndex)
 	var node : puzzlePieceOrganizer = puzzlePieceOrganizer.new();
 	node.puzzleCompleteSignal.connect(puzzle_complete)
@@ -86,8 +91,7 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 		m.layer = areaLayer;
 		m.hintColors = hintColors;
 		m.hint = newList.duplicate();
-		
-			
+		m.header = newHeader.duplicate();
 		
 		
 		node.add_child(m);

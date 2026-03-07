@@ -15,7 +15,7 @@ var clues : Array = [
 	[["hold"],["positive"],["circle_port"]],
 	[["hold","1","times"],["positive"],["square_port"]],
 ];#array of clues
-var header : Array = ["button","1","2","3"];
+var header : Array = [];
 
 var hintColors : Dictionary = {};
 
