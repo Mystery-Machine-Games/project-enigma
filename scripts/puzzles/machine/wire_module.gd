@@ -21,7 +21,7 @@ var _difficulty: int
 var _wire_solution: Array[MachineWireData]
 var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
-var _current_wire_type: String
+var _current_wire_type: String = ""
 
 signal wire_added
 signal wire_removed
@@ -95,24 +95,40 @@ func _connect_signals() -> void:
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
+		start_port.port_hovered.connect(_log_interaction)
+		end_port.port_hovered.connect(_log_interaction)
 		start_port.port_pressed.connect(_log_interaction)
 		end_port.port_pressed.connect(_log_interaction)
 
 
-func _log_interaction(port: MachinePort) -> void:
-	#print("[WIRE_MODULE][LOG_INTERACTION] _current_ports = ", _current_ports)
-	if !port.is_filled():
-		if _current_ports.size() == 0 and _start_ports.find(port) != -1:
-			_current_ports.append(port)
-		elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
-			_current_ports.append(port)
-		else:
-			print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
+func _log_interaction(port: MachinePort, pressed: bool) -> void:
+	if _current_wire_type == "": 
+		port.set_interactable(false)
+		return
+	elif port.is_filled(): 
+		port.set_interactable(false)
+		return
+	elif !_is_next_port(port): 
+		port.set_interactable(false)
+		return
 	else:
-		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Filled")
+		port.set_interactable(true)
+	
+	if pressed:
+		_current_ports.append(port)
+	else: print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
+
 	if _current_ports.size() == 2:
 		_add_wire()
-	if _check_solution(): emit_signal("wires_correct")
+		if _check_solution(): emit_signal("wires_correct")
+
+
+func _is_next_port(port: MachinePort) -> bool:
+	if _current_ports.size() == 0 and _start_ports.find(port) != -1:
+		return true
+	elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
+		return true
+	else: return false
 
 
 func _add_wire() -> void:

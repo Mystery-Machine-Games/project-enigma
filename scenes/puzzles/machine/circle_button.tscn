@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://c8w3mbfgp02dl"]
+[gd_scene format=4 uid="uid://c8w3mbfgp02dl"]
 
 [ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/puzzles/machine/button.gd" id="1_bo4kx"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_5hs78"]
@@ -37,6 +37,19 @@ _data = {
 &"button_press": SubResource("Animation_8m7bo")
 }
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_kmv65"]
+_surfaces = [{
+"aabb": AABB(-1.344167, -0.29, -1.344167, 2.688335, 0.58, 2.688335),
+"attribute_data": PackedByteArray("lVQVPwD//z4AAIA/AAAAAAAAgD8A//8+q6iqPgAAAAAA/X8+AP//PgAAAAAAAAAAAAAAAAD//z7ft14/9TR1P8D/Pz+DjgI/g44CP8D/Pz/A/z8/AP//PquqKj8AAAAAAP//PgAAAAD9b30/wP8/PwD9fz79b30/AP1/PoOOAj/qaOo+37deP62gLD3ft14/66lqPwD//z7rqWo/AAAAANVU1T4A//8+q6gqPgAAAACrqKo9AP//Pquoqj0AAAAA37deP4vKCj+hRyE/9TR1P6FHIT+Lygo/vW69PovKCj+toCw9oUchP4UcBT6Lygo/wP8/P8D/Pz/1NHU/oUchP4vKCj+hRyE/9TR1P9+3Xj+Lygo/37deP8D/Pz/9b30/AP1/PsD/Pz/qaOo+oUchP/vg+j7A/z8/pMAjPMD/Pz+9br0+9TR1P4UcBT71NHU/66lqPwAAAADVVFU/AP//Puupaj8A//8+1VRVPwAAAADVVFU/AAAAANVUVT8A//8+wP8/PwAAAACrqio/AP//PsD/Pz8AAAAAwP8/PwD//z6rqio/AAAAAKuqKj8A//8+lVQVPwAAAAAA//8+AP//PpVUFT8AAAAAlVQVPwD//z4A//8+AAAAAAD//z4A//8+1VTVPgAAAACrqKo+AP//PtVU1T4AAAAA1VTVPgD//z6rqKo+AAAAAKuoqj4A//8+AP1/PgAAAACrqCo+AP//PgD9fz4AAAAAAP1/PgD//z6rqCo+AAAAAKuoKj4A//8+q6iqPQAAAACrqKo9AP//Pg=="),
+"format": 34359742487,
+"index_count": 144,
+"index_data": PackedByteArray("CAAYAB4AGAAfAB4AGgAIAB4AHwANAB4AIAAaAB4ADQAhAB4ACQAgAB4AIQAHAB4AIgAJAB4ABwAjAB4AGQAiAB4AIwAZAB4AGwAPACQADwAdACQAJQAbACQAHQAcACQAJgAlACQAHAAnACQAEAAmACQAJwARACQAKAAQACQAEQApACQADgAoACQAKQAOACQAEgACAAEAKgASAAEAKwAsABMALQArABMACgAvAC4AMAAKAC4AMQAzADIANAAxADIAAAA1AAsANgAAAAsANwA5ADgAOgA3ADgAFAA7AAwAPAAUAAwAPQA/AD4AQAA9AD4ABABBAAMAQgAEAAMAQwBFAEQARgBDAEQAFgBHABUASAAWABUABgBJABcABQAGABcA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 74,
+"vertex_data": PackedByteArray("FxcuP5vqhb6vaJQ/nKi3O8Q6kD6kOJm/01sWPMTqhb6qDay/g1WEv9w6kD6NdBo/qg2sv7/qhb45XRY8nKi3O8Q6kD6kOJm/01sWPMTqhb6qDay/FxcuP5vqhb6vaJQ/01sWPMTqhb6qDay/qg2sv7/qhb45XRY8sw2sP17qhb6kCBe8ggyFP986kD4b9hc/9J63O+46kD5JN5k/sw2sP17qhb6kCBe89J63O+46kD5JN5k/nKi3O8Q6kD6kOJm/ggyFP986kD4b9hc/g1WEv9w6kD6NdBo/DAMqP6Tqhb5gl5W/G/YXP986kD7NDYW/uQUqv23qhb4YlpU/zQ2Fv986kD6z+Be/qhkuv4vqhb4AapS/JXcav9w6kD6DVYS/DAMqP6Tqhb5gl5W/uQUqv23qhb4YlpU/qhkuv4vqhb4AapS/G/YXP986kD7NDYW/zQ2Fv986kD6z+Be/JXcav9w6kD6DVYS/AACmt+F6lL4AAKa3r2iUP5vqhb6wGS6/YJeVv6Tqhb6lBSq/GJaVP23qhb4gAyo/AGqUv4vqhb4RFy4/n2IWPF7qhb6zDaw/AACmt+F6lD4AAKa3MVSEP+c6kD4ndxq/STeZP+46kD7x6ri7pDiZv8Q6kD4Wq7c7j3QaP+c6kD4xVIQ/s/gXv986kD6CDIU/G/YXP986kD7NDYW/r2iUP5vqhb6wGS6/DAMqP6Tqhb5gl5W/MVSEP+c6kD4ndxq/MVSEP+c6kD4ndxq/r2iUP5vqhb6wGS6/STeZP+46kD7x6ri7GJaVP23qhb4gAyo/STeZP+46kD7x6ri7sw2sP17qhb6kCBe8ggyFP986kD4b9hc/GJaVP23qhb4gAyo/j3QaP+c6kD4xVIQ/n2IWPF7qhb6zDaw/j3QaP+c6kD4xVIQ/FxcuP5vqhb6vaJQ/9J63O+46kD5JN5k/n2IWPF7qhb6zDaw/s/gXv986kD6CDIU/AGqUv4vqhb4RFy4/s/gXv986kD6CDIU/uQUqv23qhb4YlpU/g1WEv9w6kD6NdBo/AGqUv4vqhb4RFy4/pDiZv8Q6kD4Wq7c7YJeVv6Tqhb6lBSq/pDiZv8Q6kD4Wq7c7qg2sv7/qhb45XRY8zQ2Fv986kD6z+Be/YJeVv6Tqhb6lBSq/JXcav9w6kD6DVYS/qhkuv4vqhb4AapS/Abb6k/7//t946bPpAQCGzXjps+kBAIbN0SyGlgyb/r/RLIaWDJv+v4kWs+kQG/6/iRaz6RAb/r8CgAAA/v//PwKAAAD+//8/AoAAAP7//z936c+sAAB58gG2+pP+//7ftmmGlvLk/78CgAAA/v//P/9//f/+//+//3/9//7//78AgP3//v/+vwCA/f/+//6/eOmz6QEAhs0D7PvJAAD/37Zphpby5P+//BP8yQFA/r/8E/zJAUD+v4kWs+kQG/6/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AID9//7//r8AgP3//v/+vwCA/f/+//6/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/AoAAAP7//z8CgAAA/v//PwKAAAD+//8//3/9//7//78AgP3//v/+v/9//f/+//+//3/9//7//78AgP3//v/+vwCA/f/+//6/eOmz6QEAhs0D7PvJAAD/3wPs+8kAAP/fA+z7yQAA/9936c+sAAB58nfpz6wAAHnyd+nPrAAAefIt04aW/f948i3Thpb9/3jyLdOGlv3/ePIt04aW/f948gG2+pP+//7fAbb6k/7//t9JloaW/v+FzUmWhpb+/4XNSZaGlv7/hc1JloaW/v+FzbZphpby5P+/tmmGlvLk/7/+SfqT/7/+v/5J+pP/v/6//kn6k/+//r/+SfqT/7/+v9EshpYMm/6/0SyGlgyb/r+HFtCs9GT+v4cW0Kz0ZP6/hxbQrPRk/r+HFtCs9GT+v/wT/MkBQP6//BP8yQFA/r+JFrPpEBv+vw==")
+}]
+
 [node name="CircleButton" type="StaticBody3D" unique_id=1470236495]
 script = ExtResource("1_bo4kx")
 
@@ -56,6 +69,10 @@ shape = SubResource("CylinderShape3D_3q610")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]
 libraries/ = SubResource("AnimationLibrary_t81cg")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=1697216497]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)
+mesh = SubResource("ArrayMesh_kmv65")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

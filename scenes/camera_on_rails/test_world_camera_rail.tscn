@@ -113,6 +113,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -5)
 shape = SubResource("CapsuleShape3D_5ipvy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" index="1" unique_id=363256524]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5271854)
 mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
