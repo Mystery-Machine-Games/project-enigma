@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://de1jabgt3m35r"]
+[gd_scene format=4 uid="uid://de1jabgt3m35r"]
 
 [ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/puzzles/machine/button.gd" id="1_8mya1"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_uf340"]
@@ -36,6 +36,19 @@ _data = {
 &"button_press": SubResource("Animation_8m7bo")
 }
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_0112c"]
+_surfaces = [{
+"aabb": AABB(-1.1290857, -0.26983956, -1.1290857, 2.258171, 0.5396791, 2.2567198),
+"attribute_data": PackedByteArray("oP8fP8D/Pz/A/r8+AACAP8D+vz7A/z8/oP8fPwAAgD+g/x8/AP//PsD+vz7A/z8/wP6/PgD//z6g/x8/wP8/P6D/Hz8A/X8+wP6/PgD//z7A/r8+AP1/PqD/Hz8A//8+oP8fPwAAAADA/r8+AP1/PsD+vz4AAAAAoP8fPwD9fz4A+f89AP1/PsD+vz4A//8+APn/PQD//z7A/r8+AP1/PqD/Hz8A/X8+4P9fPwD//z6g/x8/AP//PuD/Xz8A/X8+"),
+"format": 34359742487,
+"index_count": 36,
+"index_data": PackedByteArray("AAACAAEAAwAAAAEABAAGAAUABwAEAAUACAAKAAkACwAIAAkADAAOAA0ADwAMAA0AEAASABEAEwAQABEAFAAWABUAFwAUABUA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray("N3KCv1Yoij6uQoK/4YWQv18oir5RVpA/34WQv1Yoir5WVpC/OXKCv18oij6PQYI/j0GCP18oij45coK/34WQv1Yoir5WVpC/UVaQP18oir7hhZC/N3KCv1Yoij6uQoK/HnGCP2koij6OQYI/UVaQP18oir7hhZC/4IWQP2koir5QVpA/j0GCP18oij45coK/OXKCv18oij6PQYI/4IWQP2koir5QVpA/4YWQv18oir5RVpA/HnGCP2koij6OQYI/4YWQv18oir5RVpA/UVaQP18oir7hhZC/34WQv1Yoir5WVpC/4IWQP2koir5QVpA/HnGCP2koij6OQYI/N3KCv1Yoij6uQoK/j0GCP18oij45coK/OXKCv18oij6PQYI/3xfel/iUvO3fF9+XPKNc9eAX4JcelN/r3hfglzmo7/Ug6P7/c3C87R7o+//4jV/uHuj+/+Nr4OvfF/7/HJTg6x3o3Zd7W4L1H+jcl71qYO4d6NyXxVfw9R7o3Jfha+DrAIDcl4KkOPgAgNyXw1wC+QCA3Zc6qPD1AIDdl8VX8PUAgAEA/v//vwCAAQD+//+/AIABAP7//78AgAEA/v//v/5//v8AAP6//n/+/wAA/r/+f/7/AAD+v/5//v8AAP6/")
+}]
+
 [node name="SquareButton" type="StaticBody3D" unique_id=1470236495]
 script = ExtResource("1_8mya1")
 
@@ -55,6 +68,10 @@ shape = SubResource("BoxShape3D_8mya1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]
 libraries/ = SubResource("AnimationLibrary_t81cg")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=430094652]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)
+mesh = SubResource("ArrayMesh_0112c")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

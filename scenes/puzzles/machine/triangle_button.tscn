@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://bbduosud7uguw"]
+[gd_scene format=4 uid="uid://bbduosud7uguw"]
 
 [ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/puzzles/machine/button.gd" id="1_u6eoy"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_7bsym"]
@@ -36,6 +36,19 @@ _data = {
 &"button_press": SubResource("Animation_8m7bo")
 }
 
+[sub_resource type="ArrayMesh" id="ArrayMesh_uk0r1"]
+_surfaces = [{
+"aabb": AABB(-1.3375947, -0.27077454, -1.5374633, 2.6629648, 0.54639626, 2.3167815),
+"attribute_data": PackedByteArray("q6oqPwAAAAAAAIA/AP//PquqKj8A//8+AACAPwAAAACrqKo+AP//PquqKj8AAAAAq6oqPwD//z6rqKo+AAAAAAD9fz6DjgI/6mjqPt+3Xj+toCw937dePwAAAAAAAAAAq6iqPgD//z4AAAAAAP//Pquoqj4AAAAA9TR1P9+3Xj/A/z8/g44CP4vKCj/ft14/"),
+"format": 34359742487,
+"index_count": 24,
+"index_data": PackedByteArray("AAACAAEAAwAAAAEABAAGAAUABwAEAAUACAAKAAkACwANAAwADgALAAwADwARABAA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 18,
+"vertex_data": PackedByteArray("tQSZP/aiij4STTQ/WJ9IvOmiir6Zy8S/uaWpP/aiir5mgUc/R44KvEsejT7rKbG/Tjarv+aiir7EFUI/tQSZP/aiij4STTQ/uaWpP/aiir5mgUc/5veZvzMejT7SSC8/R44KvEsejT7rKbG/tQSZP/aiij4STTQ/5veZvzMejT7SSC8/R44KvEsejT7rKbG/Tjarv+aiir7EFUI/WJ9IvOmiir6Zy8S/5veZvzMejT7SSC8/uaWpP/aiir5mgUc/WJ9IvOmiir6Zy8S/Tjarv+aiir7EFUI/2/IstwAAa5fb8iy3AABrl9vyLLcAAGuX2/IstwAAa5f/f0uR/v//v/9/S5H+//+//39Lkf7//7//f0uR/v//v/9//f/+//+//3/9//7//7//f/3//v//vyQNLbcnUf6/JA0ttydR/r8kDS23J1H+vyQNLbcnUf6/AoAAAP7//z8CgAAA/v//PwKAAAD+//8/")
+}]
+
 [node name="TriangleButton" type="StaticBody3D" unique_id=1470236495]
 script = ExtResource("1_u6eoy")
 
@@ -55,6 +68,10 @@ shape = SubResource("ConvexPolygonShape3D_u6eoy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746964635]
 libraries/ = SubResource("AnimationLibrary_t81cg")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=754925834]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.37333333, 0)
+mesh = SubResource("ArrayMesh_uk0r1")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

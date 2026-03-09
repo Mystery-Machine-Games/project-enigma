@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dd3kgd7bersai"]
+[gd_scene format=4 uid="uid://dd3kgd7bersai"]
 
 [ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/puzzles/machine/port.gd" id="1_qiq0c"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="2_qiq0c"]
@@ -6,6 +6,19 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]
 size = Vector3(1.85328, 0.624, 1.85328)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_bnkpm"]
+_surfaces = [{
+"aabb": AABB(-0.8100696, -0.34086752, -0.8100696, 1.620139, 0.6867894, 1.620139),
+"attribute_data": PackedByteArray("AP//PsD/Pz+g/x8/AACAPwD//z4AAIA/oP8fP8D/Pz8A//8+AP//PqD/Hz/A/z8/AP//PsD/Pz+g/x8/AP//PgD//z4A/X8+oP8fPwD//z4A//8+AP//PqD/Hz8A/X8+AP//PgAAAACg/x8/AP1/PgD//z4A/X8+oP8fPwAAAAAA+f89AP1/PsD+vz4A//8+APn/PQD//z7A/r8+AP1/PqqYKT+TMpM+4P9fPwD9fz7WZVY/kzKTPtZlVj/tyuw+oP8fPwD9fz7g/18/AP//PqD/Hz8A//8+qpgpP+3K7D7jouI+wP8/P8D+vz4AAIA/46LiPgAAgD/A/r8+wP8/P+Oi4j4A//8+wP6/PsD/Pz/jouI+wP8/P8D+vz4A//8+46LiPgD//z7A/r8+AP1/PsD+vz4A//8+46LiPgD9fz7jouI+AP1/PsD+vz4AAAAAwP6/PgD9fz7jouI+AAAAAMD+vz4A//8+APn/PQD9fz4A+f89AP//PsD+vz4A/X8+wP6/PgAAAAAA//8+AP1/PsD+vz4A/X8+AP//PgAAAADA/r8+AP1/PgD//z4A//8+wP6/PgD//z4A//8+AP1/PsD+vz4A//8+AP//PsD/Pz/A/r8+wP8/PwD//z4A//8+wP6/PsD/Pz8A//8+AACAP8D+vz4AAIA/AP//PsD/Pz8="),
+"format": 34359742487,
+"index_count": 108,
+"index_data": PackedByteArray("AAACAAEAAwAAAAEABAAGAAUABwAEAAUACAAKAAkACwAIAAkADAAOAA0ADwAMAA0AEAASABEAEwAQABEAFAAWABUAFwAVABYAGAAUABUAGQAVABcAGAAaABQAGQAXABoAFAAaABsAFwAbABoAHAAeAB0AHwAcAB0AIAAiACEAIwAgACEAJAAmACUAJwAkACUAKAAqACkAKwAoACkALAAuAC0ALwAsAC0AMAAyADEAMwAwADEANAA2ADUANwA0ADUAOAA6ADkAOwA4ADkAPAA+AD0APwA8AD0A"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 64,
+"vertex_data": PackedByteArray("uWBPv9dm1zy5YE+/YSAhv5kcsT7sPR8/tWBPv/pn1zy1YE8/WyAhv4ocsT6RPx+/tWBPP/pn1zy1YE+/WyAhv4ocsT6RPx+/uWBPv9dm1zy5YE+/7D0fP5kcsT5hICG/r2BPP69p1zyvYE8/7D0fP5kcsT5hICG/tWBPP/pn1zy1YE+/yR4hP60csT7mPR8/tWBPv/pn1zy1YE8/yR4hP60csT7mPR8/r2BPP69p1zyvYE8/YSAhv5kcsT7sPR8/8BFPvzCGrr7wEU8/8BFPPzCGrr7wEU+/8BFPvzCGrr7wEU+/8BFPPzCGrr7wEU8/m8DdPjCGrj6bwN0+YSAhv5kcsT7sPR8/uMPdvjCGrj6bwN0+uMPdvjCGrj64w92+yR4hP60csT7mPR8/WyAhv4ocsT6RPx+/7D0fP5kcsT5hICG/m8DdPjCGrj64w92+uMPdvjCGrj64w92+uMPdviRqK76bwN0+uMPdvjCGrj6bwN0+uMPdviRqK764w92+m8DdPjCGrj64w92+uMPdviRqK764w92+uMPdvjCGrj64w92+m8DdPiRqK764w92+m8DdPjCGrj64w92+m8DdPiRqK76bwN0+m8DdPiRqK764w92+m8DdPjCGrj6bwN0+m8DdPjCGrj6bwN0+uMPdviRqK76bwN0+m8DdPiRqK76bwN0+uMPdvjCGrj6bwN0+m8DdPiRqK764w92+uMPdviRqK76bwN0+uMPdviRqK764w92+m8DdPiRqK76bwN0+8BFPvzCGrr7wEU8/r2BPP69p1zyvYE8/8BFPPzCGrr7wEU8/tWBPv/pn1zy1YE8/8BFPPzCGrr7wEU8/tWBPP/pn1zy1YE+/8BFPPzCGrr7wEU+/r2BPP69p1zyvYE8/8BFPPzCGrr7wEU+/uWBPv9dm1zy5YE+/8BFPvzCGrr7wEU+/tWBPP/pn1zy1YE+/8BFPvzCGrr7wEU+/tWBPv/pn1zy1YE8/8BFPvzCGrr7wEU8/uWBPv9dm1zy5YE+/1S7Trh2n5eHTLtSuSMCd7dQu1K6QxNnu1S7UrkiitN0p0f7/62rl4SrR/P+Gm9nfKdH8/0iitd0q0f7/tl213SvR0q7OQ3DsKNHRrj1b2t8o0dKutV213SjR065tO9ruAYDRrjG8dPUAgNOutj878gCA0q5uO9vuAIDSrpHE2u4AgAEA/v//vwCAAQD+//+/AIABAP7//78AgAEA/v//v/x/+f+yDv2/BID8/wEARMgFgPz/AQAFy/x/+f+yDv2//n/5/5QQ/r/+f/n/lBD+vwSA/P8BAETIBYD8/wEABcv6/wGA/X8CAPr/AYD9fwIA+v8BgP1/AgD6/wGA/X8CAP9//3/9fwEA/3//f/1/AQD/f/9//X8BAP9//3/9fwEAAAAEgACAAAAAAASAAIAAAAAABIAAgAAAAAAEgACAAAD+//7//38AAP7//v//fwAA/v/+//9/AAD+//7//38AAPx//v/+//8//H/+//7//z/8f/7//v//P/x//v/+//8//3//fwCA/v//f/9/AID+//9//38AgP7//3//fwCA/v/6/wCA/n/+//r/AID+f/7/+v8AgP5//v/6/wCA/n/+//7//v//f/7//v/+//9//v/+//7//3/+//7//v//f/7/AgAEgAGA/P8CAASAAYD8/wIABIABgPz/AgAEgAGA/P8=")
+}]
 
 [node name="SquarePort" type="StaticBody3D" unique_id=1390384513]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
@@ -19,6 +32,10 @@ mesh = ExtResource("3_qiq0c")
 [node name="PressCollider" type="CollisionShape3D" parent="." unique_id=1572371527]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_oyquu")
+
+[node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=1382658331]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("ArrayMesh_bnkpm")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

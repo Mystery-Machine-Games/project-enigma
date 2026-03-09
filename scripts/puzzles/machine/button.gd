@@ -4,12 +4,17 @@ extends StaticBody3D
 @export var code: String
 
 @onready var _anim_player: AnimationPlayer = $AnimationPlayer
+@onready var _outline_mesh: MeshInstance3D = $OutlineMesh
 
 var _mouse_over: bool = false
 var _mouse_down: bool = false
 var _time_down: float = 0
 
 signal button_pressed
+
+
+func _ready() -> void:
+	_outline_mesh.visible = false
 
 
 func _process(delta: float) -> void:
@@ -23,6 +28,7 @@ func _process(delta: float) -> void:
 
 func _on_mouse_entered() -> void:
 	_mouse_over = true
+	_outline_mesh.visible = true
 
 
 func _on_mouse_exited() -> void:
@@ -30,12 +36,15 @@ func _on_mouse_exited() -> void:
 	if _mouse_down:
 		_anim_player.play_backwards("button_press")
 		_mouse_down = false
+	_outline_mesh.visible = false
 
 
 func _input(event: InputEvent) -> void:
 	if _mouse_over and event.is_action_pressed("interact"):
 		_anim_player.play("button_press")
 		_mouse_down = true
+		_outline_mesh.visible = false
 	if _mouse_over and event.is_action_released("interact"):
 		_anim_player.play_backwards("button_press")
 		_mouse_down = false
+		_outline_mesh.visible = true
