@@ -28,6 +28,8 @@ func _on_mouse_exited() -> void:
 func _input(event: InputEvent) -> void:
 	if _mouse_over and event.is_action_pressed("interact"):
 		emit_signal("port_pressed", self)
+	if _mouse_over and event.is_action_released("interact"):
+		emit_signal("port_pressed", self)
 
 
 func get_color() -> StandardMaterial3D:
