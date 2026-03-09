@@ -8,8 +8,6 @@ const MIN_LOOK_ROTATION: Vector2 = Vector2(-PI / 2, -PI / 4)
 const MAX_LOOK_ROTATION: Vector2 = Vector2(PI / 4, PI / 4)
 ## Rotation offset relative to path's curve's orientation
 const LOOK_ROTATION_OFFSET: Vector3 = Vector3(0, PI / 2, 0)
-## Length of mouse cursor raycast for focusing objects
-const FOCUS_RAY_LENGTH: float = 2.0
 
 ## Sensitivity of mouse look rotation
 @export_range(1.0, 10.0) var look_sensitivity: float = 5.0
@@ -22,19 +20,23 @@ var move_speed: float = 5.0
 var _look_rotation: Vector3 = Vector3.ZERO
 ## [-1, 1] sum of movement input
 var _move_direction: int = 0
+## Selected focus item, can be focused with focus input
+var _hovered_item: FocusItem = null
 ## If in focus mode, the focused item
 var _focused_item: FocusItem = null
-## [from, to] raycast for mouse cursor
-var _focus_ray: Array[Vector3] = [Vector3.ZERO, Vector3.ZERO]
 ## Tween transition to focus mode
 var _focus_tween: Tween = null
+## Player head reference
+@onready var _head: Node3D = %Head
 ## Player camera reference
 @onready var _camera: Camera3D = %Head/Camera3D
+## Cleanup callback in case a tween is canceled; (one-time use, consumed on next reset_tween call)
+var _tween_cleanup: Variant = null
 
 
 func _process(delta: float) -> void:
 	if not _focused_item and not (_focus_tween and _focus_tween.is_running()):
-		%Head.rotation = _look_rotation + LOOK_ROTATION_OFFSET
+		_head.rotation = _look_rotation + LOOK_ROTATION_OFFSET
 		_move_direction = 0
 		if Input.is_action_pressed("move_left"):
 			_move_direction -= 1
@@ -44,131 +46,99 @@ func _process(delta: float) -> void:
 		progress += move_speed * _move_direction * delta
 
 
-func _physics_process(_delta: float) -> void:
-	# Handle focus action
-	if Input.is_action_just_pressed("focus_item") and not _focused_item:
-		# Cancel any running focus animation
-		if _focus_tween:
-			_focus_tween.kill()
-		# Raycast to see if cursor is pointing to a focus item
-		var raycast_params: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(
-			_focus_ray[0],
-			_focus_ray[1],
-		)
-		raycast_params.collide_with_areas = true
-		var raycast_result: Dictionary = get_world_3d().direct_space_state.intersect_ray(
-			raycast_params,
-		)
-		var collider: Object = raycast_result.get("collider")
-		
-		if collider and collider is FocusItem:
-			_focus_on(collider)
-			_focus_tween = create_tween().set_parallel()
-			var tween_distance: float = (
-				%Head.global_position
-				- _focused_item.focus_position
-			).length()
-			var tween_time: float = 0.8#tween_distance / _focused_item.focus_speed
-			_focus_tween.tween_property(
-				%Head,
-				"global_rotation",
-				_focused_item.focus_rotation,
-				tween_time,
-			)
-			_focus_tween.tween_property(
-				%Head,
-				"global_position",
-				_focused_item.focus_position,
-				tween_time,
-			)
-			_focus_tween.chain().tween_callback(_reset_tween)
-	
-	if Input.is_action_just_pressed("ui_accept") and _focused_item && _focused_item.focusPointArr.size() > 1:
-		# Cancel any running focus animation
-		#hardcoding something here for time
-		$"../../Interface".get_wire_buttons().visible = _focused_item.focusIndex == 0;
-		if _focus_tween:
-			_focus_tween.kill()
-		_focused_item.focusIndex += 1;
-		if _focused_item.focusIndex >= _focused_item.focusPointArr.size():
-			_focused_item.focusIndex = 0;
-		_focused_item.set_pos_and_rot();
-		_focus_tween = create_tween().set_parallel()
-		var tween_distance: float = (
-			%Head.global_position
-			- _focused_item.focus_position
-		).length()
-		var tween_time: float = 0.8 #tween_distance / _focused_item.focus_speed
-		_focus_tween.tween_property(
-			%Head,
-			"global_rotation",
-			_focused_item.focus_rotation,
-			tween_time,
-		)
-		_focus_tween.tween_property(
-			%Head,
-			"global_position",
-			_focused_item.focus_position,
-			tween_time,
-		)
-		_focus_tween.chain().tween_callback(_reset_tween)
-
 func _unhandled_input(event: InputEvent) -> void:
-	if (event is InputEventMouseButton
-		and event.button_index == MOUSE_BUTTON_LEFT
-		and event.pressed ):
-		_focus_ray[0] = _camera.project_ray_origin(event.position)
-		_focus_ray[1] = (
-			_focus_ray[0]
-			+ _camera.project_ray_normal(event.position)
-			* FOCUS_RAY_LENGTH
-		)
-	elif event.is_action_pressed("unfocus_item") and _focused_item:
-		if _focus_tween:
-			_focus_tween.kill()
-		_focus_tween = create_tween().set_parallel()
-		var tween_time: float = 0.8#%Head.position.length() / _focused_item.focus_speed
-		_focus_tween.tween_property(
-			%Head,
-			"rotation",
-			LOOK_ROTATION_OFFSET,
-			tween_time,
-		)
-		_focus_tween.tween_property(
-			%Head,
-			"position",
-			Vector3.ZERO,
-			tween_time,
-		)
-		_focus_tween.chain().tween_callback(_reset_tween)
-		_focus_on(null)
-
-
-## Sets focus on focus_item. If focus_item is null, unfocuses.
-func _focus_on(focus_item: FocusItem) -> void:
-	if focus_item and focus_item.is_focused:
-		push_warning("[player_controller] focus_item is already being focused on")
-		return
-
-	if _focused_item:
-		#unfocus
-		_focused_item.is_focused = false
-	if focus_item:
-		#focus on new, unfocus old
-		
-		
-		_focused_item = focus_item
-		_focused_item.is_focused = true
-		
+	if not _focused_item:
+		if event.is_action_pressed("focus_item") and _hovered_item:
+			_reset_tween()
+			_focused_item = _hovered_item
+			_tween_cleanup = (func () -> void:
+				# Lift FocusItem's focus flag once tween has completed (cleanup callback).
+				# This helps when used to detect when to enable focus mode-specific input.
+				_focused_item.is_focused = true
+			)
+			_start_focus_tween()
 	else:
-		_focused_item = null
-	
+		if event.is_action_pressed("unfocus_item"):
+			_reset_tween()
+			# Conversely to lifting, lower a FocusItems's focus flag before unfocus animation starts
+			_focused_item.is_focused = false
+			_start_unfocus_tween()
+			_focused_item = null
+		elif event.is_action_pressed("cycle_focus_view") and _focused_item.focusPointArr.size() > 1:
+			_reset_tween()
+			# TODO: Refactor multi-FocusPoint FocusItem's to be less coupled -Brian
+			# Increments and sets multi-FocusPoint FocusItem's current focus point
+			_focused_item.focus_index += 1;
+			if _focused_item.focus_index >= _focused_item.focusPointArr.size():
+				_focused_item.focus_index = 0;
+			_focused_item.set_pos_and_rot();
+			_start_focus_tween()
 
 
+func get_camera() -> Camera3D:
+	return _camera
+
+
+func _on_focus_item_hovered(focus_item: FocusItem) -> void:
+	_hovered_item = focus_item
+
+
+## Cancel and null any existing tween
 func _reset_tween() -> void:
+	if _tween_cleanup is Callable:
+		@warning_ignore("unsafe_cast")
+		(_tween_cleanup as Callable).call()
+		# one-time use cleanup
+		_tween_cleanup = null
 	if _focus_tween:
 		_focus_tween.kill()
 		_focus_tween = null
 
-func get_camera() -> Camera3D:
-	return $Head/Camera3D;
+
+## Clear any current focus state
+func _clear_focus() -> void:
+	if _focused_item:
+		_focused_item.is_focused = false
+		_focused_item = null
+
+
+## Starts focus tween on currently focused item
+func _start_focus_tween() -> void:
+	_focus_tween = create_tween().set_parallel()
+	var tween_distance: float = (
+		_head.global_position
+		- _focused_item.focus_position
+	).length()
+	var tween_time: float = tween_distance / _focused_item.focus_speed
+	_focus_tween.tween_property(
+		_head,
+		"global_rotation",
+		_focused_item.focus_rotation,
+		tween_time,
+	)
+	_focus_tween.tween_property(
+		_head,
+		"global_position",
+		_focused_item.focus_position,
+		tween_time,
+	)
+	_focus_tween.chain().tween_callback(_reset_tween)
+
+
+## Starts unfocus tween from current focus
+func _start_unfocus_tween() -> void:
+	_focus_tween = create_tween().set_parallel()
+	var tween_time: float = _head.position.length() / _focused_item.focus_speed
+	_focus_tween.tween_property(
+		_head,
+		"rotation",
+		LOOK_ROTATION_OFFSET,
+		tween_time,
+	)
+	_focus_tween.tween_property(
+		_head,
+		"position",
+		Vector3.ZERO,
+		tween_time,
+	)
+	_focus_tween.chain().tween_callback(_reset_tween)

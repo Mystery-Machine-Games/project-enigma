@@ -45,7 +45,7 @@ size = Vector3(1.5, 1, 5)
 albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
-radius = 0.9792048
+radius = 0.825
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3hq15"]
 radius = 1.3
@@ -117,8 +117,7 @@ mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
 [node name="LyleFocusBox" type="Area3D" parent="." index="9" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0681787, 0.8046534, -0.39957404)
-input_ray_pickable = false
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9010897, 0.8046534, -1.7680097)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint"), NodePath("FocusPoint2")]
 _focus_handle = NodePath("FocusHandle")
@@ -268,6 +267,8 @@ mesh = ExtResource("21_t167l")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="17" unique_id=173731445]
 environment = SubResource("Environment_t167l")
 
+[connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
+[connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
 [connection signal="pressed" from="Interface/WireButtonsContainer/WireButton1" to="Interface/WireButtonsContainer/WireButton1" method="_on_pressed"]
 [connection signal="pressed" from="Interface/WireButtonsContainer/WireButton2" to="Interface/WireButtonsContainer/WireButton2" method="_on_pressed"]
 [connection signal="pressed" from="Interface/WireButtonsContainer/WireButton3" to="Interface/WireButtonsContainer/WireButton3" method="_on_pressed"]
