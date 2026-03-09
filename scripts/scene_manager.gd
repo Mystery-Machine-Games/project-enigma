@@ -43,7 +43,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if _is_playing and event.is_action_pressed("pause"):
-		get_tree().paused = not get_tree().paused
+		if _current_scene == Scene.OPTIONS:
+			return
+		
 		if _current_scene == Scene.PAUSE:
 			_close_current_scene()
 			get_tree().paused = false
@@ -70,8 +72,9 @@ func _on_request_options_menu() -> void:
 	_open_as_current_scene(Scene.OPTIONS)
 	
 func _on_request_options_close() -> void:
-	if _current_scene == Scene.PAUSE:
+	if _current_scene == Scene.OPTIONS:
 		_close_current_scene()
+		_current_scene = Scene.PAUSE if _is_playing else Scene.MAIN_MENU
 
 func _open_as_current_scene(scene: Scene) -> void:
 	var next_scene: Variant = _scenes.get(scene)
