@@ -56,15 +56,15 @@ func generate_shapes() -> void:
 	for n : Clueset in $"../LyleFocusBox/FocusHandle/Machine".cluesetArr:
 		add_clueset(n);
 		headerList.append(n.get_header())
-	
+
 	hintColors = get_hint_colors()
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(-3,0))
 	draw_shapes_from_puzzle(randi_range(0,puzzleArr.size() - 1),Vector2(0,0))
-	
+
 	pieces.rotation = Vector3(-PI/2,PI,0) #when this is rotated a different direction the mesh is fully black for some reason
 
 func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
-	
+
 	var newList : Array = hintList.pop_front();
 	var newHeader : Array = headerList.pop_front();
 	#print(puzzleIndex)
@@ -77,11 +77,11 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 		st.begin(Mesh.PRIMITIVE_TRIANGLES)
 		#st.set_color(Color(randf(), randf(), randf()))
 		#st.set_uv(Vector2(0, 0))
-		
+
 		for index : int in puzzleTriangleArr[puzzleIndex][shapeIndex]:
 			var vec3 : Vector3 = puzzleArr[puzzleIndex][shapeIndex][index];
 			st.add_vertex(vec3/mult);
-		
+
 		m.poly = flatShapeArr[puzzleIndex][shapeIndex];
 		#print(m.poly)
 		m.m = st.commit();
@@ -92,8 +92,8 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 		m.hintColors = hintColors;
 		m.hint = newList.duplicate();
 		m.header = newHeader.duplicate();
-		
-		
+
+
 		node.add_child(m);
 		randomize();
 		m.position.x += vec[0] #+ randf_range(-2,2);
@@ -121,20 +121,20 @@ func _physics_process(_delta : float) -> void:
 			pass
 		else:
 			for node : Node3D in group:
-				var ray :Vector3 = shoot_ray() 
+				var ray :Vector3 = shoot_ray()
 				if ray:
 					node.global_position.x = (ray + selectedPos).x;
 					node.global_position.z = (ray + selectedPos).z;
-	
-	if Input.is_action_just_pressed("leftclick"):
+
+	if Input.is_action_just_pressed("interact_grab"):
 		var temp : Dictionary = detect_piece();
 		if temp && temp.collider.is_in_group("puzzlepieces"):
 			currentSelected = temp.collider.get_parent();
 			#currentSelected.get_parent().float_up(true);
 			selectedPos = temp.collider.global_position - temp.position;
 			#currentSelected.global_position.y = 0.1
-		
-	if Input.is_action_just_released("leftclick"):
+
+	if Input.is_action_just_released("interact_grab"):
 		var arr : Array = [];
 		#if currentSelected:
 			#currentSelected.get_parent().float_up(false);
@@ -157,7 +157,7 @@ func shoot_ray() -> Vector3: #used for mouse tracking
 	if !result.is_empty():
 		return result.position;
 	return Vector3(0,0,0);
-	
+
 func detect_piece() -> Dictionary: #used for jigsaw piece
 	var raylength : int = 1000;
 	var from : Vector3 = camera.project_ray_origin(camera.get_viewport().get_mouse_position());
@@ -189,18 +189,18 @@ func initialize_shape_arr() -> void:
 		flatShapeArr.append(tempshape);
 	var num : int = 0;
 	for puzzle : Array in JSON.parse_string(file.get_as_text()):
-		
+
 		var shapeArr : Array = [];
 		var shapeTriangleArr : Array = [];
 		var count : int = 0;
 		for shape : Array in puzzle:
-			
+
 			#create front and back
 			var currentShape : Array = [];
 			var currentTriangles : Array = [];
 			for n : int in 2:
 				var temp : Array = shape.duplicate();
-				if n == 1: 
+				if n == 1:
 					temp.reverse();
 					pass
 				var vertexArr : Array[Vector3] = []
@@ -219,7 +219,7 @@ func initialize_shape_arr() -> void:
 			var arr1 : Array = currentShape.slice(0,shape.size());
 			var arr2 : Array = currentShape.slice(shape.size());
 			arr2.reverse();
-			
+
 			for vertexIndex : int in shape.size():
 				var tempEdge : Array = []
 				tempEdge = [
@@ -234,7 +234,7 @@ func initialize_shape_arr() -> void:
 					tempTRI[index] += currentShape.size();
 				currentShape.append_array(tempEdge);
 				currentTriangles.append_array(tempTRI);
-				
+
 			shapeArr.append(currentShape);
 			shapeTriangleArr.append(currentTriangles)
 			count += 1;
@@ -249,4 +249,3 @@ func puzzle_complete(hints : Array) -> void:
 	temp.hintColors = hintColors;
 	temp.construct([],0,false);
 	temp.position.x = ($"../Interface/Control".get_children().size()-1) * 200;
-	

@@ -60,13 +60,28 @@ action = "focus_item"
 layout_mode = 2
 action = "unfocus_item"
 
-[node name="ToggleMachineView" parent="VBoxContainer/VBoxContainer" unique_id=1404772683 instance=ExtResource("1_ta2k2")]
+[node name="CycleFocusView" parent="VBoxContainer/VBoxContainer" unique_id=1404772683 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
-action = "toggle_machine_view"
+action = "cycle_focus_view"
 
 [node name="ToggleClue" parent="VBoxContainer/VBoxContainer" unique_id=176547108 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "toggle_clue"
+
+[node name="InteractGrab" parent="VBoxContainer/VBoxContainer" unique_id=1215221659 instance=ExtResource("1_ta2k2")]
+layout_mode = 2
+action = "interact_grab"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=815905844]
+layout_mode = 2
+
+[node name="ControllerSensitivity" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1652678120]
+layout_mode = 2
+text = "Controller Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=27282379]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Return" type="Button" parent="VBoxContainer" unique_id=794473135]
 layout_mode = 2

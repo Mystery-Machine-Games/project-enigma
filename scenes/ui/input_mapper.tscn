@@ -27,3 +27,8 @@ text = "Input Action"
 layout_mode = 2
 toggle_mode = true
 text = "Input Event"
+
+[node name="EventMapButton2" type="Button" parent="." unique_id=1612728610]
+layout_mode = 2
+toggle_mode = true
+text = "Input Event 2"

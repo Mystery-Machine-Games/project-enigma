@@ -26,7 +26,7 @@ func _on_mouse_exited() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact"):
+	if _mouse_over and event.is_action_pressed("interact_grab"):
 		emit_signal("port_pressed", self)
 
 

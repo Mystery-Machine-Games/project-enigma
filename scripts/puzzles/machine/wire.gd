@@ -45,5 +45,5 @@ func _on_interaction_area_mouse_exited() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact"):
+	if _mouse_over and event.is_action_pressed("interact_grab"):
 		emit_signal("wire_clicked", _data.get_type())
