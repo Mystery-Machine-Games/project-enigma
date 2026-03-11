@@ -16,29 +16,38 @@ func _input(event: InputEvent) -> void:
 				or event is InputEventJoypadButton):
 		return
 	
-	if not InputMap.action_has_event(action, event):
-		# Check if button is toggled (listening)
-		if _event_map_button.button_pressed:
-			var events: Array[InputEvent] = InputMap.action_get_events(action)
-			if not event.is_action_pressed("ui_cancel") and events.size() > 0:
-				InputMap.action_erase_events(action)
-				InputMap.action_add_event(action, event)
-				InputMap.action_add_event(action, events[1])
-				_update_display()
-			_event_map_button.button_pressed = false
-			return
+	# Check if button is toggled (listening)
+	if _event_map_button.button_pressed:
+		var events: Array[InputEvent] = InputMap.action_get_events(action)
+		if (not InputMap.action_has_event(action, event)
+			and not event.is_action_pressed("ui_cancel")
+			and events.size() > 0
+		):
+			InputMap.action_erase_events(action)
+			if event is InputEventKey:
+				# mapped event will fallback to physical keycode
+				(event as InputEventKey).keycode = KEY_NONE
+			InputMap.action_add_event(action, event)
+			InputMap.action_add_event(action, events[1])
+			_update_display()
+		_event_map_button.button_pressed = false
+		return
 			
 		
-		if _event_map_button2.button_pressed:
-			if InputMap.action_has_event(action, event):
-				return
-			var events: Array[InputEvent] = InputMap.action_get_events(action)
-			if not event.is_action_pressed("ui_cancel") and events.size() > 1:
-				InputMap.action_erase_event(action, events[1])
-				InputMap.action_add_event(action, event)
-				_update_display()
-			_event_map_button2.button_pressed = false
-			return
+	if _event_map_button2.button_pressed:
+		var events: Array[InputEvent] = InputMap.action_get_events(action)
+		if (not InputMap.action_has_event(action, event)
+			and not event.is_action_pressed("ui_cancel")
+			and events.size() > 1
+		):
+			InputMap.action_erase_event(action, events[1])
+			if event is InputEventKey:
+				# mapped event will fallback to physical keycode
+				(event as InputEventKey).keycode = KEY_NONE
+			InputMap.action_add_event(action, event)
+			_update_display()
+		_event_map_button2.button_pressed = false
+		return
 
 
 	if event.is_action_pressed("test_remap"):
