@@ -1,13 +1,9 @@
 class_name WireButton
-extends Button
+extends TextureButton
 
 @export var wire_type: String
 
 signal wire_changed
-
-
-func _ready() -> void:
-	text = "Wire " + wire_type
 
 
 func _on_pressed() -> void:

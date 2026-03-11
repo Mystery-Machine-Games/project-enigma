@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/puzzles/machine/machine_interface.gd" id="1_lw6my"]
 [ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="1_tg63u"]
 [ext_resource type="Script" uid="uid://fsjwcnulwaem" path="res://scripts/puzzles/machine/wire_button.gd" id="2_lw6my"]
+[ext_resource type="Texture2D" uid="uid://b470y71a3p4dj" path="res://assets/textures/roman1.png" id="3_4r3lm"]
+[ext_resource type="Texture2D" uid="uid://cs0w4xgiojpmc" path="res://assets/textures/roman2.PNG" id="5_dui2c"]
+[ext_resource type="Texture2D" uid="uid://dnwqlxguxmwu1" path="res://assets/textures/roman3.PNG" id="6_77jxe"]
 
 [node name="Interface" type="Control" unique_id=1143050847]
 layout_mode = 3
@@ -31,15 +34,17 @@ vertical_alignment = 1
 [node name="WireButtonsContainer" type="VBoxContainer" parent="." unique_id=1142157950]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.75
+anchor_left = 0.689
 anchor_top = 0.25
 anchor_right = 0.8
 anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = -29.0
+offset_left = 188.27191
+offset_top = 52.0
+offset_right = 188.39996
+offset_bottom = 309.0
 grow_horizontal = 0
 grow_vertical = 2
+scale = Vector2(0.5200025, 0.5200025)
 script = ExtResource("1_tg63u")
 
 [node name="WiresLabel" type="Label" parent="WireButtonsContainer" unique_id=171686128]
@@ -48,24 +53,21 @@ text = "Wires"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WireButton1" type="Button" parent="WireButtonsContainer" unique_id=1569739892]
+[node name="WireButton1" type="TextureButton" parent="WireButtonsContainer" unique_id=113787822]
 layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
+texture_normal = ExtResource("3_4r3lm")
 script = ExtResource("2_lw6my")
 wire_type = "I"
 
-[node name="WireButton2" type="Button" parent="WireButtonsContainer" unique_id=993273191]
+[node name="WireButton2" type="TextureButton" parent="WireButtonsContainer" unique_id=675761799]
 layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
+texture_normal = ExtResource("5_dui2c")
 script = ExtResource("2_lw6my")
 wire_type = "II"
 
-[node name="WireButton3" type="Button" parent="WireButtonsContainer" unique_id=1718315835]
+[node name="WireButton3" type="TextureButton" parent="WireButtonsContainer" unique_id=900887690]
 layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
+texture_normal = ExtResource("6_77jxe")
 script = ExtResource("2_lw6my")
 wire_type = "III"
 

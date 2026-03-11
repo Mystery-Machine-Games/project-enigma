@@ -13,6 +13,8 @@ enum Difficulty {EASY, MEDIUM, HARD}
 @onready var _wire_module: WireModule = $WireModule
 
 var _wires_correct: bool = false
+var _machine_initialized: bool = false
+signal machine_initialized
 signal machineFixed;
 
 var cluesetArr : Array[Clueset] = [];
@@ -28,6 +30,12 @@ func _ready() -> void:
 	_button_module.initialize_puzzle()
 	_wire_module.initialize_puzzle()
 	#$"../../../3DJigsaw".generate_shapes();
+
+
+func _process(_delta: float) -> void:
+	if not _machine_initialized:
+		_machine_initialized = true
+		emit_signal("machine_initialized")
 
 
 func _set_wires_correct() -> void:
