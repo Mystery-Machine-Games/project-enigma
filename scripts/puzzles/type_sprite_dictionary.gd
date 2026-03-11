@@ -35,4 +35,6 @@ static var _sprite_types : Dictionary = {
 
 
 static func type_to_sprite(type: String) -> SpriteData:
-	return _sprite_types[type]
+	if _sprite_types.find_key(type):
+		return _sprite_types[type]
+	return null
