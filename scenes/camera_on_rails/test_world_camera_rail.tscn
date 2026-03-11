@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://h3kjpccnqvq4"]
 
 [ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
+[ext_resource type="Script" uid="uid://cut3gyry261vh" path="res://scripts/main.gd" id="2_snonn"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
@@ -8,17 +9,15 @@
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
 [ext_resource type="Material" uid="uid://c2khn4yg0axgk" path="res://assets/materials/blue.tres" id="6_446pb"]
 [ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/orange.tres" id="7_lluq4"]
-[ext_resource type="Script" uid="uid://bvmm3qcjrlsp8" path="res://scripts/puzzles/machine/machine_interface.gd" id="7_qykuv"]
 [ext_resource type="Script" uid="uid://dih0x6h5y2sfr" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
-[ext_resource type="Script" uid="uid://d2tkynqxea7qp" path="res://scripts/puzzles/machine/wire_buttons.gd" id="8_klpmy"]
 [ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/yellow.tres" id="8_scah1"]
-[ext_resource type="Script" uid="uid://fsjwcnulwaem" path="res://scripts/puzzles/machine/wire_button.gd" id="9_2v6h7"]
 [ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/green.tres" id="9_uqirj"]
 [ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/purple.tres" id="10_n58o4"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="11_jd810"]
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/pink.tres" id="12_lluq4"]
 [ext_resource type="Material" uid="uid://dknyajtivc1ct" path="res://assets/materials/teal.tres" id="12_scah1"]
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/lime.tres" id="14_uqirj"]
+[ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
 
@@ -59,6 +58,7 @@ ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 3.0
 
 [node name="TestWorld" unique_id=1275245254 instance=ExtResource("1_r73vw")]
+script = ExtResource("2_snonn")
 
 [node name="MeshInstance3D" parent="Setup/Floor" parent_id_path=PackedInt32Array(736828130) index="1" unique_id=592287391]
 visible = false
@@ -176,100 +176,18 @@ shape = SubResource("BoxShape3D_jd810")
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="12" unique_id=1766527839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, 0.8710696)
 
-[node name="Interface" type="Control" parent="." index="13" unique_id=1143050847]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-script = ExtResource("7_qykuv")
-
-[node name="CameraToggleLabel" type="Label" parent="Interface" index="0" unique_id=2019939573]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -90.0
-offset_top = 20.0
-offset_right = 90.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Space to toggle camera"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WireButtonsContainer" type="VBoxContainer" parent="Interface" index="1" unique_id=1142157950]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.75
-anchor_top = 0.25
-anchor_right = 0.8
-anchor_bottom = 0.5
-offset_left = -40.0
-offset_top = -20.0
-offset_bottom = -29.0
-grow_horizontal = 0
-grow_vertical = 2
-script = ExtResource("8_klpmy")
-
-[node name="WiresLabel" type="Label" parent="Interface/WireButtonsContainer" index="0" unique_id=171686128]
-layout_mode = 2
-text = "Wires"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="WireButton1" type="Button" parent="Interface/WireButtonsContainer" index="1" unique_id=1569739892]
-layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
-script = ExtResource("9_2v6h7")
-wire_type = "I"
-
-[node name="WireButton2" type="Button" parent="Interface/WireButtonsContainer" index="2" unique_id=993273191]
-layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
-script = ExtResource("9_2v6h7")
-wire_type = "II"
-
-[node name="WireButton3" type="Button" parent="Interface/WireButtonsContainer" index="3" unique_id=1718315835]
-layout_mode = 2
-size_flags_vertical = 2
-text = "Wire"
-script = ExtResource("9_2v6h7")
-wire_type = "III"
-
-[node name="jigsaw" type="Button" parent="Interface" index="2" unique_id=1363834173]
-layout_mode = 0
-offset_left = 953.0
-offset_top = 592.0
-offset_right = 1117.0
-offset_bottom = 623.0
-text = "show solved puzzles"
-
-[node name="Control" type="Control" parent="Interface" index="3" unique_id=1525452070]
-anchors_preset = 0
-offset_left = 1.0
-offset_right = 192.0
-offset_bottom = 185.0
-
-[node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="14" unique_id=14493092]
+[node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="13" unique_id=14493092]
 script = ExtResource("8_3hq15")
 
-[node name="desk" type="MeshInstance3D" parent="." index="15" unique_id=1101713897]
+[node name="desk" type="MeshInstance3D" parent="." index="14" unique_id=1101713897]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.2163444, -1.492364, -4.988626)
 mesh = ExtResource("20_snonn")
 
-[node name="pencilholder" type="MeshInstance3D" parent="." index="16" unique_id=1633484262]
+[node name="pencilholder" type="MeshInstance3D" parent="." index="15" unique_id=1633484262]
 transform = Transform3D(-0.8772468, 0, -0.48003972, 0, 1, 0, 0.48003972, 0, -0.8772468, 5.745341, -1.4541664, -2.551506)
 mesh = ExtResource("21_t167l")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="17" unique_id=173731445]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="16" unique_id=173731445]
 environment = SubResource("Environment_t167l")
 
-[connection signal="pressed" from="Interface/WireButtonsContainer/WireButton1" to="Interface/WireButtonsContainer/WireButton1" method="_on_pressed"]
-[connection signal="pressed" from="Interface/WireButtonsContainer/WireButton2" to="Interface/WireButtonsContainer/WireButton2" method="_on_pressed"]
-[connection signal="pressed" from="Interface/WireButtonsContainer/WireButton3" to="Interface/WireButtonsContainer/WireButton3" method="_on_pressed"]
-[connection signal="pressed" from="Interface/jigsaw" to="Interface" method="_on_jigsaw_pressed"]
+[node name="Interface" parent="." index="17" unique_id=1143050847 instance=ExtResource("19_jd810")]
