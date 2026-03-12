@@ -14,7 +14,7 @@ const LOOK_ROTATION_OFFSET: Vector3 = Vector3(0, PI / 2, 0)
 
 ## Horizontal max move speed in m/s
 @export_range(0.0, 25.0, 0.01, "suffix:m/s", "or_greater")
-var move_speed: float = 5.0
+var move_speed: float = 1.5
 
 ## (pitch, yaw) in radians
 var _look_rotation: Vector3 = Vector3.ZERO

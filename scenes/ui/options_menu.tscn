@@ -15,75 +15,113 @@ script = ExtResource("1_wj2x4")
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=336355767]
 layout_mode = 2
 
-[node name="Options" type="Label" parent="VBoxContainer" unique_id=676568135]
+[node name="OptionsH1" type="Label" parent="VBoxContainer" unique_id=676568135]
 layout_mode = 2
 theme_type_variation = &"HeaderLarge"
 text = "Options"
 
-[node name="Audio" type="Label" parent="VBoxContainer" unique_id=1308083327]
+[node name="AudioH2" type="Label" parent="VBoxContainer" unique_id=1308083327]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "Audio"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1815722753]
+[node name="MasterVolume" type="HBoxContainer" parent="VBoxContainer" unique_id=1815722753]
 layout_mode = 2
 
-[node name="MasterVolume" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=451766755]
+[node name="Label" type="Label" parent="VBoxContainer/MasterVolume" unique_id=451766755]
 layout_mode = 2
 text = "Master Volume"
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer" unique_id=130197555]
+[node name="HSlider" type="HSlider" parent="VBoxContainer/MasterVolume" unique_id=130197555]
 layout_mode = 2
 size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
 
-[node name="Controls" type="Label" parent="VBoxContainer" unique_id=1677033843]
+[node name="Value" type="Label" parent="VBoxContainer/MasterVolume" unique_id=1720222975]
+layout_mode = 2
+text = "000%"
+horizontal_alignment = 2
+
+[node name="ControllerH2" type="Label" parent="VBoxContainer" unique_id=1677033843]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
-text = "Controls"
+text = "Controller"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=1179591332]
+[node name="Sensitivity" type="HBoxContainer" parent="VBoxContainer" unique_id=815905844]
 layout_mode = 2
 
-[node name="MoveLeft" parent="VBoxContainer/VBoxContainer" unique_id=1863612274 instance=ExtResource("1_ta2k2")]
+[node name="Label" type="Label" parent="VBoxContainer/Sensitivity" unique_id=1652678120]
+layout_mode = 2
+text = "Cursor Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Sensitivity" unique_id=27282379]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="Value" type="Label" parent="VBoxContainer/Sensitivity" unique_id=1553215155]
+layout_mode = 2
+text = "000%"
+
+[node name="Deadzone" type="HBoxContainer" parent="VBoxContainer" unique_id=1401693421]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Deadzone" unique_id=739960733]
+layout_mode = 2
+text = "Deadzone
+"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Deadzone" unique_id=1803939627]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+
+[node name="Value" type="Label" parent="VBoxContainer/Deadzone" unique_id=2145627841]
+layout_mode = 2
+text = "0.0"
+
+[node name="ControlBindsH2" type="Label" parent="VBoxContainer" unique_id=1974300607]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Control Binds"
+
+[node name="Binds" type="VBoxContainer" parent="VBoxContainer" unique_id=1179591332]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="MoveLeft" parent="VBoxContainer/Binds" unique_id=1863612274 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "move_left"
 
-[node name="MoveRight" parent="VBoxContainer/VBoxContainer" unique_id=1891970914 instance=ExtResource("1_ta2k2")]
+[node name="MoveRight" parent="VBoxContainer/Binds" unique_id=1891970914 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "move_right"
 
-[node name="FocusItem" parent="VBoxContainer/VBoxContainer" unique_id=1172618929 instance=ExtResource("1_ta2k2")]
+[node name="FocusItem" parent="VBoxContainer/Binds" unique_id=1172618929 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "focus_item"
 
-[node name="UnfocusItem" parent="VBoxContainer/VBoxContainer" unique_id=1895176203 instance=ExtResource("1_ta2k2")]
+[node name="UnfocusItem" parent="VBoxContainer/Binds" unique_id=1895176203 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "unfocus_item"
 
-[node name="CycleFocusView" parent="VBoxContainer/VBoxContainer" unique_id=1404772683 instance=ExtResource("1_ta2k2")]
+[node name="CycleFocusView" parent="VBoxContainer/Binds" unique_id=1404772683 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "cycle_focus_view"
 
-[node name="ToggleClue" parent="VBoxContainer/VBoxContainer" unique_id=176547108 instance=ExtResource("1_ta2k2")]
+[node name="ToggleClue" parent="VBoxContainer/Binds" unique_id=176547108 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "toggle_clue"
 
-[node name="InteractGrab" parent="VBoxContainer/VBoxContainer" unique_id=1215221659 instance=ExtResource("1_ta2k2")]
+[node name="InteractGrab" parent="VBoxContainer/Binds" unique_id=1215221659 instance=ExtResource("1_ta2k2")]
 layout_mode = 2
 action = "interact_grab"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer" unique_id=815905844]
-layout_mode = 2
-
-[node name="ControllerSensitivity" type="Label" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=1652678120]
-layout_mode = 2
-text = "Controller Sensitivity"
-
-[node name="HSlider" type="HSlider" parent="VBoxContainer/VBoxContainer/HBoxContainer" unique_id=27282379]
-layout_mode = 2
-size_flags_horizontal = 3
-
 [node name="Return" type="Button" parent="VBoxContainer" unique_id=794473135]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Return"
 
