@@ -21,6 +21,8 @@
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
+[ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
+[ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -194,6 +196,40 @@ environment = SubResource("Environment_t167l")
 
 [node name="AudioManager" type="Node" parent="." index="18" unique_id=501316471]
 script = ExtResource("21_rx4po")
+
+[node name="CustomerIntro" type="Label3D" parent="." index="19" unique_id=1374975928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278806, 1.3384633, -5.293659)
+text = "Hi!
+
+My Shape Button Wire Machine broke! :c Please help. Also here's the manual. Sorry... I tore it up in frustration."
+autowrap_mode = 2
+
+[node name="FocusPrompt" type="Label3D" parent="." index="20" unique_id=39970586]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.7172937, 2.2267032, -1.7558753)
+text = "Focus Prompt"
+autowrap_mode = 2
+script = ExtResource("22_rx4po")
+
+[node name="MachineInstructions" type="Label3D" parent="." index="21" unique_id=2137475912]
+transform = Transform3D(-1.9014454e-08, 0.435, 1.9014454e-08, 0, -1.9014454e-08, 0.435, 0.435, 1.9014454e-08, 8.3114817e-16, 4.0965266, 0.8375269, -0.99672884)
+text = "1. Select a wire to connect
+2. Plug it into a start port on the bottom
+3. Plug it into a end port on the top"
+font_size = 18
+outline_size = 6
+horizontal_alignment = 0
+vertical_alignment = 0
+autowrap_mode = 2
+width = 480.0
+
+[node name="ToggleCluePrompt" type="Label3D" parent="." index="22" unique_id=1892957223]
+transform = Transform3D(-1.2744842e-08, 0.291568, -0.32282054, -1.4110933e-08, 0.32282054, 0.291568, 0.435, 1.9014452e-08, 1.1159598e-15, 3.4980428, 1.3771245, -0.62495726)
+text = "You can view solved jigsaws with"
+font_size = 18
+outline_size = 6
+autowrap_mode = 2
+width = 480.0
+script = ExtResource("23_k3w5f")
 
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
 [connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
