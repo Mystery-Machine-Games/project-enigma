@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://h3kjpccnqvq4"]
 
 [ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
-[ext_resource type="Script" path="res://scripts/main.gd" id="2_snonn"]
+[ext_resource type="Script" uid="uid://cut3gyry261vh" path="res://scripts/main.gd" id="2_snonn"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
