@@ -10,7 +10,6 @@ static var _sound_dictionary: Dictionary[String, AudioStream] = {
 	"error": preload("res://assets/audio/error.ogg"),
 	"success": preload("res://assets/audio/success.ogg")
 }
-
 static var _playback: AudioStreamPlaybackPolyphonic
 
 
@@ -31,5 +30,4 @@ func _enter_tree() -> void:
 
 # Example usage: AudioManager.play_sound("hover")
 static func play_sound(sound_key: String) -> void:
-	print("sound playing")
 	_playback.play_stream(_sound_dictionary[sound_key], 0, -10, randf_range(0.8, 1.2))
