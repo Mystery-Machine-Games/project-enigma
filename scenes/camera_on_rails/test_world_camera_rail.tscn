@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://h3kjpccnqvq4"]
 
 [ext_resource type="PackedScene" uid="uid://nh3u0l2nbi3f" path="res://scenes/camera_on_rails/test_world_BASE.tscn" id="1_r73vw"]
-[ext_resource type="Script" uid="uid://cut3gyry261vh" path="res://scripts/main.gd" id="2_snonn"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="2_snonn"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
@@ -119,7 +119,7 @@ mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
 [node name="LyleFocusBox" type="Area3D" parent="." index="9" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9010897, 0.8046534, -1.7680097)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.7299078, 0.8046534, -0.6261852)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint"), NodePath("FocusPoint2")]
 _focus_handle = NodePath("FocusHandle")
@@ -144,7 +144,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.913
 transform = Transform3D(1, -3.769781e-08, -2.158537e-08, 3.769781e-08, 0.5061843, 0.8624253, -2.158537e-08, -0.8624253, 0.5061843, 0, 1.1878084, 0.3133769)
 
 [node name="JerryFocusBox" type="Area3D" parent="." index="10" unique_id=180049619 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0217366, 0.8046534, -2.5900998)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0217366, 0.8046534, -2.8632348)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint")]
 _focus_handle = NodePath("FocusHandle")
@@ -160,7 +160,7 @@ unique_name_in_owner = true
 transform = Transform3D(1, -1.8769741e-08, -1.5921279e-08, 2.3617222e-08, 0.5496354, 0.83540475, -6.929433e-09, -0.83540475, 0.5496354, 0.23627663, 1.0122591, 0.81394744)
 
 [node name="3DJigsaw" parent="." index="11" unique_id=947779380 node_paths=PackedStringArray("plane") instance=ExtResource("5_mul8f")]
-transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 4.017452, 0.71913576, -2.6230083)
+transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 4.017452, 0.71913576, -2.8961432)
 areaLayer = 2
 bodyLayer = 2
 plane = NodePath("plane")
@@ -194,7 +194,6 @@ environment = SubResource("Environment_t167l")
 
 [node name="AudioManager" type="Node" parent="." index="18" unique_id=501316471]
 script = ExtResource("21_rx4po")
-metadata/_custom_type_script = "uid://bvncaug6tl8dq"
 
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
 [connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]

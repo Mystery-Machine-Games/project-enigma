@@ -97,8 +97,8 @@ func draw_shapes_from_puzzle(puzzleIndex : int, vec : Vector2) -> void:
 
 		node.add_child(m);
 		randomize();
-		m.position.x += vec[0] #+ randf_range(-2,2);
-		m.position.y += vec[1] #+ randf_range(-1,1);
+		m.position.x += vec[0] + randf_range(-2,2);
+		m.position.y += vec[1] + randf_range(-1,1);
 	node.initialize_pieces()
 	for firstnode : JigsawPiece in node.get_children():
 		for secondnode in node.get_children():
@@ -250,4 +250,3 @@ func puzzle_complete(hints : Array) -> void:
 	temp.hintColors = hintColors;
 	temp.construct([],0,false);
 	temp.position.x = ($"../Interface/CluesContainer".get_children().size()-1) * 200;
-
