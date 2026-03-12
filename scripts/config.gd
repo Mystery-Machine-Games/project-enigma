@@ -10,9 +10,9 @@ var current: Dictionary[String, Dictionary] = {}
 var _config_file: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
-	if not _load_config("custom"):
+	if not load_config("custom"):
 		print("Falling back to default")
-		_load_config("default")
+		load_config("default")
 
 func set_config_value(section: String, key: String, value: Variant) -> bool:
 	if section == "Control Binds" and value is Array:
