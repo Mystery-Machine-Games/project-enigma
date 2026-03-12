@@ -40,9 +40,14 @@ func is_filled() -> bool:
 
 
 func _on_mouse_entered() -> void:
-	_mouse_over = true
-	emit_signal("port_hovered", self, false)
-	_outline_mesh.visible = true
+	if not _filled:
+		_mouse_over = true
+		emit_signal("port_hovered", self, false)
+		_outline_mesh.visible = true
+		if _interactable:
+			AudioManager.play_sound("hover")
+		else:
+			AudioManager.play_sound("error")
 
 
 func _on_mouse_exited() -> void:
@@ -53,8 +58,16 @@ func _on_mouse_exited() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _mouse_over and event.is_action_pressed("interact_grab"):
 		emit_signal("port_pressed", self, true)
+		if _interactable: 
+			AudioManager.play_sound("click")
+		else:
+			AudioManager.play_sound("error")
 	if _mouse_over and event.is_action_released("interact"):
 		emit_signal("port_pressed", self, true)
+		if _interactable:
+			AudioManager.play_sound("click")
+		else:
+			AudioManager.play_sound("error")
 
 
 func get_color() -> StandardMaterial3D:

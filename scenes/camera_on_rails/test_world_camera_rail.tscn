@@ -19,6 +19,7 @@
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/lime.tres" id="14_uqirj"]
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
+[ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
@@ -190,6 +191,10 @@ mesh = ExtResource("21_t167l")
 environment = SubResource("Environment_t167l")
 
 [node name="Interface" parent="." index="17" unique_id=1143050847 instance=ExtResource("19_jd810")]
+
+[node name="AudioManager" type="Node" parent="." index="18" unique_id=501316471]
+script = ExtResource("21_rx4po")
+metadata/_custom_type_script = "uid://bvncaug6tl8dq"
 
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
 [connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
