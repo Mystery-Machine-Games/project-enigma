@@ -73,21 +73,22 @@ func load_config(config_name: String) -> bool:
 func initialize() -> void:
 	if not load_config("custom"):
 		print("Falling back to default config")
-		if not load_config("default"):
-			_config_file.set_value("Audio", "master_volume", 0.7)
-			_config_file.set_value("Controller", "cursor_sensitivity", 0.5)
-			_config_file.set_value("Controller", "deadzone", 0.2)
-			for action: String in InputMap.get_actions().filter(
-				func (action: String) -> bool: return not action.begins_with("ui_")
-			):
-				_config_file.set_value(
-					"Control Binds",
-					action,
-					InputMap.action_get_events(action).map(input_to_string)
-				)
-			var error: Error = _config_file.save(CONFIG_PATHS["default"])
-			print("Writing default config: %s" % error_string(error))
-			load_config("default")
+		_config_file.set_value("General", "difficulty", Machine.Difficulty.EASY)
+		_config_file.set_value("Audio", "master_volume", 0.7)
+		_config_file.set_value("Controller", "cursor_sensitivity", 0.5)
+		_config_file.set_value("Controller", "deadzone", 0.2)
+		for action: String in InputMap.get_actions().filter(
+			func (action: String) -> bool: return not action.begins_with("ui_")
+		):
+			_config_file.set_value(
+				"Control Binds",
+				action,
+				InputMap.action_get_events(action).map(input_to_string)
+			)
+		var error: Error = _config_file.save(CONFIG_PATHS["default"])
+		if error:
+			print("Error creating default config: %s" % error_string(error))
+		load_config("default")
 
 func reset() -> void:
 	DirAccess.remove_absolute(CONFIG_PATHS["custom"])

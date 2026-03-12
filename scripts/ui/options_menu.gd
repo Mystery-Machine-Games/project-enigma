@@ -3,6 +3,11 @@ extends PanelContainer
 
 signal options_close_requested
 
+func _enter_tree() -> void:
+	var can_change_difficulty: bool = not get_parent().is_playing
+	(%Difficulty/SpinBox as SpinBox).editable = can_change_difficulty
+	%Difficulty/EditWarning.visible = not can_change_difficulty
+
 func _ready() -> void:
 	_get_options_from_config()
 
@@ -11,6 +16,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		options_close_requested.emit()
 
 func _get_options_from_config() -> void:
+	(%Difficulty/SpinBox as SpinBox).value = Config.current["General"]["difficulty"]
 	(%MasterVolume/HSlider as HSlider).value = Config.current["Audio"]["master_volume"]
 	(%Sensitivity/HSlider as HSlider).value = Config.current["Controller"]["cursor_sensitivity"]
 	(%Deadzone/HSlider as HSlider).value = Config.current["Controller"]["deadzone"]
@@ -25,6 +31,9 @@ func _get_options_from_config() -> void:
 func _on_reset_pressed() -> void:
 	Config.reset()
 	_get_options_from_config()
+	
+func _on_difficulty_changed(value: float) -> void:
+	Config.set_config_value("General", "difficulty", int(value) as Machine.Difficulty)
 
 func _on_return_pressed() -> void:
 	options_close_requested.emit()

@@ -25,6 +25,31 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Reset Options"
 
+[node name="GeneralH2" type="Label" parent="VBoxContainer" unique_id=1908112769]
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "General"
+
+[node name="Difficulty" type="HBoxContainer" parent="VBoxContainer" unique_id=457381881]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Difficulty" unique_id=1314849708]
+layout_mode = 2
+text = "Difficulty"
+
+[node name="SpinBox" type="SpinBox" parent="VBoxContainer/Difficulty" unique_id=881195858]
+layout_mode = 2
+min_value = 1.0
+max_value = 3.0
+value = 1.0
+rounded = true
+
+[node name="EditWarning" type="Label" parent="VBoxContainer/Difficulty" unique_id=191634026]
+visible = false
+layout_mode = 2
+text = "Difficulty can only be changed in the main menu!"
+
 [node name="AudioH2" type="Label" parent="VBoxContainer" unique_id=1308083327]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
@@ -136,6 +161,7 @@ layout_mode = 2
 text = "Return"
 
 [connection signal="pressed" from="VBoxContainer/Reset" to="." method="_on_reset_pressed"]
+[connection signal="value_changed" from="VBoxContainer/Difficulty/SpinBox" to="." method="_on_difficulty_changed"]
 [connection signal="value_changed" from="VBoxContainer/MasterVolume/HSlider" to="." method="_on_master_volume_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Sensitivity/HSlider" to="." method="_on_sensitivity_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Deadzone/HSlider" to="." method="_on_deadzone_value_changed"]

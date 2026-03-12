@@ -15,6 +15,10 @@ const SCENE_PATHS: Dictionary[Scene, String] = {
 	Scene.GAMEPLAY: "res://scenes/camera_on_rails/test_world_camera_rail.tscn",
 }
 
+var is_playing: bool:
+	get:
+		return _scenes[Scene.GAMEPLAY] != null
+
 var _scenes: Dictionary[Scene, Node] = {
 	Scene.NONE: null,
 	Scene.MAIN_MENU: preload(SCENE_PATHS[Scene.MAIN_MENU]).instantiate(),
@@ -33,9 +37,6 @@ var _current_scene: Scene:
 		return _scene_stack[_stack_level]
 	set(scene):
 		_scene_stack[_stack_level] = scene
-var _is_playing: bool:
-	get:
-		return _scenes[Scene.GAMEPLAY] != null
 
 func _ready() -> void:
 	var _main_menu: MainMenu = _scenes[Scene.MAIN_MENU]
@@ -53,7 +54,7 @@ func _ready() -> void:
 	_options_menu.options_close_requested.connect(_on_request_options_close)
 
 func _input(event: InputEvent) -> void:
-	if _is_playing and event.is_action_pressed("pause") and _current_scene != Scene.PAUSE:
+	if is_playing and event.is_action_pressed("pause") and _current_scene != Scene.PAUSE:
 		if _stack_level > 1:
 			return
 
@@ -62,7 +63,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _on_request_game_start() -> void:
-	if _is_playing:
+	if is_playing:
 		_scenes[Scene.GAMEPLAY].free()
 	_scenes[Scene.GAMEPLAY] = (load(SCENE_PATHS[Scene.GAMEPLAY]) as PackedScene).instantiate()
 	_scenes[Scene.GAMEPLAY].process_mode = Node.PROCESS_MODE_PAUSABLE
