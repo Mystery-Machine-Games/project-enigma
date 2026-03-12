@@ -86,6 +86,11 @@ texture_normal = ExtResource("6_77jxe")
 script = ExtResource("2_lw6my")
 wire_type = "III"
 
+[node name="CluesContainer" type="HBoxContainer" parent="." unique_id=99380476]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [connection signal="pressed" from="WireButtonsContainer/WireButton1" to="WireButtonsContainer/WireButton1" method="_on_pressed"]
 [connection signal="pressed" from="WireButtonsContainer/WireButton2" to="WireButtonsContainer/WireButton2" method="_on_pressed"]
 [connection signal="pressed" from="WireButtonsContainer/WireButton3" to="WireButtonsContainer/WireButton3" method="_on_pressed"]

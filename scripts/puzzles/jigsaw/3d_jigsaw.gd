@@ -23,6 +23,8 @@ var headerList : Array = [];
 @export var camera : Camera3D;
 @export var plane : RigidBody3D;
 
+@onready var _interface: Interface = $Interface
+
 func _ready() -> void:
 	camera = $"../Path3D/PlayerCharacter".get_camera();
 	plane.collision_layer = bodyLayer
@@ -244,8 +246,9 @@ func initialize_shape_arr() -> void:
 
 func puzzle_complete(hints : Array) -> void:
 	var temp : PuzzleHint = load("res://scenes/puzzles/jigsaw/hint_sprite.tscn").instantiate()
-	$"../Interface/Control".add_child(temp)
+	$"../Interface/CluesContainer".add_child(temp)
 	temp.clues = hints
 	temp.hintColors = hintColors;
 	temp.construct([],0,false);
-	temp.position.x = ($"../Interface/Control".get_children().size()-1) * 200;
+	temp.position.x = ($"../Interface/CluesContainer".get_children().size()-1) * 200;
+
