@@ -23,7 +23,6 @@ var headerList : Array = [];
 @export var camera : Camera3D;
 @export var plane : RigidBody3D;
 
-@onready var _interface: Interface = $Interface
 
 func _ready() -> void:
 	camera = $"../Path3D/PlayerCharacter".get_camera();
