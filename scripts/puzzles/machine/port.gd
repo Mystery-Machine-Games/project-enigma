@@ -62,7 +62,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			AudioManager.play_sound("click")
 		else:
 			AudioManager.play_sound("error")
-	if _mouse_over and event.is_action_released("interact"):
+	if _mouse_over and event.is_action_released("interact_grab"):
 		emit_signal("port_pressed", self, true)
 		if _interactable:
 			AudioManager.play_sound("click")

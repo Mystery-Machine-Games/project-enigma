@@ -16,4 +16,4 @@ func get_wire_buttons() -> WireButtons:
 	return _wire_buttons
 
 func _on_jigsaw_pressed() -> void:
-	$Control.visible = !$Control.visible
+	$CluesContainer.visible = !$CluesContainer.visible
