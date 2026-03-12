@@ -12,7 +12,7 @@ const SCENE_PATHS: Dictionary[Scene, String] = {
 	Scene.MAIN_MENU: "res://scenes/ui/main_menu.tscn",
 	Scene.PAUSE: "res://scenes/ui/pause_menu.tscn",
 	Scene.OPTIONS: "res://scenes/ui/options_menu.tscn",
-	Scene.GAMEPLAY: "res://scenes/playtest.tscn",
+	Scene.GAMEPLAY: "res://scenes/camera_on_rails/test_world_camera_rail.tscn",
 }
 
 var _scenes: Dictionary[Scene, Node] = {
