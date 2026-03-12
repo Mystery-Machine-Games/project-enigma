@@ -26,6 +26,7 @@ theme_type_variation = &"HeaderMedium"
 text = "Audio"
 
 [node name="MasterVolume" type="HBoxContainer" parent="VBoxContainer" unique_id=1815722753]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/MasterVolume" unique_id=451766755]
@@ -49,6 +50,7 @@ theme_type_variation = &"HeaderMedium"
 text = "Controller"
 
 [node name="Sensitivity" type="HBoxContainer" parent="VBoxContainer" unique_id=815905844]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/Sensitivity" unique_id=1652678120]
@@ -66,6 +68,7 @@ layout_mode = 2
 text = "000%"
 
 [node name="Deadzone" type="HBoxContainer" parent="VBoxContainer" unique_id=1401693421]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/Deadzone" unique_id=739960733]
@@ -125,4 +128,7 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Return"
 
+[connection signal="value_changed" from="VBoxContainer/MasterVolume/HSlider" to="." method="_on_master_volume_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Sensitivity/HSlider" to="." method="_on_sensitivity_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Deadzone/HSlider" to="." method="_on_deadzone_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Return" to="." method="_on_return_pressed"]
