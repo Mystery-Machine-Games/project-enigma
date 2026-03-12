@@ -38,14 +38,13 @@ var _is_playing: bool:
 		return _scenes[Scene.GAMEPLAY] != null
 
 func _ready() -> void:
-	
-	
 	var _main_menu: MainMenu = _scenes[Scene.MAIN_MENU]
 	_main_menu.game_start_requested.connect(_on_request_game_start)
 	_main_menu.options_menu_requested.connect(_on_request_options_menu)
 	_open_as_current_scene(Scene.MAIN_MENU)
 	
 	var _pause_menu: PauseMenu = _scenes[Scene.PAUSE]
+	_pause_menu.resume_requested.connect(_on_request_resume)
 	_pause_menu.main_menu_requested.connect(_on_request_main_menu)
 	_pause_menu.options_requested.connect(_on_request_options_menu)
 	_pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -54,17 +53,12 @@ func _ready() -> void:
 	_options_menu.options_close_requested.connect(_on_request_options_close)
 
 func _input(event: InputEvent) -> void:
-	if _is_playing and event.is_action_pressed("pause"):
+	if _is_playing and event.is_action_pressed("pause") and _current_scene != Scene.PAUSE:
 		if _stack_level > 1:
 			return
-		
-		if _current_scene == Scene.PAUSE:
-			_pop_scene()
-			get_tree().paused = false
-		else:
-			get_tree().paused = true
-			_push_scene(Scene.PAUSE)
-		
+
+		get_tree().paused = true
+		_push_scene(Scene.PAUSE)
 		get_viewport().set_input_as_handled()
 
 func _on_request_game_start() -> void:
@@ -79,6 +73,10 @@ func _on_request_main_menu() -> void:
 	get_tree().paused = false
 	_scenes[Scene.GAMEPLAY].queue_free()
 	_scenes[Scene.GAMEPLAY] = null
+
+func _on_request_resume() -> void:
+	_pop_scene()
+	get_tree().paused = false
 
 func _on_request_options_menu() -> void:
 	if _current_scene != Scene.OPTIONS:
