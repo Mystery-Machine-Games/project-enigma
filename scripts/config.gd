@@ -1,8 +1,9 @@
 extends Node
 
+const CONFIG_DIR: String = "user://"
 const CONFIG_PATHS: Dictionary[String, String] = {
-	"default": "res://_dev/default.cfg",
-	"custom":  "res://_dev/custom.cfg"
+	"default": CONFIG_DIR + "default.cfg",
+	"custom": CONFIG_DIR + "custom.cfg"
 }
 
 var current: Dictionary[String, Dictionary] = {}
@@ -10,9 +11,7 @@ var current: Dictionary[String, Dictionary] = {}
 var _config_file: ConfigFile = ConfigFile.new()
 
 func _ready() -> void:
-	if not load_config("custom"):
-		print("Falling back to default")
-		load_config("default")
+	initialize()
 
 func set_config_value(section: String, key: String, value: Variant) -> bool:
 	if section == "Control Binds" and value is Array:
@@ -33,13 +32,18 @@ func input_to_string(event: InputEvent) -> String:
 	elif event is InputEventJoypadButton:
 		string_input = "button:" + str((event as InputEventJoypadButton).button_index)
 	elif event is InputEventJoypadMotion:
-		string_input = "axis:"  + str((event as InputEventJoypadMotion).axis)
+		string_input = "axis:%s:%s" % [
+			str((event as InputEventJoypadMotion).axis),
+			str((event as InputEventJoypadMotion).axis_value)
+		]
 	return string_input
 	
 func string_to_input(string_input: String) -> InputEvent:
 	var event: InputEvent = null
-	var type: String = string_input.get_slice(":", 0)
-	var id: int = int(string_input.get_slice(":", 1))
+	var slices: PackedStringArray = string_input.split(":", true, 3)
+	var type: String = slices[0]
+	var id: int = int(slices[1])
+	var direction: float = float(slices[2]) if slices.size() > 2 else 1.0
 	match type:
 		"key":
 			event = InputEventKey.new()
@@ -53,6 +57,7 @@ func string_to_input(string_input: String) -> InputEvent:
 		"axis":
 			event = InputEventJoypadMotion.new()
 			(event as InputEventJoypadMotion).axis = id as JoyAxis
+			(event as InputEventJoypadMotion).axis_value = direction
 	return event
 
 func load_config(config_name: String) -> bool:
@@ -64,6 +69,29 @@ func load_config(config_name: String) -> bool:
 				current[s] = {}
 			current[s][k] = _config_file.get_value(s, k)
 	return true
+
+func initialize() -> void:
+	if not load_config("custom"):
+		print("Falling back to default config")
+		if not load_config("default"):
+			_config_file.set_value("Audio", "master_volume", 0.7)
+			_config_file.set_value("Controller", "cursor_sensitivity", 0.5)
+			_config_file.set_value("Controller", "deadzone", 0.2)
+			for action: String in InputMap.get_actions().filter(
+				func (action: String) -> bool: return not action.begins_with("ui_")
+			):
+				_config_file.set_value(
+					"Control Binds",
+					action,
+					InputMap.action_get_events(action).map(input_to_string)
+				)
+			var error: Error = _config_file.save(CONFIG_PATHS["default"])
+			print("Writing default config: %s" % error_string(error))
+			load_config("default")
+
+func reset() -> void:
+	DirAccess.remove_absolute(CONFIG_PATHS["custom"])
+	initialize()
 
 func _extract_input_id(string_input: String) -> String:
 	return string_input.get_slice(":", 1)

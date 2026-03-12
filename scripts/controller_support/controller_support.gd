@@ -8,11 +8,14 @@ var joy_deadzone: float
 var _was_pressed: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	var controller_config: Dictionary = Config.current["Controller"]
 	sensitivity = controller_config["cursor_sensitivity"]
 	joy_deadzone = controller_config["deadzone"]
 
 func _process(_delta: float) -> void:
+	sensitivity = Config.current["Controller"]["cursor_sensitivity"]
+	joy_deadzone = Config.current["Controller"]["deadzone"]
 	var cursor_velocity: Vector2 = Input.get_vector(
 		"cursor_left",
 		"cursor_right",
@@ -24,7 +27,7 @@ func _process(_delta: float) -> void:
 	
 	viewport.warp_mouse(viewport.get_mouse_position() + cursor_velocity)
 
-func _input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:	
 	# Intercept and process axis interact input for debouncing
 	if event is InputEventJoypadMotion and event.is_action("interact_grab"):
 		if not _was_pressed and event.is_action_pressed("interact_grab"):

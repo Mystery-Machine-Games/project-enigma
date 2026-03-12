@@ -38,6 +38,8 @@ var _is_playing: bool:
 		return _scenes[Scene.GAMEPLAY] != null
 
 func _ready() -> void:
+	
+	
 	var _main_menu: MainMenu = _scenes[Scene.MAIN_MENU]
 	_main_menu.game_start_requested.connect(_on_request_game_start)
 	_main_menu.options_menu_requested.connect(_on_request_options_menu)
