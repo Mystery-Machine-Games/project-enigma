@@ -1,9 +1,13 @@
 class_name Machine
 extends Node3D
 
-enum Difficulty {EASY, MEDIUM, HARD}
+enum Difficulty {EASY = 1, MEDIUM, HARD}
 
-@export var difficulty: Difficulty
+var difficulty: Difficulty:
+	get:
+		return Config.current["General"]["difficulty"]
+	set(value):
+		Config.set_config_value("General", "difficulty", value)
 @export var colors_shared: bool # TODO: Whether or not ports, wires, and buttons can share the same colors
 @export var port_colors: Array[Material]
 @export var wire_colors: Array[Material]
@@ -23,8 +27,7 @@ var cluesetArr : Array[Clueset] = [];
 func _ready() -> void:
 	_button_module.buttons_correct.connect(_check_solution)
 	_wire_module.wires_correct.connect(_set_wires_correct)
-	_button_module.set_difficulty(difficulty)
-	_wire_module.set_difficulty(difficulty)
+	set_difficulty(difficulty)
 	_button_module.set_colors(button_colors)
 	_wire_module.set_colors(port_colors, wire_colors)
 	_button_module.initialize_puzzle()
@@ -47,6 +50,9 @@ func _check_solution() -> void:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
 		machineFixed.emit();
 
+func set_difficulty(difficulty: Difficulty) -> void:
+	_wire_module.set_difficulty(difficulty)
+	_button_module.set_difficulty(difficulty)
 
 func get_wire_module() -> WireModule:
 	return _wire_module

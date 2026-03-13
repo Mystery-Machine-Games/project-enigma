@@ -55,14 +55,14 @@ func _on_mouse_exited() -> void:
 	_outline_mesh.visible = false
 
 
-func _input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact"):
+func _unhandled_input(event: InputEvent) -> void:
+	if _mouse_over and event.is_action_pressed("interact_grab"):
 		emit_signal("port_pressed", self, true)
 		if _interactable: 
 			AudioManager.play_sound("click")
 		else:
 			AudioManager.play_sound("error")
-	if _mouse_over and event.is_action_released("interact"):
+	if _mouse_over and event.is_action_released("interact_grab"):
 		emit_signal("port_pressed", self, true)
 		if _interactable:
 			AudioManager.play_sound("click")

@@ -44,7 +44,7 @@ func _on_interaction_area_mouse_exited() -> void:
 	_mouse_over = false
 
 
-func _input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact"):
+func _unhandled_input(event: InputEvent) -> void:
+	if _mouse_over and event.is_action_pressed("interact_grab"):
 		emit_signal("wire_clicked", _data.get_type())
 		AudioManager.play_sound("cut")

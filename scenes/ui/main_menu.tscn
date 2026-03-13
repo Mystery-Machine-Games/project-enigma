@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://cmkw3oj66pneq" path="res://assets/themes/default_theme.tres" id="1_fe2o3"]
 [ext_resource type="Script" uid="uid://5rdaso1owdeb" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+[ext_resource type="Script" uid="uid://clmx8efl8tx57" path="res://scenes/ui/config_reset.gd" id="3_1g8jr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
 bg_color = Color(0.44199523, 0.7165368, 0.87937987, 1)
@@ -40,6 +41,7 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Play" type="Button" parent="CenterContainer/VBoxContainer/Buttons" unique_id=1658140412]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Play"
 
@@ -84,6 +86,15 @@ Jerry Peng
 Brian Chung"
 fit_content = true
 horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=860783150]
+layout_mode = 0
+offset_left = 1030.0
+offset_top = 599.0
+offset_right = 1135.0
+offset_bottom = 630.0
+text = "Config Reset"
+script = ExtResource("3_1g8jr")
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Buttons/Options" to="." method="_on_options_pressed"]

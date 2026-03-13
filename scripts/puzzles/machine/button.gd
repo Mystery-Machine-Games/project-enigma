@@ -39,12 +39,12 @@ func _on_mouse_exited() -> void:
 	_outline_mesh.visible = false
 
 
-func _input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact"):
+func _unhandled_input(event: InputEvent) -> void:
+	if _mouse_over and event.is_action_pressed("interact_grab"):
 		_anim_player.play("button_press")
 		_mouse_down = true
 		_outline_mesh.visible = false
-	if _mouse_over and event.is_action_released("interact"):
+	if _mouse_over and event.is_action_released("interact_grab"):
 		_anim_player.play_backwards("button_press")
 		_mouse_down = false
 		_outline_mesh.visible = true
