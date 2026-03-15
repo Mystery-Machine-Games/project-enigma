@@ -250,4 +250,3 @@ func puzzle_complete(hints : Array) -> void:
 	temp.hintColors = hintColors;
 	temp.construct([],0,false);
 	temp.position.x = ($"../Interface/CluesContainer".get_children().size()-1) * 200;
-
