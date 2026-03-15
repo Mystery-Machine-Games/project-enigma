@@ -21,6 +21,7 @@
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
+[ext_resource type="AudioStream" uid="uid://kmwmycmxbtn0" path="res://assets/audio/main_track.mp3" id="22_jagta"]
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
 [ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
 
@@ -199,6 +200,11 @@ environment = SubResource("Environment_t167l")
 [node name="AudioManager" type="Node" parent="." index="19" unique_id=501316471]
 script = ExtResource("21_rx4po")
 metadata/_custom_type_script = "uid://bvncaug6tl8dq"
+
+[node name="MainTrack" type="AudioStreamPlayer" parent="AudioManager" index="0" unique_id=1844130414]
+stream = ExtResource("22_jagta")
+autoplay = true
+parameters/looping = true
 
 [node name="CustomerIntro" type="Label3D" parent="." index="20" unique_id=1374975928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278806, 1.3384633, -5.293659)

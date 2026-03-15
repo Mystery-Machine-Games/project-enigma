@@ -4,7 +4,6 @@ extends Node
 const MIN_VOLUME: float = db_to_linear(-80.0)
 const MAX_VOLUME: float = db_to_linear(6.0)
 
-# Sound effects
 static var _sound_dictionary: Dictionary[String, AudioStream] = {
 	"hover": preload("res://assets/audio/hover.ogg"),
 	"select": preload("res://assets/audio/select.ogg"),
@@ -36,14 +35,17 @@ func _ready() -> void:
 	# Get the polyphonic _playback stream to play sounds
 	_playback = audio_stream_player.get_stream_playback()
 
+
 func _process(delta: float) -> void:
 	set_volume(Config.current["Audio"]["master_volume"] as float)
+
 
 static func set_volume(volume: float) -> void:
 	AudioServer.set_bus_volume_linear(
 		AudioServer.get_bus_index(_bus),
 		lerpf(MIN_VOLUME, MAX_VOLUME, volume)
 	)
+
 
 # Example usage: AudioManager.play_sound("hover")
 static func play_sound(sound_key: String) -> void:
