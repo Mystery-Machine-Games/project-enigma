@@ -207,8 +207,12 @@ func _check_solution() -> bool:
 	if _current_solution.size() == NUM_WIRES:
 		for i: int in range(_wire_solution.size()):
 			var solution_wire: MachineWireData = _wire_solution[i]
-			var current_wire: MachineWireData = _current_solution[i]
-			if !current_wire.ports_are_equal(solution_wire):
+			var correct_wire_present: bool = false
+			for j: int in range(_current_solution.size()):
+				var current_wire: MachineWireData = _current_solution[j]
+				if current_wire.ports_are_equal(solution_wire):
+					correct_wire_present = true
+			if not correct_wire_present:
 				print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incorrect")
 				return false
 	else:

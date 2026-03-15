@@ -26,7 +26,6 @@ var cluesetArr : Array[Clueset] = [];
 
 
 func _ready() -> void:
-	_outline_mesh.material_override = load("res://assets/materials/red.tres")
 	_button_module.buttons_correct.connect(_check_solution)
 	_button_module.buttons_reset.connect(_error)
 	_wire_module.wires_correct.connect(_set_wires_correct)
@@ -74,8 +73,16 @@ func add_clueset(clueset : Clueset) -> void:
 
 
 func _error() -> void:
+	_outline_mesh.material_override = load("res://assets/materials/red.tres")
 	_outline_mesh.visible = true
 	AudioManager.play_sound("error")
 	await get_tree().create_timer(0.25).timeout
-	#await(get_tree().create_timer(1.0), "timeout")
+	_outline_mesh.visible = false
+
+
+func _success() -> void:
+	_outline_mesh.material_override = load("res://assets/materials/green.tres")
+	_outline_mesh.visible = true
+	AudioManager.play_sound("success")
+	await get_tree().create_timer(0.25).timeout
 	_outline_mesh.visible = false
