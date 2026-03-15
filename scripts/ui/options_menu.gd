@@ -3,6 +3,8 @@ extends PanelContainer
 
 signal options_close_requested
 
+@onready var focus_entry: Control = %Return
+
 func _enter_tree() -> void:
 	var can_change_difficulty: bool = not get_parent().is_playing
 	(%Difficulty/SpinBox as SpinBox).editable = can_change_difficulty
@@ -10,9 +12,11 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_get_options_from_config()
+	focus_entry.grab_focus.call_deferred()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		get_viewport().set_input_as_handled()
 		options_close_requested.emit()
 
 func _get_options_from_config() -> void:

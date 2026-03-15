@@ -34,7 +34,7 @@ func input_to_string(event: InputEvent) -> String:
 	elif event is InputEventJoypadMotion:
 		string_input = "axis:%s:%s" % [
 			str((event as InputEventJoypadMotion).axis),
-			str((event as InputEventJoypadMotion).axis_value)
+			str(-1.0 if (event as InputEventJoypadMotion).axis_value < 0 else 1.0)
 		]
 	return string_input
 	

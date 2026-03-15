@@ -63,3 +63,6 @@ func remove_wire(type: String) -> void:
 	var wire_type_index: int = _placed_wire_types.find(type)
 	_placed_wire_types.remove_at(wire_type_index)
 	_update_ui("false")
+
+func get_available_wires() -> Array:
+	return _wire_buttons.filter(func (b: WireButton) -> bool: return not b.disabled)

@@ -1,9 +1,18 @@
 class_name MainMenu
 extends Control
 
+
 signal game_start_requested
 signal options_menu_requested
+
+@onready var focus_entry: Control = %Play
+
 @onready var _credits: PanelContainer = %CreditsPanel
+
+
+func _ready() -> void:
+	focus_entry.grab_focus.call_deferred()
+
 
 func _input(event: InputEvent) -> void:
 	if (_credits.visible
@@ -12,6 +21,7 @@ func _input(event: InputEvent) -> void:
 				and _has_clicked_outside(_credits, event as InputEventMouseButton)
 		))):
 		_credits.hide()
+		focus_entry.grab_focus.call_deferred()
 		get_viewport().set_input_as_handled()
 
 func _on_play_pressed() -> void:

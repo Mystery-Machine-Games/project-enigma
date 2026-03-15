@@ -1,6 +1,8 @@
 class_name InputMapper
 extends HBoxContainer
 
+const AXIS_REMAP_DEADZONE = 0.5
+
 @export var action: String
 
 @onready var _action_name_label: Label = $"./ActionName"
@@ -44,10 +46,10 @@ func _input(event: InputEvent) -> void:
 			and events.size() > 1
 		):
 			if event is InputEventJoypadMotion:
-				(event as InputEventJoypadMotion).axis_value = (1.0
-					if (event as InputEventJoypadMotion).axis_value > 0
-					else -1.0
-				)
+				var joy_axis: InputEventJoypadMotion = event 
+				if abs(joy_axis.axis_value) < AXIS_REMAP_DEADZONE:
+					return
+				joy_axis.axis_value = 1.0 if joy_axis.axis_value > 0 else -1.0
 			InputMap.action_erase_event(action, events[1])
 			InputMap.action_add_event(action, event)
 			_update_display()

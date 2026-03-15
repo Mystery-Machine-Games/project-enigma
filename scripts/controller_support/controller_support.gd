@@ -1,11 +1,12 @@
+class_name ControllerSupport
 extends Node
 
 const BASE_SENSITIVITY_MULTIPLIER: float = 10.0
 
+static var _axis_pressed: Dictionary[String, bool]
+
 var sensitivity: float
 var joy_deadzone: float
-
-var _was_pressed: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -27,30 +28,23 @@ func _process(_delta: float) -> void:
 	
 	viewport.warp_mouse(viewport.get_mouse_position() + cursor_velocity)
 
-func _input(event: InputEvent) -> void:	
-	# Intercept and process axis interact input for debouncing
-	if event is InputEventJoypadMotion and event.is_action("interact_grab"):
-		if not _was_pressed and event.is_action_pressed("interact_grab"):
-			_was_pressed = true
-			Input.action_press("interact_grab")
-		elif _was_pressed and event.is_action_released("interact_grab"):
-			_was_pressed = false
-			Input.action_release("interact_grab")
-		else:
-			get_viewport().set_input_as_handled()
-			
-	if event.is_action_pressed("controller_click"):
-		_click()
-	if event.is_action_released("controller_click"):
-		_click(false)
+
+static func event_is_action_pressed(event: InputEvent, action: String) -> bool:
+	# Return normal behavior if not controller axis
+	if not (event is InputEventJoypadMotion and event.is_action(action)):
+		return event.is_action_pressed(action)
 	
-
-
-# Not currently used but can be called to create virtual clicks
-func _click(pressed: bool = true) -> void:
-	var click_event: InputEventMouseButton = InputEventMouseButton.new()
-	click_event.button_index = MOUSE_BUTTON_LEFT
-	click_event.pressed = pressed
-	_was_pressed = pressed
-	click_event.position = get_viewport().get_mouse_position()
-	Input.parse_input_event(click_event)
+	# Get name then register axis on first encounter
+	var axis: String = Config.input_to_string(event)
+	if not _axis_pressed.has(axis):
+		_axis_pressed[axis] = false
+	# Intercept and process axis input for debouncing
+	if not _axis_pressed[axis] and event.is_action_pressed(action):
+		_axis_pressed[axis] = true
+	elif _axis_pressed[axis] and event.is_action_released(action):
+		_axis_pressed[axis] = false
+	else:
+		return false
+		
+	print(_axis_pressed[axis])
+	return _axis_pressed[axis]

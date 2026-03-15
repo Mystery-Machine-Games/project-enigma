@@ -43,11 +43,13 @@ func _on_mouse_exited() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact_grab"):
+	if _mouse_over and ControllerSupport.event_is_action_pressed(event, "interact_grab"):
+		print("press")
 		_anim_player.play("button_press")
 		_mouse_down = true
 		_outline_mesh.visible = false
-	if _mouse_over and event.is_action_released("interact_grab"):
+	elif _mouse_over and event.is_action_released("interact_grab"):
+		print("release")
 		_anim_player.play_backwards("button_press")
 		_mouse_down = false
 		_outline_mesh.visible = true
