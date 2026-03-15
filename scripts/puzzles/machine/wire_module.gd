@@ -52,14 +52,15 @@ func _pick_random_colors() -> void:
 func _apply_colors() -> void:
 	_possible_port_colors.shuffle()
 	_possible_wire_types.shuffle()
+	var start_port_color: Material = load("res://assets/materials/copper.tres")
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var start_port_mesh: MeshInstance3D = start_port.find_child("PortMesh")
 		var end_port_mesh: MeshInstance3D = end_port.find_child("PortMesh")
-		var port_color: Material = _possible_port_colors[i]
-		start_port_mesh.material_override = port_color
-		end_port_mesh.material_override = port_color
+		var end_port_color: Material = _possible_port_colors[i]
+		start_port_mesh.material_override = start_port_color
+		end_port_mesh.material_override = end_port_color
 		start_port.set_sprite_color()
 		end_port.set_sprite_color()
 
