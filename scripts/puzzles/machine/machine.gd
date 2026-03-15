@@ -16,11 +16,13 @@ var difficulty: Difficulty:
 @onready var _button_module: ButtonModule = $ButtonModule
 @onready var _wire_module: WireModule = $WireModule
 @onready var _outline_mesh: MeshInstance3D = $OutlineMesh
+@onready var _focus_box: FocusItem = $"../../../LyleFocusBox"
 
 var _wires_correct: bool = false
 var _machine_initialized: bool = false
+const WIRE_VIEW_INDEX = 1
 signal machine_initialized
-signal machineFixed;
+signal machine_fixed
 
 var cluesetArr : Array[Clueset] = [];
 
@@ -41,6 +43,9 @@ func _process(_delta: float) -> void:
 	if not _machine_initialized:
 		_machine_initialized = true
 		emit_signal("machine_initialized")
+	var wires_in_focus: bool = _focus_box.focus_index == WIRE_VIEW_INDEX
+	_wire_module.set_focus(wires_in_focus)
+
 
 
 func _set_wires_correct() -> void:
@@ -50,7 +55,7 @@ func _set_wires_correct() -> void:
 func _check_solution() -> void:
 	if _wires_correct:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
-		machineFixed.emit();
+		machine_fixed.emit()
 		_success()
 	else:
 		_error()

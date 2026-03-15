@@ -30,6 +30,7 @@ func _ready() -> void:
 	await initialize_shape_arr();
 	generate_shapes()
 
+# TODO: Get the colors from the wire module from the ports
 func get_hint_colors() -> Dictionary:
 	var buttoncolors : Array = $"../LyleFocusBox/FocusHandle/Machine".get_button_module()._possible_button_colors
 	var wirecolors : Array = $"../LyleFocusBox/FocusHandle/Machine".get_wire_module()._possible_port_colors

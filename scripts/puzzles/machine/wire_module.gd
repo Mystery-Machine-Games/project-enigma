@@ -22,6 +22,7 @@ var _wire_solution: Array[MachineWireData]
 var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
 var _current_wire_type: String = ""
+var _in_focus: bool
 
 signal wire_added
 signal wire_removed
@@ -36,6 +37,14 @@ func initialize_puzzle() -> void:
 	_set_random_positions()
 	_generate_clues()
 	_connect_signals()
+
+
+func set_focus(value: bool) -> void:
+	_in_focus = value
+
+
+func is_in_focus() -> bool:
+	return _in_focus
 
 
 func _pick_random_colors() -> void:
@@ -186,6 +195,7 @@ func _set_wire_pose(wire: MachineWire) -> void:
 
 
 func _remove_wire(wire_type: String) -> void:
+	if not _in_focus: return
 	for child: Node3D in $Wires.get_children():
 		var wire: MachineWire = child
 		if wire.get_data().get_type() == wire_type:
