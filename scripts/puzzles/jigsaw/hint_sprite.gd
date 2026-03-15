@@ -32,7 +32,9 @@ func construct(poly : PackedVector2Array, seed : int,flipped : bool = true) -> v
 	var linePoints : Array = [];
 	var currentY : float = 0;
 	var currentX : float = 0;
-	
+	var isWire : bool = false;
+	if header.front() == "wire":
+		isWire = true;
 	currentY = 1.5 * itemSize;
 	for n : int in clues.size(): # clues[n] is an array
 		var temp: Array = clues[n].duplicate()
@@ -52,7 +54,18 @@ func construct(poly : PackedVector2Array, seed : int,flipped : bool = true) -> v
 					tempsprite.flip_h = true;
 				add_child(tempsprite);
 				if hintColors.has(temp[x][y]):
-					tempsprite.modulate = hintColors[temp[x][y]];
+					var ports : Array = ["triangle_port","circle_port","square_port"];
+					if flipped:
+						
+						if temp[x][y] in ports && x == temp.size() - 1:
+							tempsprite.modulate = hintColors["start_port"];
+						else:
+							tempsprite.modulate = hintColors[temp[x][y]];
+					else:
+						if temp[x][y] in ports && x == 0:
+							tempsprite.modulate = hintColors["start_port"];
+						else:
+							tempsprite.modulate = hintColors[temp[x][y]];
 				tempsprite.position = Vector2(currentX + itemSize/2.0,currentY + itemSize/2.0) - sprite_data.get_pos();
 			
 			currentX += 1 * itemSize;
