@@ -41,8 +41,11 @@ func get_hint_colors() -> Dictionary:
 		"circle_port": wirecolors[0].albedo_color,
 		"square_port": wirecolors[1].albedo_color,
 		"triangle_port": wirecolors[2].albedo_color,
+		"start_port":load("res://assets/materials/copper.tres").albedo_color,
 	}
 	return colorDict;
+#THIS IS WHERE I GET THE COLORS
+
 
 func add_clueset(clueset : Clueset) -> void:
 	var temparr : Array = [];
@@ -244,10 +247,11 @@ func initialize_shape_arr() -> void:
 		puzzleTriangleArr.append(shapeTriangleArr)
 		puzzleArr.append(shapeArr)
 
-func puzzle_complete(hints : Array) -> void:
+func puzzle_complete(hints : Array,header : Array) -> void:
 	var temp : PuzzleHint = load("res://scenes/puzzles/jigsaw/hint_sprite.tscn").instantiate()
 	$"../Interface/CluesContainer".add_child(temp)
 	temp.clues = hints
 	temp.hintColors = hintColors;
+	temp.header = header;
 	temp.construct([],0,false);
 	temp.position.x = ($"../Interface/CluesContainer".get_children().size()-1) * 200;
