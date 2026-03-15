@@ -191,7 +191,11 @@ func _generate_clues() -> void:
 	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
-	var header: Array[String] = ["button"]
+	var header: Array[String]
+	if _interaction == Interaction.HOLD:
+		header.append("holdheader")
+	else:
+		header.append("pressheader")
 	var sorted_nums: Array[int] = _interaction_nums.duplicate()
 	sorted_nums.sort()
 	for num: int in sorted_nums:
