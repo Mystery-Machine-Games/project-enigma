@@ -1,6 +1,8 @@
 class_name MachineButton
 extends StaticBody3D
 
+signal button_held(hold_duration: float)
+
 @export var code: String
 
 @onready var _anim_player: AnimationPlayer = $AnimationPlayer
@@ -20,6 +22,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if _mouse_down:
 		_time_down += delta
+		button_held.emit(_time_down)
 	elif _time_down > 0:
 		print("[BUTTON][PROCESS] The ", name, " was held down for ", _time_down, " seconds")
 		emit_signal("button_pressed", self, _time_down)
@@ -41,7 +44,8 @@ func _on_mouse_exited() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact_grab"):
+	if _mouse_over and ControllerSupport.event_is_action_pressed(event, "interact_grab"):
+		print("press")
 		_anim_player.play("button_press")
 		AudioManager.play_sound("click")
 		_mouse_down = true

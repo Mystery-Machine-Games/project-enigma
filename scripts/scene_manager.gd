@@ -101,11 +101,13 @@ func _push_scene(scene: Scene) -> void:
 	add_child(_scenes[scene])
 	_stack_level += 1
 	_current_scene = scene
+	_on_change_current_scene()
 
 func _pop_scene() -> void:
 	remove_child(_scenes[_current_scene])
 	_current_scene = Scene.NONE
 	_stack_level -= 1
+	_on_change_current_scene()
 
 func _close_current_scene() -> void:
 	remove_child(_scenes[_current_scene])
@@ -115,3 +117,7 @@ func _switch_current_scene(scene: Scene) -> void:
 	_close_current_scene()
 	_open_as_current_scene(scene)
 	_current_scene = scene
+	
+func _on_change_current_scene() -> void:
+	if _current_scene != Scene.NONE and _current_scene != Scene.GAMEPLAY:
+		_scenes[_current_scene]._ready()

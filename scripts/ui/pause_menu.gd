@@ -5,6 +5,13 @@ signal resume_requested
 signal options_requested
 signal main_menu_requested
 
+@onready var focus_entry: Control = %Resume
+
+
+func _ready() -> void:
+	focus_entry.grab_focus.call_deferred()
+
+
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("pause"):
 		get_viewport().set_input_as_handled()

@@ -1,8 +1,15 @@
 class_name FocusItem
 extends Area3D
 
+signal focus_index_changed(focus_index: int)
+
 @export var focusPointArr: Array[Marker3D];
-var focus_index: int = 0
+var focus_index: int = 0:
+	get:
+		return focus_index
+	set(index):
+		focus_index = index
+		focus_index_changed.emit(focus_index)
 ## Camera position to tween to for focus mode in world space
 var focus_position: Vector3;
 ## Camera rotation to tween to for focus mode in world space

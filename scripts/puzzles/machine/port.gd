@@ -67,7 +67,7 @@ func _on_mouse_exited() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _mouse_over and event.is_action_pressed("interact_grab") and _wire_module.is_in_focus():
+	if _mouse_over and ControllerSupport.event_is_action_pressed(event, "interact_grab") and _wire_module.is_in_focus():
 		emit_signal("port_pressed", self, true)
 		if _interactable: 
 			AudioManager.play_sound("click")
