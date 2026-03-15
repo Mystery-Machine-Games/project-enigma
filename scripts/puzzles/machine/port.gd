@@ -4,8 +4,10 @@ extends StaticBody3D
 @export var code: String
 
 @onready var _outline_mesh: MeshInstance3D = $OutlineMesh
+@onready var _port_mesh: MeshInstance3D = $PortMesh
 @onready var _interactable_color: Material = load("res://assets/materials/white.tres")
 @onready var _uninteractable_color: Material = load("res://assets/materials/red.tres")
+@onready var _port_shape_sprite: Sprite3D = $PortShapeSprite
 
 var _mouse_over: bool = false
 var _filled: bool = false
@@ -17,6 +19,7 @@ signal port_pressed
 
 func _ready() -> void:
 	_outline_mesh.visible = false
+	_port_shape_sprite.visible = false
 
 
 func set_interactable(interactable: bool) -> void:
@@ -39,11 +42,17 @@ func is_filled() -> bool:
 	return _filled
 
 
+func set_sprite_color() -> void:
+	var port_material: Material = _port_mesh.material_override
+	_port_shape_sprite.modulate = port_material.albedo_color
+
+
 func _on_mouse_entered() -> void:
 	if not _filled:
 		_mouse_over = true
 		emit_signal("port_hovered", self, false)
 		_outline_mesh.visible = true
+		_port_shape_sprite.visible = true
 		if _interactable:
 			AudioManager.play_sound("hover")
 		else:
@@ -53,6 +62,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
 	_mouse_over = false
 	_outline_mesh.visible = false
+	_port_shape_sprite.visible = false
 
 
 func _unhandled_input(event: InputEvent) -> void:

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/puzzles/machine/port.gd" id="1_6ulsu"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="2_6ulsu"]
 [ext_resource type="ArrayMesh" uid="uid://xsh1s6v8ild3" path="res://assets/meshes/triangle_port.obj" id="3_6ulsu"]
+[ext_resource type="Texture2D" uid="uid://cdt46rmictpbf" path="res://assets/textures/triangle_port.png" id="4_p6svr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oyquu"]
 size = Vector3(1.85328, 0.624, 1.85328)
@@ -36,6 +37,10 @@ shape = SubResource("BoxShape3D_oyquu")
 [node name="OutlineMesh" type="MeshInstance3D" parent="." unique_id=1683908622]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ta6cu")
+
+[node name="PortShapeSprite" type="Sprite3D" parent="." unique_id=374895664]
+transform = Transform3D(4.3711392e-08, -1, 4.3711385e-08, -8.742278e-08, -4.371139e-08, -1, 1, 4.371139e-08, -8.742278e-08, 6.6002366e-15, 2, 1.5099582e-07)
+texture = ExtResource("4_p6svr")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

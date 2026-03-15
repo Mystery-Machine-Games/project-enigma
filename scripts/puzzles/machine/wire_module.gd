@@ -60,6 +60,8 @@ func _apply_colors() -> void:
 		var port_color: Material = _possible_port_colors[i]
 		start_port_mesh.material_override = port_color
 		end_port_mesh.material_override = port_color
+		start_port.set_sprite_color()
+		end_port.set_sprite_color()
 
 
 func _generate_solution() -> void:
