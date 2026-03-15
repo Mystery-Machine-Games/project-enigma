@@ -227,7 +227,8 @@ width = 480.0
 
 [node name="ToggleCluePrompt" type="Label3D" parent="." index="23" unique_id=1892957223]
 transform = Transform3D(-1.2744842e-08, 0.291568, -0.32282054, -1.4110933e-08, 0.32282054, 0.291568, 0.435, 1.9014452e-08, 1.1159598e-15, 3.4980428, 1.3771245, -0.62495726)
-text = "You can view solved jigsaws with"
+text = "Press '' to view your solved jigsaws.
+Press '' to switch between button/wire view."
 font_size = 18
 outline_size = 6
 autowrap_mode = 2

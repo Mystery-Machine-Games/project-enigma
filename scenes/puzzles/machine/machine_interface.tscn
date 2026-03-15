@@ -19,6 +19,7 @@ mouse_filter = 2
 script = ExtResource("1_lw6my")
 
 [node name="CameraToggleLabel" type="Label" parent="." unique_id=2019939573]
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
