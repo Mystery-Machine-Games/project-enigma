@@ -17,6 +17,7 @@ const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 var _interaction_history: Dictionary[Node, float]
 
 signal buttons_correct
+signal buttons_reset
 signal clueset_generated;
 
 
@@ -92,17 +93,17 @@ func _check_solution() -> bool:
 	for interaction: Node in _interaction_history:
 		var interaction_num: float = _interaction_history[interaction]
 		if interaction != _buttons[i]:
-			_interaction_history.clear()
+			_reset()
 			print("[BUTTON_MODULE][CHECK_SOLUTION] Button order incorrect, cleared")
 			return false
 		if round(interaction_num) != round(_interaction_nums[i]):
 			match _interaction:
 				Interaction.PRESS:
 					if _interaction_history.size() > i + 1 or round(interaction_num) > round(_interaction_nums[i]):
-						_interaction_history.clear()
+						_reset()
 						print("[BUTTON_MODULE][CHECK_SOLUTION] Button presses incorrect, cleared history")
 				Interaction.HOLD:
-					_interaction_history.clear()
+					_reset()
 					print("[BUTTON_MODULE][CHECK_SOLUTION] Button holds incorrect, cleared history")
 			return false
 		i += 1
@@ -111,6 +112,11 @@ func _check_solution() -> bool:
 		return true
 	print("[BUTTON_MODULE][CHECK_SOLUTION] Solution not complete yet, but correct so far")
 	return false
+
+
+func _reset() -> void:
+	_interaction_history.clear()
+	emit_signal("buttons_reset")
 
 
 func _generate_clues() -> void:

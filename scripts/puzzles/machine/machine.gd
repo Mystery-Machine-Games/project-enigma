@@ -15,6 +15,7 @@ var difficulty: Difficulty:
 
 @onready var _button_module: ButtonModule = $ButtonModule
 @onready var _wire_module: WireModule = $WireModule
+@onready var _outline_mesh: MeshInstance3D = $OutlineMesh
 
 var _wires_correct: bool = false
 var _machine_initialized: bool = false
@@ -25,7 +26,9 @@ var cluesetArr : Array[Clueset] = [];
 
 
 func _ready() -> void:
+	_outline_mesh.material_override = load("res://assets/materials/red.tres")
 	_button_module.buttons_correct.connect(_check_solution)
+	_button_module.buttons_reset.connect(_error)
 	_wire_module.wires_correct.connect(_set_wires_correct)
 	set_difficulty(difficulty)
 	_button_module.set_colors(button_colors)
@@ -49,10 +52,14 @@ func _check_solution() -> void:
 	if _wires_correct:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
 		machineFixed.emit();
+	else:
+		_error()
+
 
 func set_difficulty(difficulty: Difficulty) -> void:
 	_wire_module.set_difficulty(difficulty)
 	_button_module.set_difficulty(difficulty)
+
 
 func get_wire_module() -> WireModule:
 	return _wire_module
@@ -61,5 +68,14 @@ func get_wire_module() -> WireModule:
 func get_button_module() -> ButtonModule:
 	return _button_module
 
+
 func add_clueset(clueset : Clueset) -> void:
 	cluesetArr.append(clueset);
+
+
+func _error() -> void:
+	_outline_mesh.visible = true
+	AudioManager.play_sound("error")
+	await get_tree().create_timer(0.25).timeout
+	#await(get_tree().create_timer(1.0), "timeout")
+	_outline_mesh.visible = false
