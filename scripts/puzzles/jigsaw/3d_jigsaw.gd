@@ -41,6 +41,8 @@ func get_hint_colors() -> Dictionary:
 		"triangle_port": wirecolors[2].albedo_color,
 	}
 	return colorDict;
+#THIS IS WHERE I GET THE COLORS
+
 
 func add_clueset(clueset : Clueset) -> void:
 	var temparr : Array = [];
@@ -242,11 +244,12 @@ func initialize_shape_arr() -> void:
 		puzzleTriangleArr.append(shapeTriangleArr)
 		puzzleArr.append(shapeArr)
 
-func puzzle_complete(hints : Array) -> void:
+func puzzle_complete(hints : Array,header : Array) -> void:
 	var temp : PuzzleHint = load("res://scenes/puzzles/jigsaw/hint_sprite.tscn").instantiate()
 	$"../Interface/Control".add_child(temp)
 	temp.clues = hints
 	temp.hintColors = hintColors;
+	temp.header = header;
 	temp.construct([],0,false);
 	temp.position.x = ($"../Interface/Control".get_children().size()-1) * 200;
 	

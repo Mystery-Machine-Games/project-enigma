@@ -43,10 +43,11 @@ func try_organize_pieces(node : JigsawPiece) -> void:
 						nodegroup.append_array(foundarr);
 						
 						pieces.append(nodegroup);
-						
+	
 	if pieces.size() == 1:
 		print("emitted")
-		puzzleCompleteSignal.emit(get_children().front().get_hints());
+		puzzleCompleteSignal.emit(get_children().front().get_hints(),get_children().front().header);
+	
 	#print("trying to organize")
 	#if b == true:
 		#return;
