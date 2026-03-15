@@ -51,6 +51,7 @@ func _check_solution() -> void:
 	if _wires_correct:
 		print("[MACHINE][CHECK_SOLUTION] Machine fixed!")
 		machineFixed.emit();
+		_success()
 	else:
 		_error()
 
