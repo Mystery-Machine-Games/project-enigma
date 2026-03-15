@@ -1,8 +1,8 @@
 class_name FocusItem
-extends Node
+extends Area3D
 
-@export var focusPointArr : Array[Marker3D];
-var focusIndex : int = 0;
+@export var focusPointArr: Array[Marker3D];
+var focus_index: int = 0
 ## Camera position to tween to for focus mode in world space
 var focus_position: Vector3;
 ## Camera rotation to tween to for focus mode in world space
@@ -10,13 +10,19 @@ var focus_rotation: Vector3;
 
 ## Speed of focus transition tween in m/s
 @export var focus_speed: float = 1.0
-## Item rotation angle per input
+## Item rotation angle in degrees per input
 @export var item_rotation_angle: float = 90.0
-## Duration of item rotation tween
+## Duration of item rotation tween in s
 @export var item_rotation_time: float = 0.5
 
 ## Flag to set when this item is focused on
-var is_focused: bool = false
+var is_focused: bool:
+	get: 
+		return is_focused
+	set(new_value):
+		is_focused = new_value
+		# Ensure ray picking doesn't block other inputs when focused
+		input_ray_pickable = not is_focused
 
 ## Node3D handle to move object while focused
 @export var _focus_handle: Node3D;
@@ -27,12 +33,12 @@ var _item_rotation_tween: Tween
 ## Machine interface, focusing on the item shows/hides it
 @onready var interface : Control = $"../Interface";
 
-func _ready() -> void:
+func _ready() -> void:	
 	set_pos_and_rot();
 
 func set_pos_and_rot() -> void:
-	focus_position = focusPointArr[focusIndex].global_position
-	focus_rotation = focusPointArr[focusIndex].global_rotation
+	focus_position = focusPointArr[focus_index].global_position
+	focus_rotation = focusPointArr[focus_index].global_rotation
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not is_focused:

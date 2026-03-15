@@ -1,8 +1,6 @@
 class_name ButtonModule
 extends Node3D
 
-@export var button_positions: Array[Vector3]
-
 enum Interaction {PRESS, HOLD}
 
 const NUM_BUTTONS: int = 3
@@ -15,9 +13,16 @@ const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 @onready var _buttons: Array[Node] = get_children()
 @onready var _interaction_nums: Array[int] = POSSIBLE_INTERACTION_NUMS.duplicate()
 var _interaction_history: Dictionary[Node, float]
+var button_positions: Array[Vector3]
 
 signal buttons_correct
+signal buttons_reset
 signal clueset_generated;
+
+
+func _ready() -> void:
+	for button: MachineButton in _buttons:
+		button_positions.append(button.position)
 
 
 func initialize_puzzle() -> void:
@@ -92,17 +97,17 @@ func _check_solution() -> bool:
 	for interaction: Node in _interaction_history:
 		var interaction_num: float = _interaction_history[interaction]
 		if interaction != _buttons[i]:
-			_interaction_history.clear()
+			_reset()
 			print("[BUTTON_MODULE][CHECK_SOLUTION] Button order incorrect, cleared")
 			return false
 		if round(interaction_num) != round(_interaction_nums[i]):
 			match _interaction:
 				Interaction.PRESS:
 					if _interaction_history.size() > i + 1 or round(interaction_num) > round(_interaction_nums[i]):
-						_interaction_history.clear()
+						_reset()
 						print("[BUTTON_MODULE][CHECK_SOLUTION] Button presses incorrect, cleared history")
 				Interaction.HOLD:
-					_interaction_history.clear()
+					_reset()
 					print("[BUTTON_MODULE][CHECK_SOLUTION] Button holds incorrect, cleared history")
 			return false
 		i += 1
@@ -111,6 +116,11 @@ func _check_solution() -> bool:
 		return true
 	print("[BUTTON_MODULE][CHECK_SOLUTION] Solution not complete yet, but correct so far")
 	return false
+
+
+func _reset() -> void:
+	_interaction_history.clear()
+	emit_signal("buttons_reset")
 
 
 func _generate_clues() -> void:
@@ -185,7 +195,11 @@ func _generate_clues() -> void:
 	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
-	var header: Array[String] = ["button"]
+	var header: Array[String]
+	if _interaction == Interaction.HOLD:
+		header.append("holdheader")
+	else:
+		header.append("pressheader")
 	var sorted_nums: Array[int] = _interaction_nums.duplicate()
 	sorted_nums.sort()
 	for num: int in sorted_nums:

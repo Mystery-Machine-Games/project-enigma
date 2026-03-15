@@ -12,8 +12,12 @@ const SCENE_PATHS: Dictionary[Scene, String] = {
 	Scene.MAIN_MENU: "res://scenes/ui/main_menu.tscn",
 	Scene.PAUSE: "res://scenes/ui/pause_menu.tscn",
 	Scene.OPTIONS: "res://scenes/ui/options_menu.tscn",
-	Scene.GAMEPLAY: "res://scenes/playtest.tscn",
+	Scene.GAMEPLAY: "res://scenes/camera_on_rails/test_world_camera_rail.tscn",
 }
+
+var is_playing: bool:
+	get:
+		return _scenes[Scene.GAMEPLAY] != null
 
 var _scenes: Dictionary[Scene, Node] = {
 	Scene.NONE: null,
@@ -22,10 +26,17 @@ var _scenes: Dictionary[Scene, Node] = {
 	Scene.PAUSE: preload(SCENE_PATHS[Scene.PAUSE]).instantiate(),
 	Scene.OPTIONS: preload(SCENE_PATHS[Scene.OPTIONS]).instantiate(),
 }
-var _current_scene: Scene = Scene.NONE
-var _is_playing: bool:
+var _scene_stack: Array[Scene] = [Scene.NONE, Scene.NONE, Scene.NONE, Scene.NONE]
+var _stack_level: int = 0:
 	get:
-		return _scenes[Scene.GAMEPLAY] != null
+		return _stack_level
+	set(level):
+		_stack_level = clampi(level, 0, _scene_stack.size())
+var _current_scene: Scene:
+	get:
+		return _scene_stack[_stack_level]
+	set(scene):
+		_scene_stack[_stack_level] = scene
 
 func _ready() -> void:
 	var _main_menu: MainMenu = _scenes[Scene.MAIN_MENU]
@@ -34,6 +45,7 @@ func _ready() -> void:
 	_open_as_current_scene(Scene.MAIN_MENU)
 	
 	var _pause_menu: PauseMenu = _scenes[Scene.PAUSE]
+	_pause_menu.resume_requested.connect(_on_request_resume)
 	_pause_menu.main_menu_requested.connect(_on_request_main_menu)
 	_pause_menu.options_requested.connect(_on_request_options_menu)
 	_pause_menu.process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -42,19 +54,16 @@ func _ready() -> void:
 	_options_menu.options_close_requested.connect(_on_request_options_close)
 
 func _input(event: InputEvent) -> void:
-	if _is_playing and event.is_action_pressed("pause"):
-		get_tree().paused = not get_tree().paused
-		if _current_scene == Scene.PAUSE:
-			_close_current_scene()
-			get_tree().paused = false
-		else:
-			get_tree().paused = true
-			_open_as_current_scene(Scene.PAUSE)
-		
+	if is_playing and event.is_action_pressed("pause") and _current_scene != Scene.PAUSE:
+		if _stack_level > 1:
+			return
+
+		get_tree().paused = true
+		_push_scene(Scene.PAUSE)
 		get_viewport().set_input_as_handled()
 
 func _on_request_game_start() -> void:
-	if _is_playing:
+	if is_playing:
 		_scenes[Scene.GAMEPLAY].free()
 	_scenes[Scene.GAMEPLAY] = (load(SCENE_PATHS[Scene.GAMEPLAY]) as PackedScene).instantiate()
 	_scenes[Scene.GAMEPLAY].process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -66,12 +75,17 @@ func _on_request_main_menu() -> void:
 	_scenes[Scene.GAMEPLAY].queue_free()
 	_scenes[Scene.GAMEPLAY] = null
 
+func _on_request_resume() -> void:
+	_pop_scene()
+	get_tree().paused = false
+
 func _on_request_options_menu() -> void:
-	_open_as_current_scene(Scene.OPTIONS)
+	if _current_scene != Scene.OPTIONS:
+		_push_scene(Scene.OPTIONS)
 	
 func _on_request_options_close() -> void:
-	if _current_scene == Scene.PAUSE:
-		_close_current_scene()
+	if _current_scene == Scene.OPTIONS:
+		_pop_scene()
 
 func _open_as_current_scene(scene: Scene) -> void:
 	var next_scene: Variant = _scenes.get(scene)
@@ -79,13 +93,21 @@ func _open_as_current_scene(scene: Scene) -> void:
 		push_error("[scene_manager] Scene does not exist")
 		return
 
-	print("Opening %s" % scene)
 	@warning_ignore("unsafe_cast")
 	add_child(next_scene as Node)
 	_current_scene = scene
+	
+func _push_scene(scene: Scene) -> void:
+	add_child(_scenes[scene])
+	_stack_level += 1
+	_current_scene = scene
+
+func _pop_scene() -> void:
+	remove_child(_scenes[_current_scene])
+	_current_scene = Scene.NONE
+	_stack_level -= 1
 
 func _close_current_scene() -> void:
-	print("Closing %s" % _current_scene)
 	remove_child(_scenes[_current_scene])
 	_current_scene = Scene.NONE
 

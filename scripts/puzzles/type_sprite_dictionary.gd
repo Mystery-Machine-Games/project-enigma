@@ -9,6 +9,8 @@ static var _sprite_types : Dictionary = {
 	"square_button":SpriteData.new("res://assets/textures/square_button.png"),
 	"press":SpriteData.new("res://assets/textures/press.png",Vector2(-5,-5)),
 	"hold":SpriteData.new("res://assets/textures/hold.png",Vector2(-5,-5)),
+	"holdheader":SpriteData.new("res://assets/textures/hold.png",Vector2(5, 3)),
+	"pressheader":SpriteData.new("res://assets/textures/press.png",Vector2(5, 3)),
 	"times":SpriteData.new("res://assets/textures/times.png",Vector2(7,3),Vector2(0.5,0.5)),
 	"seconds":SpriteData.new("res://assets/textures/seconds.png",Vector2(7,3),Vector2(0.5,0.5)),
 	"hashtag":SpriteData.new("res://assets/textures/hashtag.png",Vector2(-7,2),Vector2(0.7, 0.7)),

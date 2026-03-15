@@ -21,7 +21,7 @@ var _difficulty: int
 var _wire_solution: Array[MachineWireData]
 var _current_solution: Array[MachineWireData]
 var _current_ports: Array[MachinePort]
-var _current_wire_type: String
+var _current_wire_type: String = ""
 
 signal wire_added
 signal wire_removed
@@ -52,14 +52,17 @@ func _pick_random_colors() -> void:
 func _apply_colors() -> void:
 	_possible_port_colors.shuffle()
 	_possible_wire_types.shuffle()
+	var start_port_color: Material = load("res://assets/materials/copper.tres")
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
 		var start_port_mesh: MeshInstance3D = start_port.find_child("PortMesh")
 		var end_port_mesh: MeshInstance3D = end_port.find_child("PortMesh")
-		var port_color: Material = _possible_port_colors[i]
-		start_port_mesh.material_override = port_color
-		end_port_mesh.material_override = port_color
+		var end_port_color: Material = _possible_port_colors[i]
+		start_port_mesh.material_override = start_port_color
+		end_port_mesh.material_override = end_port_color
+		start_port.set_sprite_color()
+		end_port.set_sprite_color()
 
 
 func _generate_solution() -> void:
@@ -95,24 +98,40 @@ func _connect_signals() -> void:
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
+		start_port.port_hovered.connect(_log_interaction)
+		end_port.port_hovered.connect(_log_interaction)
 		start_port.port_pressed.connect(_log_interaction)
 		end_port.port_pressed.connect(_log_interaction)
 
 
-func _log_interaction(port: MachinePort) -> void:
-	#print("[WIRE_MODULE][LOG_INTERACTION] _current_ports = ", _current_ports)
-	if !port.is_filled():
-		if _current_ports.size() == 0 and _start_ports.find(port) != -1:
-			_current_ports.append(port)
-		elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
-			_current_ports.append(port)
-		else:
-			print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
+func _log_interaction(port: MachinePort, pressed: bool) -> void:
+	if _current_wire_type == "": 
+		port.set_interactable(false)
+		return
+	elif port.is_filled(): 
+		port.set_interactable(false)
+		return
+	elif !_is_next_port(port): 
+		port.set_interactable(false)
+		return
 	else:
-		print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Filled")
+		port.set_interactable(true)
+	
+	if pressed:
+		_current_ports.append(port)
+	else: print("[WIRE_MODULE][LOG_INTERACTION] Failed to add port: Incorrect sequence")
+
 	if _current_ports.size() == 2:
 		_add_wire()
-	if _check_solution(): emit_signal("wires_correct")
+		if _check_solution(): emit_signal("wires_correct")
+
+
+func _is_next_port(port: MachinePort) -> bool:
+	if _current_ports.size() == 0 and _start_ports.find(port) != -1:
+		return true
+	elif _current_ports.size() == 1 and _end_ports.find(port) != -1:
+		return true
+	else: return false
 
 
 func _add_wire() -> void:
@@ -189,8 +208,12 @@ func _check_solution() -> bool:
 	if _current_solution.size() == NUM_WIRES:
 		for i: int in range(_wire_solution.size()):
 			var solution_wire: MachineWireData = _wire_solution[i]
-			var current_wire: MachineWireData = _current_solution[i]
-			if !current_wire.ports_are_equal(solution_wire):
+			var correct_wire_present: bool = false
+			for j: int in range(_current_solution.size()):
+				var current_wire: MachineWireData = _current_solution[j]
+				if current_wire.ports_are_equal(solution_wire):
+					correct_wire_present = true
+			if not correct_wire_present:
 				print("[WIRE_MODULE][CHECK_SOLUTION] Solution is incorrect")
 				return false
 	else:
@@ -237,7 +260,7 @@ func _generate_clues() -> void:
 	if _difficulty > 1:
 		clueset.assumption_replacement()
 	
-	clueset.set_header(["wire", "I", "II", "III"])
+	clueset.set_header(["I", "II", "III"])
 	print("\n[WIRE_MODULE][GENERATE_CLUES]\nClueset:\n", str(clueset))
 	clueset_generated.emit(clueset)
 
