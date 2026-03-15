@@ -1,8 +1,6 @@
 class_name ButtonModule
 extends Node3D
 
-@export var button_positions: Array[Vector3]
-
 enum Interaction {PRESS, HOLD}
 
 const NUM_BUTTONS: int = 3
@@ -15,9 +13,15 @@ const POSSIBLE_INTERACTION_NUMS: Array[int] = [1, 2, 3, 4, 5]
 @onready var _buttons: Array[Node] = get_children()
 @onready var _interaction_nums: Array[int] = POSSIBLE_INTERACTION_NUMS.duplicate()
 var _interaction_history: Dictionary[Node, float]
+var button_positions: Array[Vector3]
 
 signal buttons_correct
 signal clueset_generated;
+
+
+func _ready() -> void:
+	for button: MachineButton in _buttons:
+		button_positions.append(button.position)
 
 
 func initialize_puzzle() -> void:
