@@ -32,7 +32,7 @@
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
 [ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
 [ext_resource type="PackedScene" path="res://scenes/ui/win_screen.tscn" id="24_2e3ut"]
-[ext_resource type="Script" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
+[ext_resource type="Script" uid="uid://b5knj71jyj5ij" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
 [ext_resource type="Material" uid="uid://dpkxe4imuujlt" path="res://assets/materials/wire_colors/wire_indigo.tres" id="25_a20gm"]
 [ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="26_dmvpc"]
 [ext_resource type="FontFile" uid="uid://dcww5lrfuum05" path="res://assets/fonts/CardenioModern-Bold.otf" id="30_ab0vx"]

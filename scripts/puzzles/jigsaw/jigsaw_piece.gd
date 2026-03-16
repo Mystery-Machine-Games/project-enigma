@@ -60,7 +60,7 @@ func float_up(boolean : bool) -> void:
 		tween.parallel().tween_property(viewport,"position",Vector3(0,0,0 + width),0.3).set_ease(Tween.EASE_IN);
 	if !boolean:
 		#going down
-		tween.finished.connect(get_parent().try_organize_pieces);
+		tween.finished.connect(get_parent().try_organize_pieces.bind(self));
 		await tween.finished;
 		previewMesh.visible = false;
 

@@ -47,8 +47,7 @@ func try_organize_pieces(node : JigsawPiece) -> void:
 						AudioManager.play_sound("click")
 						
 	if pieces.size() == 1:
-		print("emitted")
-		puzzleCompleteSignal.emit(get_children().front().get_hints(),get_children().front().header);
+		puzzleCompleteSignal.emit(get_children().front().get_hints(), get_children().front().header);
 		AudioManager.play_sound("success")
 
 	#print("trying to organize")
