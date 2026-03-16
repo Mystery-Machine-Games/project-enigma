@@ -38,6 +38,7 @@ gdscript/warnings/unsafe_call_argument=1
 [display]
 
 window/stretch/mode="canvas_items"
+mouse_cursor/custom_image="uid://bdk18uf6i7vxw"
 
 [editor_plugins]
 
