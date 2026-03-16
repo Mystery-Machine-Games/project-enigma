@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="Project Enigma"
+config/name="Enigma Repair Co."
 run/main_scene="uid://c846sthlyndpe"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/image="uid://0vmxd8o4iy2g"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=10
 
 [audio]
 
