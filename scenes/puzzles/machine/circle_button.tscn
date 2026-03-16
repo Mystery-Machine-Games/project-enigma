@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/puzzles/machine/button.gd" id="1_bo4kx"]
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/machine_colors/metal.tres" id="2_5hs78"]
 [ext_resource type="ArrayMesh" uid="uid://dajjpviqjodlx" path="res://assets/meshes/circle_button_stand.obj" id="3_44vis"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/machine_colors/copper.tres" id="4_8oo7v"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="4_l42nm"]
 [ext_resource type="ArrayMesh" uid="uid://bntcedt1kkp3h" path="res://assets/meshes/circle_button.obj" id="5_ilhju"]
 
@@ -69,6 +70,7 @@ script = ExtResource("1_bo4kx")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = ExtResource("2_5hs78")
 mesh = ExtResource("3_44vis")
+surface_material_override/0 = ExtResource("4_8oo7v")
 
 [node name="ButtonMesh" type="MeshInstance3D" parent="." unique_id=1660164815]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)

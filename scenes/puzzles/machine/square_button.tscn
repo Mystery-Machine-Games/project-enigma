@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/machine_colors/metal.tres" id="2_uf340"]
 [ext_resource type="ArrayMesh" uid="uid://tf0s6tucogbl" path="res://assets/meshes/square_button_stand.obj" id="3_8mya1"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="4_lecah"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/machine_colors/copper.tres" id="4_vmt8f"]
 [ext_resource type="ArrayMesh" uid="uid://c0q7ubn3isslm" path="res://assets/meshes/square_button.obj" id="5_uf340"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mya1"]
@@ -68,6 +69,7 @@ script = ExtResource("1_8mya1")
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = ExtResource("2_uf340")
 mesh = ExtResource("3_8mya1")
+surface_material_override/0 = ExtResource("4_vmt8f")
 
 [node name="ButtonMesh" type="MeshInstance3D" parent="." unique_id=1660164815]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.3, 0)

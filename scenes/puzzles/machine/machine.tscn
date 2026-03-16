@@ -36,6 +36,9 @@
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="23_gsbt1"]
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="24_6r3g5"]
 [ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/button_colors/button_purple.tres" id="25_rfceg"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/machine_colors/metal.tres" id="37_3s0wj"]
+[ext_resource type="Material" uid="uid://1awika260igg" path="res://assets/materials/machine_colors/wood.tres" id="38_710py"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/machine_colors/copper.tres" id="38_y7bsg"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gug2h"]
 _surfaces = [{
@@ -121,6 +124,15 @@ mesh = SubResource("ArrayMesh_gug2h")
 [node name="MachineMesh" type="MeshInstance3D" parent="." unique_id=1295933484]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -0.41451263, 2.4055197, 1.8118923e-08)
 mesh = ExtResource("12_1uwv8")
+surface_material_override/0 = ExtResource("37_3s0wj")
+surface_material_override/1 = ExtResource("38_y7bsg")
+surface_material_override/2 = ExtResource("38_y7bsg")
+surface_material_override/3 = ExtResource("38_y7bsg")
+surface_material_override/4 = ExtResource("38_y7bsg")
+surface_material_override/5 = ExtResource("38_710py")
+surface_material_override/6 = ExtResource("38_710py")
+surface_material_override/7 = ExtResource("38_710py")
+surface_material_override/8 = ExtResource("38_710py")
 
 [connection signal="clueset_generated" from="ButtonModule" to="." method="add_clueset"]
 [connection signal="button_held" from="ButtonModule/CircleButton" to="HoldTimer" method="_on_button_held"]
