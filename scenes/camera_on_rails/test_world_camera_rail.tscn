@@ -23,15 +23,15 @@
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Material" uid="uid://fwjqllpipqxl" path="res://assets/materials/wire_colors/wire_yellow.tres" id="21_0qfyd"]
-[ext_resource type="Material" uid="uid://dmncy0y5pg5g" path="res://assets/materials/wire_colors/wire_green.tres" id="21_8qayt"]
 [ext_resource type="Material" uid="uid://1awika260igg" path="res://assets/materials/machine_colors/wood.tres" id="21_iptnm"]
 [ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
 [ext_resource type="Material" uid="uid://vghnwppoonko" path="res://assets/materials/environment_colors/desk_secondary.tres" id="22_a20gm"]
 [ext_resource type="AudioStream" uid="uid://kmwmycmxbtn0" path="res://assets/audio/main_track.mp3" id="22_jagta"]
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
-[ext_resource type="Material" uid="uid://c7nnr5jc82651" path="res://assets/materials/wire_colors/wire_orange.tres" id="23_iptnm"]
 [ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
+[ext_resource type="Material" uid="uid://dpkxe4imuujlt" path="res://assets/materials/wire_colors/wire_indigo.tres" id="25_a20gm"]
+[ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="26_dmvpc"]
 [ext_resource type="FontFile" uid="uid://dcww5lrfuum05" path="res://assets/fonts/CardenioModern-Bold.otf" id="30_ab0vx"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
@@ -289,9 +289,9 @@ surface_material_override/37 = ExtResource("22_a20gm")
 transform = Transform3D(-0.8772468, 0, -0.48003972, 0, 1, 0, 0.48003972, 0, -0.8772468, 5.745341, -1.4541664, -2.851081)
 mesh = ExtResource("21_t167l")
 surface_material_override/0 = ExtResource("21_iptnm")
-surface_material_override/2 = ExtResource("21_0qfyd")
-surface_material_override/7 = ExtResource("21_8qayt")
-surface_material_override/11 = ExtResource("23_iptnm")
+surface_material_override/2 = ExtResource("25_a20gm")
+surface_material_override/7 = ExtResource("26_dmvpc")
+surface_material_override/11 = ExtResource("21_0qfyd")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="18" unique_id=173731445]
 environment = SubResource("Environment_t167l")
