@@ -67,6 +67,8 @@ func _on_request_game_start() -> void:
 		_scenes[Scene.GAMEPLAY].free()
 	_scenes[Scene.GAMEPLAY] = (load(SCENE_PATHS[Scene.GAMEPLAY]) as PackedScene).instantiate()
 	_scenes[Scene.GAMEPLAY].process_mode = Node.PROCESS_MODE_PAUSABLE
+	_scenes[Scene.GAMEPLAY].main_menu_requested.connect(_on_request_main_menu)
+	_scenes[Scene.GAMEPLAY].restart_requested.connect(_on_request_game_start)
 	_switch_current_scene(Scene.GAMEPLAY)
 
 func _on_request_main_menu() -> void:

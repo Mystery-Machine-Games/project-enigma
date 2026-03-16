@@ -26,6 +26,8 @@
 [ext_resource type="AudioStream" uid="uid://kmwmycmxbtn0" path="res://assets/audio/main_track.mp3" id="22_jagta"]
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
 [ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
+[ext_resource type="PackedScene" uid="uid://b3urxa1axvso3" path="res://scenes/ui/win_screen.tscn" id="24_2e3ut"]
+[ext_resource type="Script" uid="uid://b5knj71jyj5ij" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -243,5 +245,14 @@ autowrap_mode = 2
 width = 480.0
 script = ExtResource("23_k3w5f")
 
+[node name="WinScreen" parent="." index="24" unique_id=1093656833 instance=ExtResource("24_2e3ut")]
+visible = false
+script = ExtResource("25_8qayt")
+
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
+[connection signal="machineFixed" from="LyleFocusBox/FocusHandle/Machine" to="WinScreen" method="_on_machine_fixed"]
 [connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
+[connection signal="pressed" from="WinScreen/VBoxContainer/NewCousin" to="." method="_on_new_cousin_pressed"]
+[connection signal="pressed" from="WinScreen/VBoxContainer/ReturnHome" to="." method="_on_return_home_pressed"]
+
+[editable path="WinScreen"]
