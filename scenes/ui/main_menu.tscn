@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://0820n3v07ftt" path="res://assets/textures/logo.png" id="3_m1kxf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sl1te"]
-bg_color = Color(0.44199523, 0.7165368, 0.87937987, 1)
+bg_color = Color(0.27058825, 0.44705883, 0.827451, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -77,19 +77,22 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_sl1te")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CreditsPanel" unique_id=915335674]
 layout_mode = 2
+theme = ExtResource("1_fe2o3")
 bbcode_enabled = true
 text = "A Vertical Slice
 By Mystery Machine
+
+[b]Executive Producers[/b]
+Drew Ehrlich
+Adam Smith
+Tyler Coleman
 
 [b]Design, Programming, Art, & Sound[/b]
 Lyle Watkins
 Jerry Peng
 Brian Chung
 
-[b]Executive Producers[/b]
-Drew Ehrlich
-Adam Smith
-Tyler Coleman
+[b]Cardenio Modern font by Nils Cordes on dafont.com[/b]
 
 Thank you to all our playtesters!
 

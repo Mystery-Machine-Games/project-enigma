@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cjsq0kjgvtkm7"]
 
+[ext_resource type="Theme" uid="uid://cmkw3oj66pneq" path="res://assets/themes/default_theme.tres" id="1_imaij"]
 [ext_resource type="PackedScene" uid="uid://8rpttrdlmp1u" path="res://scenes/ui/input_mapper.tscn" id="1_ta2k2"]
 [ext_resource type="Script" uid="uid://dhudlky6m0l5k" path="res://scripts/ui/options_menu.gd" id="1_wj2x4"]
 
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("1_imaij")
 script = ExtResource("1_wj2x4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=336355767]
