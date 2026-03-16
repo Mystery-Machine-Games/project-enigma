@@ -63,7 +63,6 @@ size = Vector3(13.370361, 0.1, 7.0811157)
 [sub_resource type="Environment" id="Environment_t167l"]
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_energy = 3.0
 
 [node name="TestWorld" unique_id=1275245254 instance=ExtResource("1_r73vw")]
 script = ExtResource("2_snonn")
@@ -184,6 +183,7 @@ shape = SubResource("BoxShape3D_jd810")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="13" unique_id=1766527839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, 0.8710696)
+light_energy = 0.2
 
 [node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="14" unique_id=14493092]
 script = ExtResource("8_3hq15")
