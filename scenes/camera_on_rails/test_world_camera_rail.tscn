@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://cut3gyry261vh" path="res://scripts/main.gd" id="2_snonn"]
 [ext_resource type="PackedScene" uid="uid://oyxcwwhsdfyp" path="res://scenes/camera_on_rails/player_character.tscn" id="2_ymsyd"]
 [ext_resource type="PackedScene" uid="uid://nslq6nu6pi7y" path="res://scenes/camera_on_rails/wall.tscn" id="3_ymsyd"]
+[ext_resource type="Material" uid="uid://bf2rtkgnealk1" path="res://assets/materials/environment_colors/floor.tres" id="5_jagta"]
+[ext_resource type="Material" uid="uid://cm27em6v251xb" path="res://assets/materials/environment_colors/wall.tres" id="5_k3w5f"]
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
 [ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
@@ -37,6 +39,11 @@ size = Vector3(5, 1, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e3r2b"]
 size = Vector3(1.5, 1, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oh6kn"]
+size = Vector3(1, 1, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xxgf6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ipvy"]
 
@@ -101,21 +108,41 @@ visible = false
 mesh = SubResource("BoxMesh_oylrk")
 
 [node name="Wall" parent="." index="4" unique_id=1596152033 instance=ExtResource("3_ymsyd")]
-transform = Transform3D(1, 0, 0, 0, 2.3843246, 0, 0, 0, 1, -3.8147202, 0, -0.24205041)
+transform = Transform3D(1, 0, 0, 0, 2.3843246, 0, 0, 0, 0.7278671, -3.8147202, -1.5566988, -2.6092055)
 
 [node name="Wall3" parent="." index="5" unique_id=2016587851 instance=ExtResource("3_ymsyd")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.3720539, 0, 1, 0, -4.371139e-08, 0.6459179, 0, -8.059682)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.3720539, 0, 1, 0, -4.371139e-08, 0.6459179, -1.5566988, -8.059682)
 
 [node name="Wall4" parent="." index="6" unique_id=1836434891 instance=ExtResource("3_ymsyd")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.4116223, 0, 1, 0, -4.371139e-08, 0.92383766, 0, 2.4575205)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.4116223, 0, 1, 0, -4.371139e-08, 0.92383766, -1.5566988, 2.4575205)
 
 [node name="Wall5" parent="." index="7" unique_id=923627186 instance=ExtResource("3_ymsyd")]
-transform = Transform3D(1, 0, 0, 0, 2.3538716, 0, 0, 0, 1, 7.3705597, 0, -0.48410082)
+transform = Transform3D(1, 0, 0, 0, 2.3538716, 0, 0, 0, 0.77867246, 7.3705597, -1.5566988, -2.6393914)
 
-[node name="Ceiling" parent="." index="8" unique_id=1484979506 instance=ExtResource("3_ymsyd")]
-transform = Transform3D(-4.371139e-08, -6.644752, 0, 1, -2.9045134e-07, 0, 0, 0, 1, 8.741119, 4, -0.96820164)
+[node name="Floor" type="StaticBody3D" parent="." index="8" unique_id=1485049724]
+transform = Transform3D(-21.34182, 9.2403546e-08, 0, -1.0732741e-06, -0.27652258, 0, 0, 0, 1.2451143, 4.1621113, -1.4768771, -5.1511703)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." index="9" unique_id=1370673347]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0" unique_id=1082176470]
+shape = SubResource("BoxShape3D_oh6kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" index="1" unique_id=260206978]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 15, 0, 1, 0)
+material_override = ExtResource("5_jagta")
+mesh = SubResource("BoxMesh_xxgf6")
+surface_material_override/0 = ExtResource("5_k3w5f")
+
+[node name="Ceiling" type="StaticBody3D" parent="." index="9" unique_id=1484979506]
+transform = Transform3D(-4.371139e-08, -6.644752, 0, 1, -2.9045134e-07, 0, 0, 0, 0.7790306, 8.741119, 4, -2.8954928)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling" index="0" unique_id=404147]
+shape = SubResource("BoxShape3D_oh6kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling" index="1" unique_id=232547050]
+transform = Transform3D(1, 0, 0, 0, 1.9999999, 0, 0, 0, 15, -0.38340545, 0.9999999, 0)
+mesh = SubResource("BoxMesh_xxgf6")
+surface_material_override/0 = ExtResource("5_k3w5f")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="10" unique_id=1370673347]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1878113366]
@@ -126,7 +153,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5271854)
 mesh = SubResource("CapsuleMesh_yimg5")
 surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
 
-[node name="LyleFocusBox" type="Area3D" parent="." index="10" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
+[node name="LyleFocusBox" type="Area3D" parent="." index="11" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.7299078, 0.8046534, -0.6261852)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint"), NodePath("FocusPoint2")]
@@ -151,7 +178,7 @@ transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.913
 [node name="FocusPoint2" type="Marker3D" parent="LyleFocusBox" index="3" unique_id=915445390]
 transform = Transform3D(1, -3.769781e-08, -2.158537e-08, 3.769781e-08, 0.5061843, 0.8624253, -2.158537e-08, -0.8624253, 0.5061843, 0, 1.1878084, 0.3133769)
 
-[node name="JerryFocusBox" type="Area3D" parent="." index="11" unique_id=180049619 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
+[node name="JerryFocusBox" type="Area3D" parent="." index="12" unique_id=180049619 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.0217366, 0.8046534, -2.8632348)
 script = ExtResource("5_tig38")
 focusPointArr = [NodePath("FocusPoint")]
@@ -167,7 +194,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 transform = Transform3D(1, -1.8769741e-08, -1.5921279e-08, 2.3617222e-08, 0.5496354, 0.83540475, -6.929433e-09, -0.83540475, 0.5496354, 0.23627663, 1.0122591, 0.81394744)
 
-[node name="3DJigsaw" parent="." index="12" unique_id=947779380 node_paths=PackedStringArray("plane") instance=ExtResource("5_mul8f")]
+[node name="3DJigsaw" parent="." index="13" unique_id=947779380 node_paths=PackedStringArray("plane") instance=ExtResource("5_mul8f")]
 transform = Transform3D(-0.00010472218, 0, -0.19999997, 0, 0.2, 0, 0.19999997, 0, -0.00010472218, 4.017452, 0.71913576, -2.8961432)
 areaLayer = 2
 bodyLayer = 2
@@ -181,27 +208,27 @@ gravity_scale = 0.0
 transform = Transform3D(1, 0, 1.8626451e-08, 0, 1, 0, -1.8626451e-08, 0, 1, 1.047966, -0.049999952, 0.14316463)
 shape = SubResource("BoxShape3D_jd810")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="." index="13" unique_id=1766527839]
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="14" unique_id=1766527839]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, 0.8710696)
 light_energy = 0.2
 
-[node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="14" unique_id=14493092]
+[node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="15" unique_id=14493092]
 script = ExtResource("8_3hq15")
 
-[node name="desk" type="MeshInstance3D" parent="." index="15" unique_id=1101713897]
+[node name="desk" type="MeshInstance3D" parent="." index="16" unique_id=1101713897]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.2163444, -1.492364, -4.988626)
 mesh = ExtResource("20_snonn")
 
-[node name="pencilholder" type="MeshInstance3D" parent="." index="16" unique_id=1633484262]
+[node name="pencilholder" type="MeshInstance3D" parent="." index="17" unique_id=1633484262]
 transform = Transform3D(-0.8772468, 0, -0.48003972, 0, 1, 0, 0.48003972, 0, -0.8772468, 5.745341, -1.4541664, -2.551506)
 mesh = ExtResource("21_t167l")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="17" unique_id=173731445]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="18" unique_id=173731445]
 environment = SubResource("Environment_t167l")
 
-[node name="Interface" parent="." index="18" unique_id=1143050847 instance=ExtResource("19_jd810")]
+[node name="Interface" parent="." index="19" unique_id=1143050847 instance=ExtResource("19_jd810")]
 
-[node name="AudioManager" type="Node" parent="." index="19" unique_id=501316471]
+[node name="AudioManager" type="Node" parent="." index="20" unique_id=501316471]
 script = ExtResource("21_rx4po")
 metadata/_custom_type_script = "uid://bvncaug6tl8dq"
 
@@ -210,20 +237,20 @@ stream = ExtResource("22_jagta")
 autoplay = true
 parameters/looping = true
 
-[node name="CustomerIntro" type="Label3D" parent="." index="20" unique_id=1374975928]
+[node name="CustomerIntro" type="Label3D" parent="." index="21" unique_id=1374975928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278806, 1.3384633, -5.293659)
 text = "Hi!
 
 My Shape Button Wire Machine broke! :c Please help. Also here's the manual. Sorry... I tore it up in frustration."
 autowrap_mode = 2
 
-[node name="FocusPrompt" type="Label3D" parent="." index="21" unique_id=39970586]
+[node name="FocusPrompt" type="Label3D" parent="." index="22" unique_id=39970586]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.7172937, 2.2267032, -1.7558753)
 text = "Focus Prompt"
 autowrap_mode = 2
 script = ExtResource("22_rx4po")
 
-[node name="MachineInstructions" type="Label3D" parent="." index="22" unique_id=2137475912]
+[node name="MachineInstructions" type="Label3D" parent="." index="23" unique_id=2137475912]
 transform = Transform3D(-1.9014454e-08, 0.435, 1.9014454e-08, 0, -1.9014454e-08, 0.435, 0.435, 1.9014454e-08, 8.3114817e-16, 4.0965266, 0.8375269, -0.99672884)
 text = "1. Select a wire to connect
 2. Plug it into a start port on the bottom
@@ -235,7 +262,7 @@ vertical_alignment = 0
 autowrap_mode = 2
 width = 480.0
 
-[node name="ToggleCluePrompt" type="Label3D" parent="." index="23" unique_id=1892957223]
+[node name="ToggleCluePrompt" type="Label3D" parent="." index="24" unique_id=1892957223]
 transform = Transform3D(-1.2744842e-08, 0.291568, -0.32282054, -1.4110933e-08, 0.32282054, 0.291568, 0.435, 1.9014452e-08, 1.1159598e-15, 3.4980428, 1.3771245, -0.62495726)
 text = "Press '' to view your solved jigsaws.
 Press '' to switch between button/wire view."

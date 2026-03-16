@@ -1,12 +1,11 @@
 [gd_scene format=3 uid="uid://nslq6nu6pi7y"]
 
+[ext_resource type="Material" uid="uid://cm27em6v251xb" path="res://assets/materials/environment_colors/wall.tres" id="1_y0re1"]
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_oh6kn"]
 size = Vector3(1, 1, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xxgf6"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o21u4"]
-albedo_color = Color(0.39479062, 0.2589149, 0.1153656, 1)
 
 [node name="Wall" type="StaticBody3D" unique_id=1596152033]
 
@@ -16,4 +15,4 @@ shape = SubResource("BoxShape3D_oh6kn")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=260206978]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 15, 0, 1, 0)
 mesh = SubResource("BoxMesh_xxgf6")
-surface_material_override/0 = SubResource("StandardMaterial3D_o21u4")
+surface_material_override/0 = ExtResource("1_y0re1")
