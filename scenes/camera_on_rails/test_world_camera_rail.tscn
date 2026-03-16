@@ -9,7 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
 [ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
+[ext_resource type="Material" uid="uid://djc51bxwuqljb" path="res://assets/materials/environment_colors/ceiling.tres" id="7_kg4tk"]
 [ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/button_colors/button_orange.tres" id="7_lluq4"]
+[ext_resource type="Texture2D" uid="uid://cbeb5rlh6xsrq" path="res://assets/textures/character_sad.PNG" id="7_p0eye"]
 [ext_resource type="Script" uid="uid://dih0x6h5y2sfr" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
 [ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/button_colors/button_lime.tres" id="8_scah1"]
 [ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/button_colors/button_green.tres" id="9_uqirj"]
@@ -51,11 +53,6 @@ size = Vector3(1, 1, 15)
 [sub_resource type="BoxMesh" id="BoxMesh_xxgf6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ipvy"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_yimg5"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_opy5a"]
-albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
 radius = 0.825
@@ -144,6 +141,7 @@ shape = SubResource("BoxShape3D_oh6kn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling" index="1" unique_id=232547050]
 transform = Transform3D(1, 0, 0, 0, 1.9999999, 0, 0, 0, 15, -0.38340545, 0.9999999, 0)
+material_override = ExtResource("7_kg4tk")
 mesh = SubResource("BoxMesh_xxgf6")
 surface_material_override/0 = ExtResource("5_k3w5f")
 
@@ -153,10 +151,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -5)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=1878113366]
 shape = SubResource("CapsuleShape3D_5ipvy")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" index="1" unique_id=363256524]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5271854)
-mesh = SubResource("CapsuleMesh_yimg5")
-surface_material_override/0 = SubResource("StandardMaterial3D_opy5a")
+[node name="Character" type="Sprite3D" parent="StaticBody3D" index="1" unique_id=2037967990]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, -0.7732167, 0.6378298, -1)
+texture = ExtResource("7_p0eye")
 
 [node name="LyleFocusBox" type="Area3D" parent="." index="11" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.7299078, 0.8046534, -0.6261852)
@@ -214,8 +211,9 @@ transform = Transform3D(1, 0, 1.8626451e-08, 0, 1, 0, -1.8626451e-08, 0, 1, 1.04
 shape = SubResource("BoxShape3D_jd810")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="." index="14" unique_id=1766527839]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, 0.8710696)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.097673, 2.266509, -2.1289303)
 light_energy = 0.2
+omni_range = 2.3469884
 
 [node name="LyleMachineandInterfaceLinker" type="Node" parent="." index="15" unique_id=14493092]
 script = ExtResource("8_3hq15")
@@ -248,7 +246,7 @@ autoplay = true
 parameters/looping = true
 
 [node name="CustomerIntro" type="Label3D" parent="." index="21" unique_id=1374975928]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.278806, 1.3384633, -5.293659)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3856976, 1.3384633, -5.293659)
 text = "Hi!
 
 My Shape Button Wire Machine broke! :c Please help. Also here's the manual. Sorry... I tore it up in frustration."
