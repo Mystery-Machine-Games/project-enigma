@@ -47,7 +47,8 @@ func _ready() -> void:
 	polygon.construct(poly,seed);
 
 func float_up(boolean : bool) -> void:
-	if boolean:
+	if boolean: # ???
+		AudioManager.play_sound("pickup")
 		previewMesh.visible = true;
 		pass
 	var tween : Tween = get_tree().create_tween();

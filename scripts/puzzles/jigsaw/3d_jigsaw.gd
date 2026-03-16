@@ -135,14 +135,14 @@ func _physics_process(_delta : float) -> void:
 		var temp : Dictionary = detect_piece();
 		if temp && temp.collider.is_in_group("puzzlepieces"):
 			currentSelected = temp.collider.get_parent();
-			#currentSelected.get_parent().float_up(true);
+			currentSelected.float_up(true);
 			selectedPos = temp.collider.global_position - temp.position;
 			#currentSelected.global_position.y = 0.1
 
 	if Input.is_action_just_released("interact_grab"):
 		var arr : Array = [];
-		#if currentSelected:
-			#currentSelected.get_parent().float_up(false);
+		if currentSelected:
+			currentSelected.float_up(false);
 		if currentSelected:
 			currentSelected.try_organize();
 		currentSelected = null;

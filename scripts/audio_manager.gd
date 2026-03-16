@@ -10,7 +10,8 @@ static var _sound_dictionary: Dictionary[String, AudioStream] = {
 	"click": preload("res://assets/audio/click.ogg"),
 	"cut": preload("res://assets/audio/cut.ogg"),
 	"error": preload("res://assets/audio/error.ogg"),
-	"success": preload("res://assets/audio/success.ogg")
+	"success": preload("res://assets/audio/success.ogg"),
+	"pickup": preload("res://assets/audio/pickup.ogg")
 }
 static var _playback: AudioStreamPlaybackPolyphonic
 
