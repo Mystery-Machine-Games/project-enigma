@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cbeb5rlh6xsrq" path="res://assets/textures/character_sad.PNG" id="7_p0eye"]
 [ext_resource type="Script" uid="uid://dih0x6h5y2sfr" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
 [ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/button_colors/button_lime.tres" id="8_scah1"]
+[ext_resource type="Script" uid="uid://bed78fjxweto6" path="res://scripts/ui/character.gd" id="9_dmvpc"]
 [ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/button_colors/button_green.tres" id="9_uqirj"]
 [ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/button_colors/button_purple.tres" id="10_n58o4"]
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="11_jd810"]
@@ -33,6 +34,7 @@
 [ext_resource type="Material" uid="uid://dpkxe4imuujlt" path="res://assets/materials/wire_colors/wire_indigo.tres" id="25_a20gm"]
 [ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="26_dmvpc"]
 [ext_resource type="FontFile" uid="uid://dcww5lrfuum05" path="res://assets/fonts/CardenioModern-Bold.otf" id="30_ab0vx"]
+[ext_resource type="Script" uid="uid://c5do40iisqf80" path="res://scripts/ui/customer_dialogue.gd" id="33_ir86m"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -179,6 +181,7 @@ shape = SubResource("CapsuleShape3D_5ipvy")
 [node name="Character" type="Sprite3D" parent="StaticBody3D" index="1" unique_id=2037967990]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 1, -0.7732167, 0.6378298, -1)
 texture = ExtResource("7_p0eye")
+script = ExtResource("9_dmvpc")
 
 [node name="LyleFocusBox" type="Area3D" parent="." index="11" unique_id=926514691 node_paths=PackedStringArray("focusPointArr", "_focus_handle")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 3.7299078, 0.8046534, -0.6261852)
@@ -307,13 +310,14 @@ stream = ExtResource("22_jagta")
 autoplay = true
 parameters/looping = true
 
-[node name="CustomerIntro" type="Label3D" parent="." index="21" unique_id=1374975928]
+[node name="CustomerDialogue" type="Label3D" parent="." index="21" unique_id=1374975928]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2734363, 1.8854885, -5.293659)
 text = "Hi!
 
 My Shape Button Wire Machine broke! :c Please help. Also here's the manual. Sorry... I tore it up in frustration."
 font = ExtResource("30_ab0vx")
 autowrap_mode = 2
+script = ExtResource("33_ir86m")
 
 [node name="FocusPrompt" type="Label3D" parent="." index="22" unique_id=39970586]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 5.7172937, 2.2267032, -1.7558753)
