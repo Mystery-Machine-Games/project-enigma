@@ -23,7 +23,7 @@ buses/default_bus_layout="uid://doc0ooo3fbkcf"
 
 [autoload]
 
-Config="*uid://bpsd0cjjqv1ry"
+Config="*res://scripts/config.gd"
 ControllerSupport="uid://cobwj4eolwx6r"
 
 [debug]
