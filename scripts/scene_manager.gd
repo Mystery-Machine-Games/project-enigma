@@ -64,12 +64,15 @@ func _input(event: InputEvent) -> void:
 
 func _on_request_game_start() -> void:
 	if is_playing:
-		_scenes[Scene.GAMEPLAY].free()
+		_scenes[Scene.GAMEPLAY].queue_free()
 	_scenes[Scene.GAMEPLAY] = (load(SCENE_PATHS[Scene.GAMEPLAY]) as PackedScene).instantiate()
 	_scenes[Scene.GAMEPLAY].process_mode = Node.PROCESS_MODE_PAUSABLE
+	_scenes[Scene.GAMEPLAY].main_menu_requested.connect(_on_request_main_menu)
+	_scenes[Scene.GAMEPLAY].restart_requested.connect(_on_request_game_start)
 	_switch_current_scene(Scene.GAMEPLAY)
 
 func _on_request_main_menu() -> void:
+	is_playing = false
 	_switch_current_scene(Scene.MAIN_MENU)
 	get_tree().paused = false
 	_scenes[Scene.GAMEPLAY].queue_free()

@@ -1,0 +1,6 @@
+Customer: Hello!
+~: I need your help...
+~: My shape button wire machine is broken :c.
+~: Can you help me fix it?
+~: I brough the manual with me, but...
+~: I may have tore it up in frustration. Sorry. 

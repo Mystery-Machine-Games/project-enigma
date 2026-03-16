@@ -21,6 +21,7 @@
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="12_lluq4"]
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="14_uqirj"]
 [ext_resource type="Material" uid="uid://dfqkg78hhmwtv" path="res://assets/materials/environment_colors/desk_primary.tres" id="18_2e3ut"]
+
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Material" uid="uid://fwjqllpipqxl" path="res://assets/materials/wire_colors/wire_yellow.tres" id="21_0qfyd"]
@@ -35,6 +36,8 @@
 [ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="26_dmvpc"]
 [ext_resource type="FontFile" uid="uid://dcww5lrfuum05" path="res://assets/fonts/CardenioModern-Bold.otf" id="30_ab0vx"]
 [ext_resource type="Script" uid="uid://c5do40iisqf80" path="res://scripts/ui/customer_dialogue.gd" id="33_ir86m"]
+[ext_resource type="PackedScene" uid="uid://b3urxa1axvso3" path="res://scenes/ui/win_screen.tscn" id="24_2e3ut"]
+[ext_resource type="Script" uid="uid://b5knj71jyj5ij" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -350,5 +353,14 @@ autowrap_mode = 2
 width = 480.0
 script = ExtResource("23_k3w5f")
 
+[node name="WinScreen" parent="." index="24" unique_id=1093656833 instance=ExtResource("24_2e3ut")]
+visible = false
+script = ExtResource("25_8qayt")
+
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
+[connection signal="machine_fixed" from="LyleFocusBox/FocusHandle/Machine" to="WinScreen" method="_on_machine_fixed"]
 [connection signal="mouse_entered" from="JerryFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
+[connection signal="pressed" from="WinScreen/VBoxContainer/NewCousin" to="." method="_on_new_cousin_pressed"]
+[connection signal="pressed" from="WinScreen/VBoxContainer/ReturnHome" to="." method="_on_return_home_pressed"]
+
+[editable path="WinScreen"]
