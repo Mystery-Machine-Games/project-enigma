@@ -19,7 +19,7 @@
 [ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="11_jd810"]
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="12_lluq4"]
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="14_uqirj"]
-[ext_resource type="Material" uid="uid://dfqkg78hhmwtv" path="res://assets/materials/environment_colors/table.tres" id="18_2e3ut"]
+[ext_resource type="Material" uid="uid://dfqkg78hhmwtv" path="res://assets/materials/environment_colors/desk_primary.tres" id="18_2e3ut"]
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Material" uid="uid://fwjqllpipqxl" path="res://assets/materials/wire_colors/wire_yellow.tres" id="21_0qfyd"]
@@ -27,6 +27,7 @@
 [ext_resource type="Material" uid="uid://1awika260igg" path="res://assets/materials/machine_colors/wood.tres" id="21_iptnm"]
 [ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
 [ext_resource type="ArrayMesh" uid="uid://c7t4kl02vplf" path="res://assets/meshes/pencilholder.obj" id="21_t167l"]
+[ext_resource type="Material" uid="uid://vghnwppoonko" path="res://assets/materials/environment_colors/desk_secondary.tres" id="22_a20gm"]
 [ext_resource type="AudioStream" uid="uid://kmwmycmxbtn0" path="res://assets/audio/main_track.mp3" id="22_jagta"]
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
 [ext_resource type="Material" uid="uid://c7nnr5jc82651" path="res://assets/materials/wire_colors/wire_orange.tres" id="23_iptnm"]
@@ -221,8 +222,45 @@ script = ExtResource("8_3hq15")
 
 [node name="desk" type="MeshInstance3D" parent="." index="16" unique_id=1101713897]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.2163444, -1.492364, -4.988626)
-material_override = ExtResource("18_2e3ut")
 mesh = ExtResource("20_snonn")
+surface_material_override/0 = ExtResource("18_2e3ut")
+surface_material_override/1 = ExtResource("5_jagta")
+surface_material_override/2 = ExtResource("5_jagta")
+surface_material_override/3 = ExtResource("5_jagta")
+surface_material_override/4 = ExtResource("5_jagta")
+surface_material_override/5 = ExtResource("22_a20gm")
+surface_material_override/6 = ExtResource("5_jagta")
+surface_material_override/7 = ExtResource("5_jagta")
+surface_material_override/8 = ExtResource("22_a20gm")
+surface_material_override/9 = ExtResource("5_jagta")
+surface_material_override/10 = ExtResource("5_jagta")
+surface_material_override/11 = ExtResource("18_2e3ut")
+surface_material_override/12 = ExtResource("18_2e3ut")
+surface_material_override/13 = ExtResource("18_2e3ut")
+surface_material_override/14 = ExtResource("18_2e3ut")
+surface_material_override/15 = ExtResource("18_2e3ut")
+surface_material_override/16 = ExtResource("22_a20gm")
+surface_material_override/17 = ExtResource("22_a20gm")
+surface_material_override/18 = ExtResource("18_2e3ut")
+surface_material_override/19 = ExtResource("18_2e3ut")
+surface_material_override/20 = ExtResource("18_2e3ut")
+surface_material_override/21 = ExtResource("18_2e3ut")
+surface_material_override/22 = ExtResource("5_jagta")
+surface_material_override/23 = ExtResource("5_jagta")
+surface_material_override/24 = ExtResource("5_jagta")
+surface_material_override/25 = ExtResource("5_jagta")
+surface_material_override/26 = ExtResource("18_2e3ut")
+surface_material_override/27 = ExtResource("18_2e3ut")
+surface_material_override/28 = ExtResource("18_2e3ut")
+surface_material_override/29 = ExtResource("18_2e3ut")
+surface_material_override/30 = ExtResource("18_2e3ut")
+surface_material_override/31 = ExtResource("22_a20gm")
+surface_material_override/32 = ExtResource("22_a20gm")
+surface_material_override/33 = ExtResource("18_2e3ut")
+surface_material_override/34 = ExtResource("18_2e3ut")
+surface_material_override/35 = ExtResource("18_2e3ut")
+surface_material_override/36 = ExtResource("22_a20gm")
+surface_material_override/37 = ExtResource("22_a20gm")
 
 [node name="pencilholder" type="MeshInstance3D" parent="." index="17" unique_id=1633484262]
 transform = Transform3D(-0.8772468, 0, -0.48003972, 0, 1, 0, 0.48003972, 0, -0.8772468, 5.745341, -1.4541664, -2.851081)
