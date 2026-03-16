@@ -44,6 +44,8 @@ func try_organize_pieces(node : JigsawPiece) -> void:
 						
 						pieces.append(nodegroup);
 	
+						AudioManager.play_sound("click")
+						
 	if pieces.size() == 1:
 		print("emitted")
 		puzzleCompleteSignal.emit(get_children().front().get_hints(),get_children().front().header);
