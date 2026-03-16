@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://d0vfthncymtcp" path="res://assets/meshes/wire.glb" id="1_qd4d0"]
 [ext_resource type="Script" uid="uid://b4rll5fu83yj0" path="res://scripts/puzzles/machine/wire.gd" id="2_veigl"]
 [ext_resource type="Texture2D" uid="uid://dnwqlxguxmwu1" path="res://assets/textures/roman3.PNG" id="3_bci3j"]
-[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="3_ndipe"]
-[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/copper.tres" id="4_1pkcl"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/red.tres" id="3_ndipe"]
+[ext_resource type="Material" uid="uid://cnrkl50r6dvan" path="res://assets/materials/machine_colors/copper.tres" id="4_1pkcl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_veigl"]
 radius = 1.0

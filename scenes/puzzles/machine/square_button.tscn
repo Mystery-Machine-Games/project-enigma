@@ -1,9 +1,9 @@
 [gd_scene format=4 uid="uid://de1jabgt3m35r"]
 
 [ext_resource type="Script" uid="uid://1vu5lk5ppq2h" path="res://scripts/puzzles/machine/button.gd" id="1_8mya1"]
-[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/metal.tres" id="2_uf340"]
+[ext_resource type="Material" uid="uid://dyum7uuqwfwuo" path="res://assets/materials/machine_colors/metal.tres" id="2_uf340"]
 [ext_resource type="ArrayMesh" uid="uid://tf0s6tucogbl" path="res://assets/meshes/square_button_stand.obj" id="3_8mya1"]
-[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/red.tres" id="4_lecah"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/red.tres" id="4_lecah"]
 [ext_resource type="ArrayMesh" uid="uid://c0q7ubn3isslm" path="res://assets/meshes/square_button.obj" id="5_uf340"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8mya1"]
