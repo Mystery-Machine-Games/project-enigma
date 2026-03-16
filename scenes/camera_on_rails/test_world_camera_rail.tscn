@@ -54,6 +54,11 @@ size = Vector3(1, 1, 15)
 
 [sub_resource type="BoxMesh" id="BoxMesh_xxgf6"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_a20gm"]
+size = Vector3(1, 1, 15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dmvpc"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ipvy"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
@@ -114,11 +119,29 @@ mesh = SubResource("BoxMesh_oylrk")
 [node name="Wall" parent="." index="4" unique_id=1596152033 instance=ExtResource("3_ymsyd")]
 transform = Transform3D(1, 0, 0, 0, 2.3843246, 0, 0, 0, 0.7278671, -3.8147202, -1.5566988, -2.6092055)
 
-[node name="Wall3" parent="." index="5" unique_id=2016587851 instance=ExtResource("3_ymsyd")]
+[node name="Wall3" type="StaticBody3D" parent="." index="5" unique_id=2016587851]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.3720539, 0, 1, 0, -4.371139e-08, 0.6459179, -1.5566988, -8.059682)
 
-[node name="Wall4" parent="." index="6" unique_id=1836434891 instance=ExtResource("3_ymsyd")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3" index="0" unique_id=1082176470]
+shape = SubResource("BoxShape3D_oh6kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3" index="1" unique_id=260206978]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 15, 0, 1, 0)
+material_override = ExtResource("5_jagta")
+mesh = SubResource("BoxMesh_xxgf6")
+surface_material_override/0 = ExtResource("5_k3w5f")
+
+[node name="Wall4" type="StaticBody3D" parent="." index="6" unique_id=1836434891]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 2.4116223, 0, 1, 0, -4.371139e-08, 0.92383766, -1.5566988, 2.4575205)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4" index="0" unique_id=1611217761]
+shape = SubResource("BoxShape3D_oh6kn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4" index="1" unique_id=328526182]
+transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 15, 0, 1, 0)
+material_override = ExtResource("5_jagta")
+mesh = SubResource("BoxMesh_xxgf6")
+surface_material_override/0 = ExtResource("5_k3w5f")
 
 [node name="Wall5" parent="." index="7" unique_id=923627186 instance=ExtResource("3_ymsyd")]
 transform = Transform3D(1, 0, 0, 0, 2.3538716, 0, 0, 0, 0.77867246, 7.3705597, -1.5566988, -2.6393914)
@@ -126,25 +149,25 @@ transform = Transform3D(1, 0, 0, 0, 2.3538716, 0, 0, 0, 0.77867246, 7.3705597, -
 [node name="Floor" type="StaticBody3D" parent="." index="8" unique_id=1485049724]
 transform = Transform3D(-21.34182, 9.2403546e-08, 0, -1.0732741e-06, -0.27652258, 0, 0, 0, 1.2451143, 4.1621113, -1.4768771, -5.1511703)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0" unique_id=1082176470]
-shape = SubResource("BoxShape3D_oh6kn")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0" unique_id=436826176]
+shape = SubResource("BoxShape3D_a20gm")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" index="1" unique_id=260206978]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" index="1" unique_id=649114637]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 15, 0, 1, 0)
 material_override = ExtResource("5_jagta")
-mesh = SubResource("BoxMesh_xxgf6")
+mesh = SubResource("BoxMesh_dmvpc")
 surface_material_override/0 = ExtResource("5_k3w5f")
 
 [node name="Ceiling" type="StaticBody3D" parent="." index="9" unique_id=1484979506]
 transform = Transform3D(-4.371139e-08, -6.644752, 0, 1, -2.9045134e-07, 0, 0, 0, 0.7790306, 8.741119, 4, -2.8954928)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling" index="0" unique_id=404147]
-shape = SubResource("BoxShape3D_oh6kn")
+shape = SubResource("BoxShape3D_a20gm")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ceiling" index="1" unique_id=232547050]
 transform = Transform3D(1, 0, 0, 0, 1.9999999, 0, 0, 0, 15, -0.38340545, 0.9999999, 0)
 material_override = ExtResource("7_kg4tk")
-mesh = SubResource("BoxMesh_xxgf6")
+mesh = SubResource("BoxMesh_dmvpc")
 surface_material_override/0 = ExtResource("5_k3w5f")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." index="10" unique_id=1370673347]
