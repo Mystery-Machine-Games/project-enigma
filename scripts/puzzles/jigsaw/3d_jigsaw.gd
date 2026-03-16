@@ -254,4 +254,5 @@ func puzzle_complete(hints : Array,header : Array) -> void:
 	temp.hintColors = hintColors;
 	temp.header = header;
 	temp.construct([],0,false);
-	temp.position.x = ($"../Interface/CluesContainer".get_children().size()-1) * 200;
+	temp.position.y = ($"../Interface/Control".get_children().size()-1) * 250;
+	temp.scale = Vector2(1.8,1.8)
