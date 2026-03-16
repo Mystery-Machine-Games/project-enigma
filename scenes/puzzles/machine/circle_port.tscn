@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://1u3s5hr0dndu"]
 
 [ext_resource type="Script" uid="uid://kvl3guc8yysc" path="res://scripts/puzzles/machine/port.gd" id="1_hafp4"]
-[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/red.tres" id="2_hafp4"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="2_hafp4"]
 [ext_resource type="ArrayMesh" uid="uid://cqve4qcnhp7hh" path="res://assets/meshes/circle_port.obj" id="3_l624d"]
 [ext_resource type="Texture2D" uid="uid://wb4wasw5bgro" path="res://assets/textures/circle_port.png" id="4_q52gm"]
 

@@ -79,7 +79,7 @@ func add_clueset(clueset : Clueset) -> void:
 
 
 func _error() -> void:
-	_outline_mesh.material_override = load("res://assets/materials/red.tres")
+	_outline_mesh.material_override = load("res://assets/materials/interface/red_light.tres")
 	_outline_mesh.visible = true
 	AudioManager.play_sound("error")
 	await get_tree().create_timer(0.25).timeout
@@ -87,7 +87,7 @@ func _error() -> void:
 
 
 func _success() -> void:
-	_outline_mesh.material_override = load("res://assets/materials/green.tres")
+	_outline_mesh.material_override = load("res://assets/materials/interface/green_light.tres")
 	_outline_mesh.visible = true
 	AudioManager.play_sound("success")
 	await get_tree().create_timer(0.25).timeout

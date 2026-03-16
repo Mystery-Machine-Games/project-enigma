@@ -6,8 +6,8 @@ extends StaticBody3D
 @onready var _wire_module: WireModule = $"../../../WireModule"
 @onready var _outline_mesh: MeshInstance3D = $OutlineMesh
 @onready var _port_mesh: MeshInstance3D = $PortMesh
-@onready var _interactable_color: Material = load("res://assets/materials/white.tres")
-@onready var _uninteractable_color: Material = load("res://assets/materials/red.tres")
+@onready var _interactable_color: Material = load("res://assets/materials/interface/white.tres")
+@onready var _uninteractable_color: Material = load("res://assets/materials/interface/red_light.tres")
 @onready var _port_shape_sprite: Sprite3D = $PortShapeSprite
 
 var _mouse_over: bool = false

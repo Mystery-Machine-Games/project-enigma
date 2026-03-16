@@ -7,16 +7,14 @@
 [ext_resource type="PackedScene" uid="uid://chpjwjr2fsrcc" path="res://scenes/puzzles/jigsaw/3d_jigsaw.tscn" id="5_mul8f"]
 [ext_resource type="PackedScene" uid="uid://dj00m6m6710sc" path="res://scenes/puzzles/machine/machine.tscn" id="5_ojn01"]
 [ext_resource type="Script" uid="uid://3is8txeog3lj" path="res://scripts/camera_on_rails/focus_item.gd" id="5_tig38"]
-[ext_resource type="Material" uid="uid://c2khn4yg0axgk" path="res://assets/materials/button_colors/blue.tres" id="6_446pb"]
-[ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/button_colors/orange.tres" id="7_lluq4"]
+[ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/button_colors/button_orange.tres" id="7_lluq4"]
 [ext_resource type="Script" uid="uid://dih0x6h5y2sfr" path="res://scripts/machine_interface_linker.gd" id="8_3hq15"]
-[ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/button_colors/yellow.tres" id="8_scah1"]
-[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/button_colors/green.tres" id="9_uqirj"]
-[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/button_colors/purple.tres" id="10_n58o4"]
-[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/red.tres" id="11_jd810"]
-[ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/pink.tres" id="12_lluq4"]
-[ext_resource type="Material" uid="uid://dknyajtivc1ct" path="res://assets/materials/button_colors/teal.tres" id="12_scah1"]
-[ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/lime.tres" id="14_uqirj"]
+[ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/button_colors/button_lime.tres" id="8_scah1"]
+[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/button_colors/button_green.tres" id="9_uqirj"]
+[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/button_colors/button_purple.tres" id="10_n58o4"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="11_jd810"]
+[ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="12_lluq4"]
+[ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="14_uqirj"]
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Script" uid="uid://bvncaug6tl8dq" path="res://scripts/audio_manager.gd" id="21_rx4po"]
@@ -49,6 +47,12 @@ albedo_color = Color(0.13805228, 0.48700833, 0.56745744, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_j1yni"]
 radius = 0.825
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rx4po"]
+albedo_color = Color(0.29159108, 0.3624556, 0.60366935, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k3w5f"]
+albedo_color = Color(0.22524941, 0.51056814, 0.5574102, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3hq15"]
 radius = 1.3
@@ -138,9 +142,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.24175882)
 
 [node name="Machine" parent="LyleFocusBox/FocusHandle" index="0" unique_id=459262496 instance=ExtResource("5_ojn01")]
 transform = Transform3D(0.00067368994, 0, 0.09999773, 0, 0.1, 0, -0.09999773, 0, 0.00067368994, 0, 0, 0)
-port_colors = Array[Material]([ExtResource("6_446pb"), ExtResource("7_lluq4"), ExtResource("8_scah1")])
+port_colors = Array[Material]([SubResource("StandardMaterial3D_rx4po"), ExtResource("7_lluq4"), ExtResource("8_scah1")])
 wire_colors = Array[Material]([ExtResource("9_uqirj"), ExtResource("10_n58o4"), ExtResource("11_jd810")])
-button_colors = Array[Material]([ExtResource("12_scah1"), ExtResource("12_lluq4"), ExtResource("14_uqirj")])
+button_colors = Array[Material]([SubResource("StandardMaterial3D_k3w5f"), ExtResource("12_lluq4"), ExtResource("14_uqirj")])
 
 [node name="FocusPoint" type="Marker3D" parent="LyleFocusBox" index="2" unique_id=1780292693]
 transform = Transform3D(1, 0, 0, 0, 0.9138717, 0.40600312, 0, -0.40600312, 0.9138717, 0, 0.5202774, 1.1541008)

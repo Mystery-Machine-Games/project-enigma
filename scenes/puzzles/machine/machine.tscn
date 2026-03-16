@@ -3,15 +3,39 @@
 [ext_resource type="PackedScene" uid="uid://c8w3mbfgp02dl" path="res://scenes/puzzles/machine/circle_button.tscn" id="1_73k52"]
 [ext_resource type="Script" uid="uid://qoik4e6kcjkv" path="res://scripts/puzzles/machine/machine.gd" id="1_hr233"]
 [ext_resource type="Script" uid="uid://qpomrsjkwt0n" path="res://scripts/puzzles/machine/button_module.gd" id="2_i4f25"]
+[ext_resource type="Material" uid="uid://lu37d1xe8i12" path="res://assets/materials/port_colors/port_red.tres" id="2_o58o2"]
 [ext_resource type="PackedScene" uid="uid://1u3s5hr0dndu" path="res://scenes/puzzles/machine/circle_port.tscn" id="3_448ux"]
+[ext_resource type="Material" uid="uid://ckaji6s7hmhgy" path="res://assets/materials/port_colors/port_orange.tres" id="3_n5q2v"]
+[ext_resource type="Material" uid="uid://cd2u0m1fhha88" path="res://assets/materials/port_colors/port_yellow.tres" id="4_ihw2m"]
 [ext_resource type="PackedScene" uid="uid://de1jabgt3m35r" path="res://scenes/puzzles/machine/square_button.tscn" id="5_25hvn"]
 [ext_resource type="Script" uid="uid://cl8kg5nfilsjm" path="res://scripts/puzzles/machine/wire_module.gd" id="5_eo4jl"]
+[ext_resource type="Material" uid="uid://brnehonewdgvg" path="res://assets/materials/port_colors/port_lime.tres" id="5_oyvp7"]
 [ext_resource type="PackedScene" uid="uid://bbduosud7uguw" path="res://scenes/puzzles/machine/triangle_button.tscn" id="6_aee78"]
+[ext_resource type="Material" uid="uid://ditukuwujrg42" path="res://assets/materials/port_colors/port_green.tres" id="6_i55nj"]
+[ext_resource type="Material" uid="uid://chevl5nuh73tv" path="res://assets/materials/port_colors/port_blue.tres" id="7_f1nci"]
 [ext_resource type="Script" uid="uid://d4ed0kj6t03q" path="res://scripts/puzzles/machine/hold_timer.gd" id="7_pv1wh"]
+[ext_resource type="Material" uid="uid://cs31os2ybpgin" path="res://assets/materials/port_colors/port_indigo.tres" id="8_rpgcp"]
+[ext_resource type="Material" uid="uid://c6nsa4ry7gg21" path="res://assets/materials/port_colors/port_purple.tres" id="9_cfnmn"]
+[ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="10_1uwxa"]
+[ext_resource type="Material" uid="uid://c7nnr5jc82651" path="res://assets/materials/wire_colors/wire_orange.tres" id="11_sqbos"]
 [ext_resource type="ArrayMesh" uid="uid://jq34svhmatrg" path="res://assets/meshes/machine.obj" id="12_1uwv8"]
+[ext_resource type="Material" uid="uid://fwjqllpipqxl" path="res://assets/materials/wire_colors/wire_yellow.tres" id="12_3s0wj"]
 [ext_resource type="PackedScene" uid="uid://cggt2qur8f54a" path="res://scenes/puzzles/machine/wire.tscn" id="13_2v7of"]
+[ext_resource type="Material" uid="uid://1sxh77fcr2vs" path="res://assets/materials/wire_colors/wire_lime.tres" id="13_710py"]
 [ext_resource type="PackedScene" uid="uid://dd3kgd7bersai" path="res://scenes/puzzles/machine/square_port.tscn" id="14_vbi22"]
+[ext_resource type="Material" uid="uid://dmncy0y5pg5g" path="res://assets/materials/wire_colors/wire_green.tres" id="14_y7bsg"]
 [ext_resource type="PackedScene" uid="uid://cdqj1or43bdhf" path="res://scenes/puzzles/machine/triangle_port.tscn" id="15_agykd"]
+[ext_resource type="Material" uid="uid://cspkvniija0lq" path="res://assets/materials/wire_colors/wire_blue.tres" id="15_cukd0"]
+[ext_resource type="Material" uid="uid://dpkxe4imuujlt" path="res://assets/materials/wire_colors/wire_indigo.tres" id="16_dto33"]
+[ext_resource type="Material" uid="uid://cdv1npcssbkt4" path="res://assets/materials/wire_colors/wire_purple.tres" id="17_fow0f"]
+[ext_resource type="Material" uid="uid://dfabqsexc8bba" path="res://assets/materials/button_colors/button_red.tres" id="18_l2445"]
+[ext_resource type="Material" uid="uid://cut6378ys7003" path="res://assets/materials/button_colors/button_orange.tres" id="19_21rcr"]
+[ext_resource type="Material" uid="uid://fv50urfqviu0" path="res://assets/materials/button_colors/button_yellow.tres" id="20_llhtv"]
+[ext_resource type="Material" uid="uid://i7rs2tpb4m3l" path="res://assets/materials/button_colors/button_lime.tres" id="21_teknp"]
+[ext_resource type="Material" uid="uid://dx87bjd2nmlcx" path="res://assets/materials/button_colors/button_green.tres" id="22_ocsm4"]
+[ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="23_gsbt1"]
+[ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="24_6r3g5"]
+[ext_resource type="Material" uid="uid://q6lxvybqdtbi" path="res://assets/materials/button_colors/button_purple.tres" id="25_rfceg"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gug2h"]
 _surfaces = [{
@@ -29,6 +53,9 @@ _surfaces = [{
 [node name="Machine" type="Node3D" unique_id=459262496]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 script = ExtResource("1_hr233")
+port_colors = Array[Material]([ExtResource("2_o58o2"), ExtResource("3_n5q2v"), ExtResource("4_ihw2m"), ExtResource("5_oyvp7"), ExtResource("6_i55nj"), ExtResource("7_f1nci"), ExtResource("8_rpgcp"), ExtResource("9_cfnmn")])
+wire_colors = Array[Material]([ExtResource("10_1uwxa"), ExtResource("11_sqbos"), ExtResource("12_3s0wj"), ExtResource("13_710py"), ExtResource("14_y7bsg"), ExtResource("15_cukd0"), ExtResource("16_dto33"), ExtResource("17_fow0f")])
+button_colors = Array[Material]([ExtResource("18_l2445"), ExtResource("19_21rcr"), ExtResource("20_llhtv"), ExtResource("21_teknp"), ExtResource("22_ocsm4"), ExtResource("23_gsbt1"), ExtResource("24_6r3g5"), ExtResource("25_rfceg")])
 
 [node name="ButtonModule" type="Node3D" parent="." unique_id=929345143]
 script = ExtResource("2_i4f25")

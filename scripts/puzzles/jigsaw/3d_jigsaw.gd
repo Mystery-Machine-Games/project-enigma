@@ -41,7 +41,7 @@ func get_hint_colors() -> Dictionary:
 		"circle_port": wirecolors[0].albedo_color,
 		"square_port": wirecolors[1].albedo_color,
 		"triangle_port": wirecolors[2].albedo_color,
-		"start_port":load("res://assets/materials/copper.tres").albedo_color,
+		"start_port":load("res://assets/materials/machine_colors/copper.tres").albedo_color,
 	}
 	return colorDict;
 #THIS IS WHERE I GET THE COLORS

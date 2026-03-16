@@ -61,7 +61,7 @@ func _pick_random_colors() -> void:
 func _apply_colors() -> void:
 	_possible_port_colors.shuffle()
 	_possible_wire_types.shuffle()
-	var start_port_color: Material = load("res://assets/materials/copper.tres")
+	var start_port_color: Material = load("res://assets/materials/machine_colors/copper.tres")
 	for i: int in range(NUM_WIRES):
 		var start_port: MachinePort = _start_ports[i]
 		var end_port: MachinePort = _end_ports[i]
