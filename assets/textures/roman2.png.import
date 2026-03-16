@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cs0w4xgiojpmc"
-path="res://.godot/imported/roman2.png-f8b08a6486d9a672296e45fe1f095171.ctex"
+path="res://.godot/imported/roman2.PNG-7ab567af04833ec7d68cb9bad551ea68.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/roman2.png"
-dest_files=["res://.godot/imported/roman2.png-f8b08a6486d9a672296e45fe1f095171.ctex"]
+source_file="res://assets/textures/roman2.PNG"
+dest_files=["res://.godot/imported/roman2.PNG-7ab567af04833ec7d68cb9bad551ea68.ctex"]
 
 [params]
 

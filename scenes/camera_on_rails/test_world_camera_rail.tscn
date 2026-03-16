@@ -21,7 +21,6 @@
 [ext_resource type="Material" uid="uid://cb5cgirye2n4q" path="res://assets/materials/button_colors/button_indigo.tres" id="12_lluq4"]
 [ext_resource type="Material" uid="uid://dfpipo7wbincc" path="res://assets/materials/button_colors/button_blue.tres" id="14_uqirj"]
 [ext_resource type="Material" uid="uid://dfqkg78hhmwtv" path="res://assets/materials/environment_colors/desk_primary.tres" id="18_2e3ut"]
-
 [ext_resource type="PackedScene" uid="uid://bofcpnigvw2u5" path="res://scenes/puzzles/machine/machine_interface.tscn" id="19_jd810"]
 [ext_resource type="ArrayMesh" uid="uid://bh7ti5knsgvck" path="res://assets/meshes/desk.obj" id="20_snonn"]
 [ext_resource type="Material" uid="uid://fwjqllpipqxl" path="res://assets/materials/wire_colors/wire_yellow.tres" id="21_0qfyd"]
@@ -32,12 +31,12 @@
 [ext_resource type="AudioStream" uid="uid://kmwmycmxbtn0" path="res://assets/audio/main_track.mp3" id="22_jagta"]
 [ext_resource type="Script" uid="uid://dvn12thyiep2u" path="res://scripts/ui/focus_prompt.gd" id="22_rx4po"]
 [ext_resource type="Script" uid="uid://bvcs73soh8ntk" path="res://scripts/ui/toggle_clue_prompt.gd" id="23_k3w5f"]
+[ext_resource type="PackedScene" path="res://scenes/ui/win_screen.tscn" id="24_2e3ut"]
+[ext_resource type="Script" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
 [ext_resource type="Material" uid="uid://dpkxe4imuujlt" path="res://assets/materials/wire_colors/wire_indigo.tres" id="25_a20gm"]
 [ext_resource type="Material" uid="uid://ml73116a4lq0" path="res://assets/materials/wire_colors/wire_red.tres" id="26_dmvpc"]
 [ext_resource type="FontFile" uid="uid://dcww5lrfuum05" path="res://assets/fonts/CardenioModern-Bold.otf" id="30_ab0vx"]
 [ext_resource type="Script" uid="uid://c5do40iisqf80" path="res://scripts/ui/customer_dialogue.gd" id="33_ir86m"]
-[ext_resource type="PackedScene" uid="uid://b3urxa1axvso3" path="res://scenes/ui/win_screen.tscn" id="24_2e3ut"]
-[ext_resource type="Script" uid="uid://b5knj71jyj5ij" path="res://scripts/ui/win_screen.gd" id="25_8qayt"]
 
 [sub_resource type="Curve3D" id="Curve3D_ymsyd"]
 _data = {
@@ -311,6 +310,7 @@ metadata/_custom_type_script = "uid://bvncaug6tl8dq"
 [node name="MainTrack" type="AudioStreamPlayer" parent="AudioManager" index="0" unique_id=1844130414]
 stream = ExtResource("22_jagta")
 autoplay = true
+playback_type = 1
 parameters/looping = true
 
 [node name="CustomerDialogue" type="Label3D" parent="." index="21" unique_id=1374975928]
@@ -342,7 +342,11 @@ vertical_alignment = 0
 autowrap_mode = 2
 width = 480.0
 
-[node name="ToggleCluePrompt" type="Label3D" parent="." index="24" unique_id=1892957223]
+[node name="WinScreen" parent="." index="24" unique_id=1093656833 instance=ExtResource("24_2e3ut")]
+visible = false
+script = ExtResource("25_8qayt")
+
+[node name="ToggleCluePrompt" type="Label3D" parent="." index="25" unique_id=1892957223]
 transform = Transform3D(-1.2744842e-08, 0.291568, -0.32282054, -1.4110933e-08, 0.32282054, 0.291568, 0.435, 1.9014452e-08, 1.1159598e-15, 3.4980428, 1.3771245, -0.62495726)
 text = "Press '' to view your solved jigsaws.
 Press '' to switch between button/wire view."
@@ -352,10 +356,6 @@ outline_size = 6
 autowrap_mode = 2
 width = 480.0
 script = ExtResource("23_k3w5f")
-
-[node name="WinScreen" parent="." index="24" unique_id=1093656833 instance=ExtResource("24_2e3ut")]
-visible = false
-script = ExtResource("25_8qayt")
 
 [connection signal="mouse_entered" from="LyleFocusBox" to="Path3D/PlayerCharacter" method="_on_focus_item_hovered" flags=18]
 [connection signal="machine_fixed" from="LyleFocusBox/FocusHandle/Machine" to="WinScreen" method="_on_machine_fixed"]
