@@ -61,15 +61,15 @@ button_colors = Array[Material]([ExtResource("18_l2445"), ExtResource("19_21rcr"
 script = ExtResource("2_i4f25")
 
 [node name="CircleButton" parent="ButtonModule" unique_id=1470236495 instance=ExtResource("1_73k52")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.681202, 3, -4)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5892634, 3, -4)
 code = "circle_button"
 
 [node name="SquareButton" parent="ButtonModule" unique_id=798969694 instance=ExtResource("5_25hvn")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.681202, 3, 7.92059e-09)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5892634, 3, 3.9018175e-09)
 code = "square_button"
 
 [node name="TriangleButton" parent="ButtonModule" unique_id=893437219 instance=ExtResource("6_aee78")]
-transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.681202, 3, 4)
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, -5.5892634, 3, 4)
 code = "triangle_button"
 
 [node name="HoldTimer" type="Label3D" parent="." unique_id=2116383244]
